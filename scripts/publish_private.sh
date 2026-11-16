@@ -24,11 +24,14 @@ if [[ "$(gh api "repos/$repository" --jq .private)" != 'true' ]]; then
   echo 'Destination is not private. Refusing to push.' >&2
   exit 1
 fi
-gh api --method PUT "repos/$repository/actions/permissions" -F enabled=false --silent
-if [[ "$(gh api "repos/$repository/actions/permissions" --jq .enabled)" != 'false' ]]; then
-  echo 'Could not verify that Actions are disabled. Refusing to push.' >&2
-  exit 1
-fi
+# An inactive template is retained outside .github/workflows. No hosted job
+# can start, even when the integration cannot access repository Actions settings.
+while IFS= read -r file; do
+  if [[ "$file" == .github/workflows/*.yml || "$file" == .github/workflows/*.yaml ]]; then
+    echo 'Active workflow detected. Keep verification as an inactive template before publishing.' >&2
+    exit 1
+  fi
+done < <(git ls-tree -r --name-only HEAD)
 remote_url="https://github.com/$repository.git"
 if git remote get-url origin >/dev/null 2>&1; then
   if [[ "$(git remote get-url origin)" != "$remote_url" ]]; then

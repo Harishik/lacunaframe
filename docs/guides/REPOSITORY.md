@@ -50,7 +50,7 @@ lacunaframe/
 │   ├── RESEARCH.md              mathematical/implementation conventions
 │   ├── DESIGN.md                interface rationale
 │   └── RUNBOOK.md               full operations reference
-├── .github/workflows/           optional manual verification definition
+├── .github/                     owner mapping and inactive verification template
 ├── Dockerfile                  optional non-root backend image
 └── package*.json / tsconfig...   frontend dependencies and strict build settings
 ```

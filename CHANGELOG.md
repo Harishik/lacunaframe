@@ -7,7 +7,7 @@
 - Added reproducible real-pixel GIFs, a failure contact sheet, error timeline, measured comparison charts and visual-provenance checks.
 - Preserved earlier synthetic experiments and screenshots in labeled archive folders; included both model exports, source clips, lossless arrays and every existing experiment.
 - Added documentation link/data validation and an offline responsive/accessibility browser test.
-- Changed hosted CI to manual dispatch and added a publishing script that requires private visibility and disables Actions before pushing. GitHub creation is currently blocked by integration permissions.
+- Changed hosted CI to manual dispatch and added a publishing script that requires private visibility. The owner subsequently created the repo; the verification definition is now kept as an inactive template outside `.github/workflows` because integration access to Actions settings is restricted.
 
 ## 0.3.0 — 2026-11-16
 
