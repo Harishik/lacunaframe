@@ -1,0 +1,15 @@
+Please consider to run pre-processing before quantization. Refer to example: https://github.com/microsoft/onnxruntime-inference-examples/blob/main/quantization/image_classification/cpu/ReadMe.md 
+Traceback (most recent call last):
+  File "/workspace/lacunaframe/research/scripts/compression_pilot.py", line 181, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/lacunaframe/research/scripts/compression_pilot.py", line 140, in main
+    if args.build:build(args.build);return
+                  ^^^^^^^^^^^^^^^^^
+  File "/workspace/lacunaframe/research/scripts/compression_pilot.py", line 97, in build
+    quantize_static(original,target,Reader(),quant_format=QuantFormat.QDQ,op_types_to_quantize=['Conv'],nodes_to_quantize=selected,per_channel=True,activation_type=QuantType.QInt8,weight_type=QuantType.QInt8,calibration_providers=['CPUExecutionProvider'],extra_options=extra)
+  File "/workspace/lacunaframe/.venv/lib/python3.12/site-packages/onnxruntime/quantization/quantize.py", line 859, in quantize_static
+    calibrator.collect_data(calibration_data_reader)
+  File "/workspace/lacunaframe/.venv/lib/python3.12/site-packages/onnxruntime/quantization/calibrate.py", line 529, in collect_data
+    raise ValueError("No data is collected.")
+ValueError: No data is collected.

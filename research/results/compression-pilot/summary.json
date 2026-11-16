@@ -1,0 +1,2207 @@
+{
+  "protocol": {
+    "version": 1,
+    "status": "exploratory feasibility, not a publication benchmark",
+    "task": "RGB midpoint interpolation from two observed anchors",
+    "calibration_scene": "blackswan",
+    "evaluation_scenes": [
+      "bmx-trees",
+      "breakdance"
+    ],
+    "normalization": "existing backend letterbox 320x180, retain every second decoded source frame at nominal 12fps",
+    "anchor_separations": [
+      2,
+      4,
+      8
+    ],
+    "evaluation_starts": [
+      0,
+      12,
+      24
+    ],
+    "calibration_starts": [
+      0,
+      8,
+      16
+    ],
+    "timesteps": [
+      0.5
+    ],
+    "warmup_calls": 2,
+    "timed_repeats": 3,
+    "threads": 2,
+    "random_seed": 20261116,
+    "variants": [
+      "rife49-fp32",
+      "rife49-half",
+      "rife426-fp32",
+      "rife49-dynamic-u8",
+      "rife49-qdq-all-conv",
+      "rife49-qdq-trunk"
+    ],
+    "quantization": "ONNX Runtime Conv-only; static QDQ S8/S8 per-channel MinMax; trunk includes /convblock/ Conv nodes only; transpose convolutions and warp/flow arithmetic remain float",
+    "metrics": [
+      "PSNR",
+      "SSIM",
+      "teacher_output_mse",
+      "median_seconds",
+      "p95_seconds",
+      "model_file_bytes",
+      "fresh_process_peak_rss_mib"
+    ],
+    "exclusions": [
+      "No training, distillation, pruning, architecture search or test-driven model selection",
+      "No calibration on evaluation scenes",
+      "No claim that checkpoint training excludes these scenes",
+      "No claim that these dependent triplets establish statistical generalization",
+      "No GPU/NPU comparisons from unmatched published timings"
+    ],
+    "predeclared_success_gate": "A candidate must be executable on CPU, reduce median inference time by at least 20%, and lose at most 0.2 dB in equal-weight per-triplet mean PSNR versus rife49-fp32 on each of the two evaluation scenes. This is only a pilot continuation criterion, not a paper acceptance claim."
+  },
+  "protocol_sha256": "f0c1d5c746ba050a70cb60b962c9469cbcfc7b2ef5eccd5c572b4dadd555d8de",
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "packages": {
+      "numpy": "2.5.4",
+      "onnx": "1.23.2",
+      "onnxruntime": "1.31.1",
+      "opencv-python-headless": "4.14.0.94",
+      "scikit-image": "0.26.0"
+    },
+    "logical_cpus": 3,
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_quota": "200000 100000",
+    "memory_limit": "8589934592"
+  },
+  "statuses": [
+    {
+      "variant": "rife49-fp32",
+      "status": "complete"
+    },
+    {
+      "variant": "rife49-half",
+      "status": "complete"
+    },
+    {
+      "variant": "rife426-fp32",
+      "status": "complete"
+    },
+    {
+      "variant": "rife49-dynamic-u8",
+      "status": "complete"
+    },
+    {
+      "variant": "rife49-qdq-all-conv",
+      "status": "complete"
+    },
+    {
+      "variant": "rife49-qdq-trunk",
+      "status": "complete"
+    }
+  ],
+  "summary": [
+    {
+      "variant": "rife49-fp32",
+      "scene": "bmx-trees",
+      "n": 9,
+      "mean_psnr": 16.888076094704594,
+      "mean_ssim": 0.30720190627949995,
+      "delta_psnr_vs_fp32": 0.0,
+      "median_pair_seconds": 0.13777538299837033,
+      "speedup_vs_fp32": 1.0,
+      "model_file_bytes": 21458882,
+      "process_peak_rss_mib": 294.29296875,
+      "pilot_gate_passed": false
+    },
+    {
+      "variant": "rife49-fp32",
+      "scene": "breakdance",
+      "n": 9,
+      "mean_psnr": 18.112188485894603,
+      "mean_ssim": 0.7456311411455736,
+      "delta_psnr_vs_fp32": 0.0,
+      "median_pair_seconds": 0.11489746700317482,
+      "speedup_vs_fp32": 1.0,
+      "model_file_bytes": 21458882,
+      "process_peak_rss_mib": 294.29296875,
+      "pilot_gate_passed": false
+    },
+    {
+      "variant": "rife49-half",
+      "scene": "bmx-trees",
+      "n": 9,
+      "mean_psnr": 16.821845453228175,
+      "mean_ssim": 0.29943471061720905,
+      "delta_psnr_vs_fp32": -0.06623064147641955,
+      "median_pair_seconds": 0.04634079999959795,
+      "speedup_vs_fp32": 2.973090300546509,
+      "model_file_bytes": 21458882,
+      "process_peak_rss_mib": 262.57421875,
+      "pilot_gate_passed": true
+    },
+    {
+      "variant": "rife49-half",
+      "scene": "breakdance",
+      "n": 9,
+      "mean_psnr": 17.72047893715601,
+      "mean_ssim": 0.5918475112050369,
+      "delta_psnr_vs_fp32": -0.39170954873859287,
+      "median_pair_seconds": 0.04788650500267977,
+      "speedup_vs_fp32": 2.399370490637082,
+      "model_file_bytes": 21458882,
+      "process_peak_rss_mib": 262.57421875,
+      "pilot_gate_passed": false
+    },
+    {
+      "variant": "rife426-fp32",
+      "scene": "bmx-trees",
+      "n": 9,
+      "mean_psnr": 17.54445953979229,
+      "mean_ssim": 0.33855381187798644,
+      "delta_psnr_vs_fp32": 0.6563834450876946,
+      "median_pair_seconds": 0.07302114300182438,
+      "speedup_vs_fp32": 1.8867875430945815,
+      "model_file_bytes": 22719799,
+      "process_peak_rss_mib": 272.76953125,
+      "pilot_gate_passed": true
+    },
+    {
+      "variant": "rife426-fp32",
+      "scene": "breakdance",
+      "n": 9,
+      "mean_psnr": 17.99660710012258,
+      "mean_ssim": 0.7587282234347962,
+      "delta_psnr_vs_fp32": -0.11558138577202115,
+      "median_pair_seconds": 0.09105268500206876,
+      "speedup_vs_fp32": 1.2618789550309726,
+      "model_file_bytes": 22719799,
+      "process_peak_rss_mib": 272.76953125,
+      "pilot_gate_passed": true
+    },
+    {
+      "variant": "rife49-dynamic-u8",
+      "scene": "bmx-trees",
+      "n": 9,
+      "mean_psnr": 16.87289952368626,
+      "mean_ssim": 0.3063507015252823,
+      "delta_psnr_vs_fp32": -0.015176571018333362,
+      "median_pair_seconds": 0.12266315799934091,
+      "speedup_vs_fp32": 1.1232010103564318,
+      "model_file_bytes": 6210360,
+      "process_peak_rss_mib": 227.78515625,
+      "pilot_gate_passed": false
+    },
+    {
+      "variant": "rife49-dynamic-u8",
+      "scene": "breakdance",
+      "n": 9,
+      "mean_psnr": 18.091550150188326,
+      "mean_ssim": 0.7449330343054816,
+      "delta_psnr_vs_fp32": -0.020638335706276933,
+      "median_pair_seconds": 0.11284947600142914,
+      "speedup_vs_fp32": 1.018147988580113,
+      "model_file_bytes": 6210360,
+      "process_peak_rss_mib": 227.78515625,
+      "pilot_gate_passed": false
+    },
+    {
+      "variant": "rife49-qdq-all-conv",
+      "scene": "bmx-trees",
+      "n": 9,
+      "mean_psnr": 16.85235685834817,
+      "mean_ssim": 0.30438631108450415,
+      "delta_psnr_vs_fp32": -0.03571923635642449,
+      "median_pair_seconds": 0.12910090100194793,
+      "speedup_vs_fp32": 1.0671914907572295,
+      "model_file_bytes": 6368009,
+      "process_peak_rss_mib": 232.234375,
+      "pilot_gate_passed": false
+    },
+    {
+      "variant": "rife49-qdq-all-conv",
+      "scene": "breakdance",
+      "n": 9,
+      "mean_psnr": 18.095672894555648,
+      "mean_ssim": 0.745407444926816,
+      "delta_psnr_vs_fp32": -0.01651559133895475,
+      "median_pair_seconds": 0.18546778200106928,
+      "speedup_vs_fp32": 0.6195009492404044,
+      "model_file_bytes": 6368009,
+      "process_peak_rss_mib": 232.234375,
+      "pilot_gate_passed": false
+    },
+    {
+      "variant": "rife49-qdq-trunk",
+      "scene": "bmx-trees",
+      "n": 9,
+      "mean_psnr": 16.88823442520622,
+      "mean_ssim": 0.3067751804919774,
+      "delta_psnr_vs_fp32": 0.00015833050162683548,
+      "median_pair_seconds": 0.17024203300024965,
+      "speedup_vs_fp32": 0.8092912224454479,
+      "model_file_bytes": 7330209,
+      "process_peak_rss_mib": 241.03125,
+      "pilot_gate_passed": false
+    },
+    {
+      "variant": "rife49-qdq-trunk",
+      "scene": "breakdance",
+      "n": 9,
+      "mean_psnr": 18.138576084728406,
+      "mean_ssim": 0.7455642541688524,
+      "delta_psnr_vs_fp32": 0.026387598833803594,
+      "median_pair_seconds": 0.18514068299919018,
+      "speedup_vs_fp32": 0.6205954582314974,
+      "model_file_bytes": 7330209,
+      "process_peak_rss_mib": 241.03125,
+      "pilot_gate_passed": false
+    }
+  ],
+  "rows": [
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 19.300825404008926,
+      "ssim": 0.45483794409220324,
+      "median_seconds": 0.17413215700071305,
+      "p95_seconds": 0.19954259140031355,
+      "duration_samples": [
+        0.17413215700071305,
+        0.20236597300026915,
+        0.16870767700311262
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 23.048473490269863,
+      "ssim": 0.7386072540906737,
+      "median_seconds": 0.13986705900242669,
+      "p95_seconds": 0.141259836901736,
+      "duration_samples": [
+        0.1355034459993476,
+        0.13986705900242669,
+        0.14141459000165923
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 18.700133756067267,
+      "ssim": 0.3728021704073952,
+      "median_seconds": 0.13978997500089463,
+      "p95_seconds": 0.15457733679759258,
+      "duration_samples": [
+        0.13978997500089463,
+        0.15622037699722569,
+        0.11761757400017814
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 16.571411058094224,
+      "ssim": 0.3036189309891462,
+      "median_seconds": 0.13854774900028133,
+      "p95_seconds": 0.15047114699918893,
+      "duration_samples": [
+        0.13854774900028133,
+        0.11755682500006515,
+        0.15179596899906755
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 15.715404719123962,
+      "ssim": 0.2289855907324734,
+      "median_seconds": 0.11246629300148925,
+      "p95_seconds": 0.12440479299948493,
+      "duration_samples": [
+        0.12573129299926222,
+        0.11155135099761537,
+        0.11246629300148925
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 16.682609769654995,
+      "ssim": 0.22017718240345108,
+      "median_seconds": 0.11645074000261957,
+      "p95_seconds": 0.16530954580048274,
+      "duration_samples": [
+        0.1707383020002453,
+        0.11645074000261957,
+        0.10978615300336969
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 14.40559023513847,
+      "ssim": 0.20905144687096397,
+      "median_seconds": 0.11520930599726853,
+      "p95_seconds": 0.15791532839793945,
+      "duration_samples": [
+        0.1134815429977607,
+        0.11520930599726853,
+        0.162660441998014
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 13.741892798127665,
+      "ssim": 0.11858610203537934,
+      "median_seconds": 0.13777538299837033,
+      "p95_seconds": 0.1530177829983586,
+      "duration_samples": [
+        0.13777538299837033,
+        0.1547113829983573,
+        0.12676086099963868
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 13.826343621855987,
+      "ssim": 0.11815053489381362,
+      "median_seconds": 0.11089950899986434,
+      "p95_seconds": 0.11522161139946548,
+      "duration_samples": [
+        0.1095766750004259,
+        0.11089950899986434,
+        0.11570184499942116
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 20.1875483228787,
+      "ssim": 0.8345098395474492,
+      "median_seconds": 0.11650344900044729,
+      "p95_seconds": 0.1348760436001612,
+      "duration_samples": [
+        0.11650344900044729,
+        0.11371645200051717,
+        0.13691744300012942
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 19.388947076362214,
+      "ssim": 0.7852581719537949,
+      "median_seconds": 0.11489746700317482,
+      "p95_seconds": 0.1565690267001628,
+      "duration_samples": [
+        0.16119919999982812,
+        0.1092186159985431,
+        0.11489746700317482
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 18.506944603515837,
+      "ssim": 0.7955164043507222,
+      "median_seconds": 0.11463811300200177,
+      "p95_seconds": 0.11768486680011847,
+      "duration_samples": [
+        0.1125765879987739,
+        0.11802339499990921,
+        0.11463811300200177
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 18.744497268399584,
+      "ssim": 0.7676025896048574,
+      "median_seconds": 0.14430432700100937,
+      "p95_seconds": 0.15029889490033382,
+      "duration_samples": [
+        0.13656626400188543,
+        0.15096495800025878,
+        0.14430432700100937
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 18.30792312751567,
+      "ssim": 0.7351515778198404,
+      "median_seconds": 0.11565904199960642,
+      "p95_seconds": 0.13765790039979037,
+      "duration_samples": [
+        0.14010221799981082,
+        0.11565904199960642,
+        0.11209296300148708
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 17.26968290603975,
+      "ssim": 0.7482681287400336,
+      "median_seconds": 0.11331902399979299,
+      "p95_seconds": 0.13797828960014158,
+      "duration_samples": [
+        0.1407182080001803,
+        0.10831226600203081,
+        0.11331902399979299
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 17.107608178886146,
+      "ssim": 0.6976829562743886,
+      "median_seconds": 0.11132153300059144,
+      "p95_seconds": 0.11464963760117826,
+      "duration_samples": [
+        0.11501942700124346,
+        0.11132153300059144,
+        0.11113594899870805
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 17.319371266808258,
+      "ssim": 0.6862662738919388,
+      "median_seconds": 0.11228370499884477,
+      "p95_seconds": 0.1161143101984635,
+      "duration_samples": [
+        0.11653993299842114,
+        0.11228370499884477,
+        0.11189901700345217
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-fp32",
+      "psnr": 16.177173622645252,
+      "ssim": 0.660424328127138,
+      "median_seconds": 0.1177984429996286,
+      "p95_seconds": 0.11801238199877843,
+      "duration_samples": [
+        0.11445783199815196,
+        0.11803615299868397,
+        0.1177984429996286
+      ],
+      "teacher_output_mse": 0.0
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 19.44233346444669,
+      "ssim": 0.458131483108913,
+      "median_seconds": 0.04831576899960055,
+      "p95_seconds": 0.05317303659903701,
+      "duration_samples": [
+        0.046655474998260615,
+        0.04831576899960055,
+        0.05371273299897439
+      ],
+      "teacher_output_mse": 185.10201388888888
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 21.440062382494467,
+      "ssim": 0.6390972786074711,
+      "median_seconds": 0.0506923499997356,
+      "p95_seconds": 0.07727094299989402,
+      "duration_samples": [
+        0.0506923499997356,
+        0.04976086500028032,
+        0.08022411999991164
+      ],
+      "teacher_output_mse": 265.63265625
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 18.626592572194816,
+      "ssim": 0.3512036629811833,
+      "median_seconds": 0.04755661699891789,
+      "p95_seconds": 0.06694612969877198,
+      "duration_samples": [
+        0.06910051999875577,
+        0.04755661699891789,
+        0.04499738599770353
+      ],
+      "teacher_output_mse": 241.39494791666667
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 16.165926298983305,
+      "ssim": 0.2925241892379424,
+      "median_seconds": 0.045915432998299366,
+      "p95_seconds": 0.04979201470159751,
+      "duration_samples": [
+        0.045915432998299366,
+        0.045213594999950146,
+        0.05022274600196397
+      ],
+      "teacher_output_mse": 691.48296875
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 15.499315306199605,
+      "ssim": 0.18808627348924853,
+      "median_seconds": 0.04593480099720182,
+      "p95_seconds": 0.05184627549861034,
+      "duration_samples": [
+        0.04593480099720182,
+        0.05250310599876684,
+        0.045547328001703136
+      ],
+      "teacher_output_mse": 905.9224652777777
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 17.342324720074647,
+      "ssim": 0.253140101419796,
+      "median_seconds": 0.04509090400097193,
+      "p95_seconds": 0.05044112860050518,
+      "duration_samples": [
+        0.04509090400097193,
+        0.05103559800045332,
+        0.04495440200116718
+      ],
+      "teacher_output_mse": 310.5147395833333
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 14.78877843807753,
+      "ssim": 0.23695327271225733,
+      "median_seconds": 0.04584922399953939,
+      "p95_seconds": 0.046182600201063906,
+      "duration_samples": [
+        0.046219642001233296,
+        0.04584922399953939,
+        0.045419789999868954
+      ],
+      "teacher_output_mse": 384.5854282407407
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 14.030266755920842,
+      "ssim": 0.13732255218798187,
+      "median_seconds": 0.0503387680000742,
+      "p95_seconds": 0.055211539000083576,
+      "duration_samples": [
+        0.05575295800008462,
+        0.0451038030005293,
+        0.0503387680000742
+      ],
+      "teacher_output_mse": 505.6586111111111
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 14.061009140661673,
+      "ssim": 0.13845358181008846,
+      "median_seconds": 0.04634079999959795,
+      "p95_seconds": 0.04634141380047367,
+      "duration_samples": [
+        0.04634148200057098,
+        0.04634079999959795,
+        0.045800803000020096
+      ],
+      "teacher_output_mse": 458.1599247685185
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 19.21772042977392,
+      "ssim": 0.6568621046086509,
+      "median_seconds": 0.04800845499994466,
+      "p95_seconds": 0.04886383660050342,
+      "duration_samples": [
+        0.04785679999986314,
+        0.04800845499994466,
+        0.0489588790005655
+      ],
+      "teacher_output_mse": 344.96900462962964
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 18.586026304075354,
+      "ssim": 0.6162018656175663,
+      "median_seconds": 0.04725618400334497,
+      "p95_seconds": 0.04930990480206674,
+      "duration_samples": [
+        0.049538096001924714,
+        0.04673927000112599,
+        0.04725618400334497
+      ],
+      "teacher_output_mse": 344.71161458333336
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 18.010006763133564,
+      "ssim": 0.6279282532521733,
+      "median_seconds": 0.04770677900160081,
+      "p95_seconds": 0.04959950420197856,
+      "duration_samples": [
+        0.04619408500002464,
+        0.049809807002020534,
+        0.04770677900160081
+      ],
+      "teacher_output_mse": 489.16977430555556
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 18.426229871065274,
+      "ssim": 0.6174062423248825,
+      "median_seconds": 0.046569138001359534,
+      "p95_seconds": 0.04858655279931554,
+      "duration_samples": [
+        0.04881070999908843,
+        0.046569138001359534,
+        0.04649045200130786
+      ],
+      "teacher_output_mse": 479.1446064814815
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 17.75683128617518,
+      "ssim": 0.582189583571974,
+      "median_seconds": 0.04661268299969379,
+      "p95_seconds": 0.05558300639859226,
+      "duration_samples": [
+        0.0465640109978267,
+        0.05657970899846987,
+        0.04661268299969379
+      ],
+      "teacher_output_mse": 453.29169560185187
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 16.913170913748637,
+      "ssim": 0.587435691316977,
+      "median_seconds": 0.054419236999819987,
+      "p95_seconds": 0.06767127530183643,
+      "duration_samples": [
+        0.054419236999819987,
+        0.06914372400206048,
+        0.045453509999788366
+      ],
+      "teacher_output_mse": 389.54719328703703
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 17.026872334127233,
+      "ssim": 0.5471130127411943,
+      "median_seconds": 0.04788650500267977,
+      "p95_seconds": 0.053992766502778976,
+      "duration_samples": [
+        0.04698910899969633,
+        0.04788650500267977,
+        0.05467124000279
+      ],
+      "teacher_output_mse": 417.0871238425926
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 17.206668202573482,
+      "ssim": 0.551729810686742,
+      "median_seconds": 0.04806814299809048,
+      "p95_seconds": 0.048981426101454416,
+      "duration_samples": [
+        0.04908290200182819,
+        0.0475284960011777,
+        0.04806814299809048
+      ],
+      "teacher_output_mse": 410.8236400462963
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-half",
+      "psnr": 16.34078432973143,
+      "ssim": 0.5397610367251718,
+      "median_seconds": 0.049234627000259934,
+      "p95_seconds": 0.055011803499292,
+      "duration_samples": [
+        0.05565371199918445,
+        0.047001227001601364,
+        0.049234627000259934
+      ],
+      "teacher_output_mse": 580.7125925925926
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 18.84239314614251,
+      "ssim": 0.4238108726564873,
+      "median_seconds": 0.07121208000171464,
+      "p95_seconds": 0.07293735480161559,
+      "duration_samples": [
+        0.07073464399945806,
+        0.07312905200160458,
+        0.07121208000171464
+      ],
+      "teacher_output_mse": 155.06043981481483
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 23.679322101491817,
+      "ssim": 0.7620950904439939,
+      "median_seconds": 0.07068451099985396,
+      "p95_seconds": 0.07236624289980682,
+      "duration_samples": [
+        0.07025486599741271,
+        0.07068451099985396,
+        0.07255310199980158
+      ],
+      "teacher_output_mse": 214.74244212962964
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 22.552113906507785,
+      "ssim": 0.6723204729810984,
+      "median_seconds": 0.07396639000216965,
+      "p95_seconds": 0.0740309614011494,
+      "duration_samples": [
+        0.07403813600103604,
+        0.07396639000216965,
+        0.0708651569984795
+      ],
+      "teacher_output_mse": 664.8527951388888
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 17.302080335987743,
+      "ssim": 0.3202194190433614,
+      "median_seconds": 0.07280170800004271,
+      "p95_seconds": 0.07801173509942601,
+      "duration_samples": [
+        0.07280170800004271,
+        0.07085374999951455,
+        0.07859062699935748
+      ],
+      "teacher_output_mse": 930.8121469907408
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 16.840036658220562,
+      "ssim": 0.21640256961884022,
+      "median_seconds": 0.07290181600183132,
+      "p95_seconds": 0.07386879220175616,
+      "duration_samples": [
+        0.0739762340017478,
+        0.07215672500024084,
+        0.07290181600183132
+      ],
+      "teacher_output_mse": 1253.085920138889
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 16.687078803218316,
+      "ssim": 0.22210967763405445,
+      "median_seconds": 0.07589427799757686,
+      "p95_seconds": 0.08073910309722124,
+      "duration_samples": [
+        0.07589427799757686,
+        0.0754426110033819,
+        0.08127741699718172
+      ],
+      "teacher_output_mse": 404.369380787037
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 14.408438152492582,
+      "ssim": 0.20095666386984604,
+      "median_seconds": 0.09270100100184209,
+      "p95_seconds": 0.094266794901705,
+      "duration_samples": [
+        0.09043864799969015,
+        0.09270100100184209,
+        0.09444077200168977
+      ],
+      "teacher_output_mse": 730.2103645833333
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 13.848112622633016,
+      "ssim": 0.11058491636110934,
+      "median_seconds": 0.09277002199814888,
+      "p95_seconds": 0.10868915540122544,
+      "duration_samples": [
+        0.09277002199814888,
+        0.11045794800156727,
+        0.07422781499917619
+      ],
+      "teacher_output_mse": 847.4755092592593
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 13.740560131436272,
+      "ssim": 0.1184846242930866,
+      "median_seconds": 0.07302114300182438,
+      "p95_seconds": 0.07380407549790106,
+      "duration_samples": [
+        0.07389106799746514,
+        0.07302114300182438,
+        0.07264902300084941
+      ],
+      "teacher_output_mse": 1123.6766319444444
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 20.372081431450447,
+      "ssim": 0.8345220119031808,
+      "median_seconds": 0.09520365899879835,
+      "p95_seconds": 0.10780155479988025,
+      "duration_samples": [
+        0.09140413500063005,
+        0.09520365899879835,
+        0.10920132100000046
+      ],
+      "teacher_output_mse": 276.0913136574074
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 19.105827961549092,
+      "ssim": 0.7882365262058091,
+      "median_seconds": 0.0981638320008642,
+      "p95_seconds": 0.11132112279847206,
+      "duration_samples": [
+        0.11278304399820627,
+        0.0981638320008642,
+        0.08934804700038512
+      ],
+      "teacher_output_mse": 319.0856539351852
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 18.421787355791153,
+      "ssim": 0.8069945842672087,
+      "median_seconds": 0.09105268500206876,
+      "p95_seconds": 0.09176746860139247,
+      "duration_samples": [
+        0.09184688900131732,
+        0.0902816369998618,
+        0.09105268500206876
+      ],
+      "teacher_output_mse": 395.43567708333336
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 18.844483335760295,
+      "ssim": 0.7847501170393644,
+      "median_seconds": 0.09366946199952508,
+      "p95_seconds": 0.0938669616014522,
+      "duration_samples": [
+        0.09388890600166633,
+        0.09366946199952508,
+        0.08918959299990092
+      ],
+      "teacher_output_mse": 383.82417824074076
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 17.73424354964846,
+      "ssim": 0.732884755987671,
+      "median_seconds": 0.09032721299809054,
+      "p95_seconds": 0.09091899180166366,
+      "duration_samples": [
+        0.09098474500206066,
+        0.09032721299809054,
+        0.08971009199740365
+      ],
+      "teacher_output_mse": 373.1815451388889
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 17.096273541150772,
+      "ssim": 0.7580698369622673,
+      "median_seconds": 0.08973094300017692,
+      "p95_seconds": 0.09146122989986907,
+      "duration_samples": [
+        0.08972122799968929,
+        0.08973094300017692,
+        0.09165348399983486
+      ],
+      "teacher_output_mse": 370.7778935185185
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 16.899238628987995,
+      "ssim": 0.7188373340248114,
+      "median_seconds": 0.08970465300080832,
+      "p95_seconds": 0.0913319268016494,
+      "duration_samples": [
+        0.08939364399702754,
+        0.09151273500174284,
+        0.08970465300080832
+      ],
+      "teacher_output_mse": 437.3874363425926
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 16.770856439891197,
+      "ssim": 0.681433423387619,
+      "median_seconds": 0.09114725600011298,
+      "p95_seconds": 0.1081007287979446,
+      "duration_samples": [
+        0.08867962899967097,
+        0.09114725600011298,
+        0.10998444799770368
+      ],
+      "teacher_output_mse": 438.0537962962963
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife426-fp32",
+      "psnr": 16.724671656873834,
+      "ssim": 0.7228254211352337,
+      "median_seconds": 0.07203340399792069,
+      "p95_seconds": 0.09166635139808932,
+      "duration_samples": [
+        0.09384778999810806,
+        0.07026130499798455,
+        0.07203340399792069
+      ],
+      "teacher_output_mse": 742.2735243055556
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 19.191355211700518,
+      "ssim": 0.44671009880065643,
+      "median_seconds": 0.11123775300075067,
+      "p95_seconds": 0.13709266949699667,
+      "duration_samples": [
+        0.13996543799657957,
+        0.11004214599961415,
+        0.11123775300075067
+      ],
+      "teacher_output_mse": 20.002708333333334
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 22.997508418266225,
+      "ssim": 0.7297918047835914,
+      "median_seconds": 0.11588795599891455,
+      "p95_seconds": 0.15506734549853718,
+      "duration_samples": [
+        0.11588795599891455,
+        0.15942061099849525,
+        0.11414964700088603
+      ],
+      "teacher_output_mse": 36.86081597222222
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 18.70882761865162,
+      "ssim": 0.36821184281221325,
+      "median_seconds": 0.1173625549999997,
+      "p95_seconds": 0.14611991480087455,
+      "duration_samples": [
+        0.14931517700097174,
+        0.11072069000147167,
+        0.1173625549999997
+      ],
+      "teacher_output_mse": 16.14918402777778
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 16.646143888581612,
+      "ssim": 0.31352233898060505,
+      "median_seconds": 0.12266315799934091,
+      "p95_seconds": 0.14569040770111313,
+      "duration_samples": [
+        0.12266315799934091,
+        0.14824899100131006,
+        0.11453977400014992
+      ],
+      "teacher_output_mse": 129.66173032407409
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 15.688519631633973,
+      "ssim": 0.23523948308083154,
+      "median_seconds": 0.11428843300018343,
+      "p95_seconds": 0.17972643130087818,
+      "duration_samples": [
+        0.11428843300018343,
+        0.11201516199798789,
+        0.18699732000095537
+      ],
+      "teacher_output_mse": 99.41617476851852
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 16.718858536685108,
+      "ssim": 0.22081939817720442,
+      "median_seconds": 0.20289897600014228,
+      "p95_seconds": 0.20866110089955328,
+      "duration_samples": [
+        0.20289897600014228,
+        0.20930133699948783,
+        0.20118993000141927
+      ],
+      "teacher_output_mse": 33.790920138888886
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 14.379535793383415,
+      "ssim": 0.20670278655996513,
+      "median_seconds": 0.20161440700030653,
+      "p95_seconds": 0.20286924190222635,
+      "duration_samples": [
+        0.20161440700030653,
+        0.20300866800243966,
+        0.19882846000109566
+      ],
+      "teacher_output_mse": 58.27896990740741
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 13.684851651031774,
+      "ssim": 0.11873134240649098,
+      "median_seconds": 0.2055491430000984,
+      "p95_seconds": 0.20762695589983196,
+      "duration_samples": [
+        0.20785782399980235,
+        0.2013312989984115,
+        0.2055491430000984
+      ],
+      "teacher_output_mse": 86.91140625
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 13.840494963242085,
+      "ssim": 0.11742721812598282,
+      "median_seconds": 0.2015844029992877,
+      "p95_seconds": 0.20427618690118834,
+      "duration_samples": [
+        0.2015844029992877,
+        0.20457527400139952,
+        0.16615537400139146
+      ],
+      "teacher_output_mse": 70.49083333333333
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 20.102837198323712,
+      "ssim": 0.8328854438813313,
+      "median_seconds": 0.11264009599835845,
+      "p95_seconds": 0.12928572470009386,
+      "duration_samples": [
+        0.11061117699864553,
+        0.11264009599835845,
+        0.13113523900028667
+      ],
+      "teacher_output_mse": 9.340810185185186
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 19.37255360857919,
+      "ssim": 0.7838840519810782,
+      "median_seconds": 0.11284947600142914,
+      "p95_seconds": 0.1136248737002461,
+      "duration_samples": [
+        0.11284947600142914,
+        0.11371102900011465,
+        0.10896993200003635
+      ],
+      "teacher_output_mse": 9.577934027777777
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 18.443311216068313,
+      "ssim": 0.7949184075375193,
+      "median_seconds": 0.13715491599941743,
+      "p95_seconds": 0.1417679334997956,
+      "duration_samples": [
+        0.12940589299978456,
+        0.14228049099983764,
+        0.13715491599941743
+      ],
+      "teacher_output_mse": 34.75857060185185
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 18.72223690577582,
+      "ssim": 0.7676393170799806,
+      "median_seconds": 0.11403204299858771,
+      "p95_seconds": 0.11437417080087471,
+      "duration_samples": [
+        0.11441218500112882,
+        0.11378244400111726,
+        0.11403204299858771
+      ],
+      "teacher_output_mse": 16.076950231481483
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 18.31848010361834,
+      "ssim": 0.7333785225990218,
+      "median_seconds": 0.11074392299997271,
+      "p95_seconds": 0.11456763599962869,
+      "duration_samples": [
+        0.11499249299959047,
+        0.11074392299997271,
+        0.1093369750014972
+      ],
+      "teacher_output_mse": 15.496701388888889
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 17.32885190422695,
+      "ssim": 0.7494920641919544,
+      "median_seconds": 0.10904027699871222,
+      "p95_seconds": 0.10941652830151724,
+      "duration_samples": [
+        0.10945833400182892,
+        0.10725721500057261,
+        0.10904027699871222
+      ],
+      "teacher_output_mse": 27.127210648148147
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 17.15282430274788,
+      "ssim": 0.6992295916600151,
+      "median_seconds": 0.1113646300000255,
+      "p95_seconds": 0.12305160610303574,
+      "duration_samples": [
+        0.1113646300000255,
+        0.12435015900337021,
+        0.10829232499963837
+      ],
+      "teacher_output_mse": 17.629131944444445
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 17.27357241330076,
+      "ssim": 0.6838269014514476,
+      "median_seconds": 0.20202151500052423,
+      "p95_seconds": 0.22243909140051982,
+      "duration_samples": [
+        0.11021400800018455,
+        0.20202151500052423,
+        0.22470771100051934
+      ],
+      "teacher_output_mse": 21.513524305555556
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 16.109283699053954,
+      "ssim": 0.6591430083669864,
+      "median_seconds": 0.2062762739988102,
+      "p95_seconds": 0.2163892220985872,
+      "duration_samples": [
+        0.21751288299856242,
+        0.20497517500189133,
+        0.2062762739988102
+      ],
+      "teacher_output_mse": 64.12351273148148
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 19.19126794264535,
+      "ssim": 0.4442256490694154,
+      "median_seconds": 0.12708261700026924,
+      "p95_seconds": 0.12980175190023147,
+      "duration_samples": [
+        0.12708261700026924,
+        0.13010387800022727,
+        0.12432090400034213
+      ],
+      "teacher_output_mse": 21.430462962962963
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 23.002107193630636,
+      "ssim": 0.7300831350424569,
+      "median_seconds": 0.1403579580000951,
+      "p95_seconds": 0.1455357776987512,
+      "duration_samples": [
+        0.1403579580000951,
+        0.14611109099860187,
+        0.12691448500117986
+      ],
+      "teacher_output_mse": 24.19847222222222
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 18.58614556596839,
+      "ssim": 0.3573067127911862,
+      "median_seconds": 0.12428130400076043,
+      "p95_seconds": 0.12436457740332116,
+      "duration_samples": [
+        0.12428130400076043,
+        0.12437383000360569,
+        0.12242230500123696
+      ],
+      "teacher_output_mse": 23.328703703703702
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 16.70435969618843,
+      "ssim": 0.31698020147643885,
+      "median_seconds": 0.12404081299973768,
+      "p95_seconds": 0.15367454060105956,
+      "duration_samples": [
+        0.12164902199947392,
+        0.12404081299973768,
+        0.15696717700120644
+      ],
+      "teacher_output_mse": 135.70506944444443
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 15.657069424729661,
+      "ssim": 0.22278234900848495,
+      "median_seconds": 0.12910090100194793,
+      "p95_seconds": 0.15220344560184457,
+      "duration_samples": [
+        0.12910090100194793,
+        0.1547703950018331,
+        0.12753658899964648
+      ],
+      "teacher_output_mse": 111.51494791666667
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 16.649305409934,
+      "ssim": 0.21836322139224917,
+      "median_seconds": 0.12425209699722473,
+      "p95_seconds": 0.12453859670131351,
+      "duration_samples": [
+        0.12425209699722473,
+        0.12217305099693476,
+        0.12457043000176782
+      ],
+      "teacher_output_mse": 52.63800347222222
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 14.38235298349758,
+      "ssim": 0.20626137303267952,
+      "median_seconds": 0.13164640099785174,
+      "p95_seconds": 0.14600108150079905,
+      "duration_samples": [
+        0.14759604600112652,
+        0.13164640099785174,
+        0.12449931100127287
+      ],
+      "teacher_output_mse": 71.10905092592593
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 13.821879654978533,
+      "ssim": 0.12300583957403499,
+      "median_seconds": 0.13661362099810503,
+      "p95_seconds": 0.14066616259988224,
+      "duration_samples": [
+        0.13200606100144796,
+        0.1411164450000797,
+        0.13661362099810503
+      ],
+      "teacher_output_mse": 205.28052083333333
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 13.67672385356097,
+      "ssim": 0.12046831837359122,
+      "median_seconds": 0.14791098899877397,
+      "p95_seconds": 0.15993628679971153,
+      "duration_samples": [
+        0.1612724309998157,
+        0.14791098899877397,
+        0.13224603299750015
+      ],
+      "teacher_output_mse": 316.3935474537037
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 20.261564602431523,
+      "ssim": 0.8355231561513596,
+      "median_seconds": 0.15479696300099022,
+      "p95_seconds": 0.1605459641024936,
+      "duration_samples": [
+        0.12245287299811025,
+        0.16118474200266064,
+        0.15479696300099022
+      ],
+      "teacher_output_mse": 13.668136574074074
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 19.43824493959101,
+      "ssim": 0.7873555070226549,
+      "median_seconds": 0.18546778200106928,
+      "p95_seconds": 0.18648322140252277,
+      "duration_samples": [
+        0.14138853199983714,
+        0.18546778200106928,
+        0.18659604800268426
+      ],
+      "teacher_output_mse": 26.229560185185186
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 18.448575199035435,
+      "ssim": 0.7947759457796733,
+      "median_seconds": 0.18769726599930436,
+      "p95_seconds": 0.19105848520084692,
+      "duration_samples": [
+        0.18309827000121004,
+        0.1914319540010183,
+        0.18769726599930436
+      ],
+      "teacher_output_mse": 45.717523148148146
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 18.68845205761797,
+      "ssim": 0.7683045609413904,
+      "median_seconds": 0.18573537699921872,
+      "p95_seconds": 0.19343930229733813,
+      "duration_samples": [
+        0.1942952939971292,
+        0.18573537699921872,
+        0.18554577699978836
+      ],
+      "teacher_output_mse": 46.85712962962963
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 18.179479961201576,
+      "ssim": 0.7326406671801923,
+      "median_seconds": 0.19000611700175796,
+      "p95_seconds": 0.20107259709875508,
+      "duration_samples": [
+        0.2023022059984214,
+        0.18565433799813036,
+        0.19000611700175796
+      ],
+      "teacher_output_mse": 40.118478009259256
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 17.222263187913722,
+      "ssim": 0.7474423142464776,
+      "median_seconds": 0.1854902349987242,
+      "p95_seconds": 0.18720584829970904,
+      "duration_samples": [
+        0.1854902349987242,
+        0.18739647199981846,
+        0.18259033000140334
+      ],
+      "teacher_output_mse": 73.71580439814815
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 17.260856644917425,
+      "ssim": 0.7033246643180502,
+      "median_seconds": 0.18377054400116322,
+      "p95_seconds": 0.18461400059932204,
+      "duration_samples": [
+        0.18377054400116322,
+        0.1830540139999357,
+        0.18470771799911745
+      ],
+      "teacher_output_mse": 44.57982638888889
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 17.310143316135743,
+      "ssim": 0.6866397791665091,
+      "median_seconds": 0.18485245299962116,
+      "p95_seconds": 0.18855485320200388,
+      "duration_samples": [
+        0.18406822300312342,
+        0.18485245299962116,
+        0.18896623100226861
+      ],
+      "teacher_output_mse": 38.958246527777774
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-qdq-all-conv",
+      "psnr": 16.051476142156428,
+      "ssim": 0.6526604095350365,
+      "median_seconds": 0.18335128400212852,
+      "p95_seconds": 0.20059743950005213,
+      "duration_samples": [
+        0.18335128400212852,
+        0.18263842099986505,
+        0.20251367899982142
+      ],
+      "teacher_output_mse": 217.64909722222222
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 19.359896961968353,
+      "ssim": 0.4571947282447754,
+      "median_seconds": 0.15167977400051313,
+      "p95_seconds": 0.16737270500234444,
+      "duration_samples": [
+        0.15167977400051313,
+        0.15151584100021864,
+        0.16911636400254793
+      ],
+      "teacher_output_mse": 31.873668981481483
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 23.013544988599705,
+      "ssim": 0.7365581414968236,
+      "median_seconds": 0.1743584469986672,
+      "p95_seconds": 0.17497881970230084,
+      "duration_samples": [
+        0.17504775000270456,
+        0.1505302000005031,
+        0.1743584469986672
+      ],
+      "teacher_output_mse": 10.067818287037037
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 18.73240431256329,
+      "ssim": 0.376158853348392,
+      "median_seconds": 0.17875501900198287,
+      "p95_seconds": 0.1816383355009748,
+      "duration_samples": [
+        0.1461987129987392,
+        0.18195870400086278,
+        0.17875501900198287
+      ],
+      "teacher_output_mse": 5.223917824074074
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 16.448105933248186,
+      "ssim": 0.2864059374263153,
+      "median_seconds": 0.13915482299853466,
+      "p95_seconds": 0.14093005950089718,
+      "duration_samples": [
+        0.13915482299853466,
+        0.13639391199831152,
+        0.1411273080011597
+      ],
+      "teacher_output_mse": 193.08558449074073
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 15.69910202776631,
+      "ssim": 0.23129519369468857,
+      "median_seconds": 0.14311527599784313,
+      "p95_seconds": 0.2026559810998151,
+      "duration_samples": [
+        0.14311527599784313,
+        0.20927161500003422,
+        0.13398745499944198
+      ],
+      "teacher_output_mse": 44.81664351851852
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 16.731361071371918,
+      "ssim": 0.2218715781853152,
+      "median_seconds": 0.16181084199706675,
+      "p95_seconds": 0.1799168412999279,
+      "duration_samples": [
+        0.16181084199706675,
+        0.14160108899886836,
+        0.18192861900024582
+      ],
+      "teacher_output_mse": 20.284288194444443
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 14.438008813644736,
+      "ssim": 0.21258600865219815,
+      "median_seconds": 0.19158597999921767,
+      "p95_seconds": 0.1928631052007404,
+      "duration_samples": [
+        0.18145500800164882,
+        0.19158597999921767,
+        0.19300500800090958
+      ],
+      "teacher_output_mse": 67.87618634259259
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 13.77130964899102,
+      "ssim": 0.11987821174191082,
+      "median_seconds": 0.19219886800055974,
+      "p95_seconds": 0.19855656970103155,
+      "duration_samples": [
+        0.19926298100108397,
+        0.19219886800055974,
+        0.19062467099865898
+      ],
+      "teacher_output_mse": 114.39139467592592
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 13.80037606870247,
+      "ssim": 0.11902797163737723,
+      "median_seconds": 0.17024203300024965,
+      "p95_seconds": 0.21741098080019583,
+      "duration_samples": [
+        0.22265197500018985,
+        0.17024203300024965,
+        0.12631263300136197
+      ],
+      "teacher_output_mse": 86.83561921296297
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 20.25574083961194,
+      "ssim": 0.8348529751721094,
+      "median_seconds": 0.15827398800320225,
+      "p95_seconds": 0.17471558489924063,
+      "duration_samples": [
+        0.12948450399926514,
+        0.17654242899880046,
+        0.15827398800320225
+      ],
+      "teacher_output_mse": 8.616539351851852
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 19.446876497257808,
+      "ssim": 0.7879204338686553,
+      "median_seconds": 0.1750342190025549,
+      "p95_seconds": 0.18569147359921773,
+      "duration_samples": [
+        0.13352250100069796,
+        0.1750342190025549,
+        0.18687561299884692
+      ],
+      "teacher_output_mse": 13.34792824074074
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 18.632452182231937,
+      "ssim": 0.7967484208782846,
+      "median_seconds": 0.18655368699910468,
+      "p95_seconds": 0.18836567049838776,
+      "duration_samples": [
+        0.18856700199830811,
+        0.18655368699910468,
+        0.18592173300203285
+      ],
+      "teacher_output_mse": 58.395694444444445
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 18.733959046292867,
+      "ssim": 0.7658050236336055,
+      "median_seconds": 0.18717346300036297,
+      "p95_seconds": 0.19327468719930038,
+      "duration_samples": [
+        0.19395260099918232,
+        0.18649595200258773,
+        0.18717346300036297
+      ],
+      "teacher_output_mse": 29.629010416666667
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 18.20912857717609,
+      "ssim": 0.7316957118578861,
+      "median_seconds": 0.18514068299919018,
+      "p95_seconds": 0.18774174779828173,
+      "duration_samples": [
+        0.18309375499666203,
+        0.18803075499818078,
+        0.18514068299919018
+      ],
+      "teacher_output_mse": 67.64619791666667
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 17.29715350305224,
+      "ssim": 0.748578710640459,
+      "median_seconds": 0.19081242399988696,
+      "p95_seconds": 0.19215290199936136,
+      "duration_samples": [
+        0.18355200400037575,
+        0.19081242399988696,
+        0.19230184399930295
+      ],
+      "teacher_output_mse": 23.965243055555554
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 17.172178476309647,
+      "ssim": 0.6987231197798461,
+      "median_seconds": 0.19016668900076183,
+      "p95_seconds": 0.20762302240036662,
+      "duration_samples": [
+        0.19016668900076183,
+        0.2095626150003227,
+        0.13500880299761775
+      ],
+      "teacher_output_mse": 17.398680555555554
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 17.321439725039053,
+      "ssim": 0.6858547842044479,
+      "median_seconds": 0.16691600299964193,
+      "p95_seconds": 0.19585401889926288,
+      "duration_samples": [
+        0.16691600299964193,
+        0.19906935399922077,
+        0.1634594189999916
+      ],
+      "teacher_output_mse": 18.708547453703705
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 16.178255915584092,
+      "ssim": 0.6598991074843774,
+      "median_seconds": 0.16934798000147566,
+      "p95_seconds": 0.19348633010231425,
+      "duration_samples": [
+        0.15417414300100063,
+        0.19616836900240742,
+        0.16934798000147566
+      ],
+      "teacher_output_mse": 58.26745949074074
+    }
+  ]
+}

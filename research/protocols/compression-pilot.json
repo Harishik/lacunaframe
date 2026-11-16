@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "status": "exploratory feasibility, not a publication benchmark",
+  "task": "RGB midpoint interpolation from two observed anchors",
+  "calibration_scene": "blackswan",
+  "evaluation_scenes": ["bmx-trees", "breakdance"],
+  "normalization": "existing backend letterbox 320x180, retain every second decoded source frame at nominal 12fps",
+  "anchor_separations": [2, 4, 8],
+  "evaluation_starts": [0, 12, 24],
+  "calibration_starts": [0, 8, 16],
+  "timesteps": [0.5],
+  "warmup_calls": 2,
+  "timed_repeats": 3,
+  "threads": 2,
+  "random_seed": 20261116,
+  "variants": ["rife49-fp32", "rife49-half", "rife426-fp32", "rife49-dynamic-u8", "rife49-qdq-all-conv", "rife49-qdq-trunk"],
+  "quantization": "ONNX Runtime Conv-only; static QDQ S8/S8 per-channel MinMax; trunk includes /convblock/ Conv nodes only; transpose convolutions and warp/flow arithmetic remain float",
+  "metrics": ["PSNR", "SSIM", "teacher_output_mse", "median_seconds", "p95_seconds", "model_file_bytes", "fresh_process_peak_rss_mib"],
+  "exclusions": ["No training, distillation, pruning, architecture search or test-driven model selection", "No calibration on evaluation scenes", "No claim that checkpoint training excludes these scenes", "No claim that these dependent triplets establish statistical generalization", "No GPU/NPU comparisons from unmatched published timings"],
+  "predeclared_success_gate": "A candidate must be executable on CPU, reduce median inference time by at least 20%, and lose at most 0.2 dB in equal-weight per-triplet mean PSNR versus rife49-fp32 on each of the two evaluation scenes. This is only a pilot continuation criterion, not a paper acceptance claim."
+}

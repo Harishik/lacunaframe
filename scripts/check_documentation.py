@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def main() -> None:
     files=[ROOT/'README.md',ROOT/'CONTRIBUTING.md',ROOT/'CHANGELOG.md']
-    for directory in ['docs','examples','assets']:
+    for directory in ['docs','examples','assets','research']:
         files.extend((ROOT/directory).rglob('*.md'))
     files.append(ROOT/'docs/experience/index.html')
     failures=[];links=0

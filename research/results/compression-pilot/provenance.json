@@ -1,0 +1,13 @@
+{
+  "protocol_sha256": "f0c1d5c746ba050a70cb60b962c9469cbcfc7b2ef5eccd5c572b4dadd555d8de",
+  "sources": {
+    "blackswan": "fe06906d1a41caccdb024d98598728448805792d9732ac8ecb69c2c0f1365ca6",
+    "bmx-trees": "a86d9972fa6bcb0f7cbe6b2d699aabf23a1fb3072dc961006a16b37712a1e986",
+    "breakdance": "4f759ec58761c3175e7fe4aaf97cfa5d94870ded93a62792362bd58de3276fdb"
+  },
+  "checkpoints": {
+    "rife49-fp32": "76e4cef9ab42fa7dd4e8f6e4aba47462051e3faa969e4bca6479784fbab0ac6f",
+    "rife426-fp32": "af8392796b0ed769b8fcaeee0fbf5feee9c647d11a2575e50b620786f2536114"
+  },
+  "normalization": "backend.app.normalize, every second decoded MP4 frame, at most 48 samples"
+}

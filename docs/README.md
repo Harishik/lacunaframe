@@ -17,6 +17,8 @@
 
 **To render the interactive guide:** from the repository root, run `python -m http.server 8080 --directory . --bind 127.0.0.1` and open **http://localhost:8080/docs/experience/**. It also opens directly as a local file. GitHub's file viewer displays HTML source. The guide embeds measured chart data and makes no external requests.
 
+[CPU efficiency research track](../research/README.md) · [Compression measurements](../research/results/compression-pilot/README.md) · [Research claim and evidence gates](../research/RESEARCH_PROGRAM.md)
+
 ## The chapters
 
 1. **[Observe → remove → reconstruct → question](guides/WALKTHROUGH.md).** The controls, timestamps and interpretations behind one real experiment.

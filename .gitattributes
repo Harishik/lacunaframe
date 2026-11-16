@@ -1,6 +1,7 @@
 # Preserve exact evidence bytes; no LFS server is required.
 *.onnx binary
 *.npz binary
+*.npy binary
 *.mp4 binary
 *.gif binary
 *.png binary
