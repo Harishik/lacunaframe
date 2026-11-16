@@ -29,7 +29,7 @@ Playwright starts the local frontend/backend if absent and reuses healthy existi
 
 The interactive guide's browser test checks local-file rendering, slider/charts, image loading, responsive overflow, reduced-motion behavior and automated accessibility. The documentation checker checks local file links and experiment provenance. Rebuild visuals with `scripts/build_documentation.py` after changing their source arrays or summaries.
 
-The publishing script requires a private repo and disables GitHub Actions before pushing to avoid automatic costs. The workflow definition is manual-only. Do not enable paid jobs, deploy, publish, change visibility, or expose uploaded media without the owner's authorization.
+The publishing script requires a private repo and rejects active workflows to avoid automatic costs. The manual verification definition is retained as `.github/verification.workflow.yml`, outside the active workflows directory. Do not enable paid jobs, deploy, publish, change visibility, or expose uploaded media without the owner's authorization.
 
 ## Make a review easy
 

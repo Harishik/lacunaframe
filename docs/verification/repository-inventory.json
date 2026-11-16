@@ -1,7 +1,7 @@
 {
   "scope": "Git-tracked payload at publication; excludes this manifest and Git metadata",
-  "files": 402,
-  "total_bytes": 121415498,
+  "files": 403,
+  "total_bytes": 121415984,
   "entries": [
     {
       "path": ".dockerignore",
@@ -24,7 +24,7 @@
       "sha256": "c3114e5159139cfc98959849526212a41f6b64cc21ea199a6b4f75e03de990cb"
     },
     {
-      "path": ".github/workflows/verify.yml",
+      "path": ".github/verification.workflow.yml",
       "bytes": 966,
       "sha256": "193a1907241283bff4e1559e439f068bfff268f52913a729c910b8a8c3c47c27"
     },
@@ -34,19 +34,24 @@
       "sha256": "ca857027a73ace5802da8098ec8fa57ff92c3a0a83d67d39358250dcbb00ae89"
     },
     {
+      "path": ".mailmap",
+      "bytes": 105,
+      "sha256": "35b7e7f1a56015cbfae3d5e783902d5be498b0a1123795a0749555858c5c05e6"
+    },
+    {
       "path": "AUTHORS",
       "bytes": 26,
       "sha256": "798c96cb2b4e580ded48e21d4cdf872289d8347effdf7be0cb2e8f2b6662c113"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 2282,
-      "sha256": "67240c74f7844743e9e4b3cd5624c8b3f18e8854850a62a57b557e0d960d145c"
+      "bytes": 2376,
+      "sha256": "39fa4bad2574a6322c072e9262464fef54e31d2721216fd93e40da2e0f4b878c"
     },
     {
       "path": "CONTRIBUTING.md",
-      "bytes": 2725,
-      "sha256": "0deb40e8f7f75d4212b1560746230d476e8270ff2f964467853ef9324b945035"
+      "bytes": 2798,
+      "sha256": "80f617bf8350fff758efe80ddf918bac940f2f00c637c9b6bc4349608e4e836b"
     },
     {
       "path": "Dockerfile",
@@ -60,8 +65,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 9218,
-      "sha256": "30d9aec2d94fca4174dc5aa674ee80d8fd0ce3b9f0c815b8d54befb3deac5f3c"
+      "bytes": 9186,
+      "sha256": "6ce59cca3a71622baff0073890aa45a1fea60414471002262ccfcdecdd53fed0"
     },
     {
       "path": "assets/DAVIS-model-card.md",
@@ -220,8 +225,8 @@
     },
     {
       "path": "docs/PUBLICATION.md",
-      "bytes": 2167,
-      "sha256": "c5fcf27bec073730390f30167ad2e2da75d39d479a35b2b4382f16b22cfd833b"
+      "bytes": 2302,
+      "sha256": "8b956703dabb5936b8f8ccfcf9a1e3a3b8e76cb38f8b52cdd60be2b68e384e40"
     },
     {
       "path": "docs/README.md",
@@ -310,13 +315,13 @@
     },
     {
       "path": "docs/guides/QUICKSTART.md",
-      "bytes": 4949,
-      "sha256": "4cc0e09bda4f2458e2b1fdca08c8106c0f64031f171a25de02f8e4debc3e5537"
+      "bytes": 4874,
+      "sha256": "d0256e1e1a42d3ccff58ccf0e7270a48477b92e6d25f8397dd5dcb17ed2992e1"
     },
     {
       "path": "docs/guides/REPOSITORY.md",
-      "bytes": 4594,
-      "sha256": "0df35f6e73f00aeefdb48772fef9315f0e89154d1f9c01d68429f9b9bd750591"
+      "bytes": 4603,
+      "sha256": "97a26e656e6ed92bfca4e9dd73ad1bd08ee94b5996bda08377af3343a1240b4d"
     },
     {
       "path": "docs/guides/WALKTHROUGH.md",
@@ -325,8 +330,8 @@
     },
     {
       "path": "docs/verification/README.md",
-      "bytes": 2489,
-      "sha256": "0a7b59f15b974113bafa93e06375198d85515e5dbd523e1218efd648294996d9"
+      "bytes": 2637,
+      "sha256": "55453499b3dabce91707a1f61e5d808eeb6def020d377b95110eb8b2cea59d69"
     },
     {
       "path": "docs/verification/artifacts.json",
@@ -356,7 +361,7 @@
     {
       "path": "docs/verification/documentation.json",
       "bytes": 150,
-      "sha256": "7905d489ce1566755db7369f0dc4ea279522d76106bd5984839474d24927b13e"
+      "sha256": "6ea6f902dbe0b55132bebfac7e162d19dc90f4acf1912db7db1f6c9890017f8b"
     },
     {
       "path": "docs/verification/frontend.txt",
@@ -365,8 +370,8 @@
     },
     {
       "path": "docs/verification/github-publication.json",
-      "bytes": 609,
-      "sha256": "fe280a56790a96e16cab5d2255d4abf32dd59bb94da6e6252f19821394bf4fab"
+      "bytes": 466,
+      "sha256": "f51c82a5fcb0028cabbeb2bec6d1c3e3d44238e9f22d684456f3fa00f578a3c1"
     },
     {
       "path": "docs/verification/pytest.txt",
@@ -1920,8 +1925,8 @@
     },
     {
       "path": "scripts/publish_private.sh",
-      "bytes": 2166,
-      "sha256": "ae322836b58f2ff49d5fbbc9cdf1ba99714237014214d85a857a5aa6b2e18665"
+      "bytes": 2338,
+      "sha256": "b08e4eac89e7011833fe49ea3614787cc070960618b4686b985207760750caa4"
     },
     {
       "path": "scripts/repository_inventory.py",

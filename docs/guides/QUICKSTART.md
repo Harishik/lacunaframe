@@ -15,7 +15,7 @@ npm ci
 .venv/bin/python scripts/fetch_assets.py
 ```
 
-The intended repository is private; cloning will require an authorized GitHub login. Publication is currently blocked by the integration’s repository-creation permission; the target clone URL above becomes available after [publication](../PUBLICATION.md). Three source clips and both model exports are included in Git. Setup verifies the default model/source hashes; use `--candidate` to verify or fetch the optional 4.26 candidate too. No Git LFS or model API is required. Downloading replacement assets is an explicit setup action; inference never fetches a model.
+The repository is private; cloning requires an authorized GitHub login. See [publication status](../PUBLICATION.md). Three source clips and both model exports are included in Git. Setup verifies the default model/source hashes; use `--candidate` to verify or fetch the optional 4.26 candidate too. No Git LFS or model API is required. Downloading replacement assets is an explicit setup action; inference never fetches a model.
 
 ## 2. Start the engine and workspace
 
@@ -81,4 +81,4 @@ The image build passed locally. Container runtime smoke verification encountered
 
 This task creates a private source repository; it does not deploy a service. Serve `dist/` with a same-origin `/api` reverse proxy to a separately running backend. Vite's development proxy is not part of a static build. GitHub Pages alone cannot perform reconstruction. A public service would need authentication, resource isolation, HTTPS and upload/time limits beyond the trusted single-user model here.
 
-The publishing script disables GitHub Actions before pushing to avoid automatic runner charges. The retained verification workflow is manual-only; local verification runs without a hosted CI service. No paid service or deployment is needed for the local application or documentation guide.
+The publishing script rejects active workflows to avoid automatic runner charges. The verification definition is retained as the inactive `.github/verification.workflow.yml` template, outside `.github/workflows`; local verification runs without a hosted CI service. No paid service or deployment is needed for the local application or documentation guide.
