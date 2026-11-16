@@ -1,0 +1,572 @@
+[
+  {
+    "variant": "rife49-fp32",
+    "profile_file": "profile-rife49-fp32_2026-11-16_08-47-38_810.json",
+    "model_sha256": "76e4cef9ab42fa7dd4e8f6e4aba47462051e3faa969e4bca6479784fbab0ac6f",
+    "scope": "Three full calls, including first-call effects. Share of summed Node kernel event durations, not end-to-end latency or FLOPs. Instrumentation changes timing.",
+    "operators": [
+      {
+        "op": "Conv",
+        "duration_us": 183311.0,
+        "events": 246,
+        "share": 0.3342840313730353
+      },
+      {
+        "op": "GridSample",
+        "duration_us": 141725.0,
+        "events": 48,
+        "share": 0.25844823467409717
+      },
+      {
+        "op": "ConvTranspose",
+        "duration_us": 36218.0,
+        "events": 30,
+        "share": 0.06604676777863082
+      },
+      {
+        "op": "Concat",
+        "duration_us": 34719.0,
+        "events": 120,
+        "share": 0.06331320698288925
+      },
+      {
+        "op": "ReorderOutput",
+        "duration_us": 27862.0,
+        "events": 198,
+        "share": 0.050808853162742605
+      },
+      {
+        "op": "Resize",
+        "duration_us": 25353.0,
+        "events": 66,
+        "share": 0.046233466880877656
+      },
+      {
+        "op": "ReorderInput",
+        "duration_us": 24608.0,
+        "events": 186,
+        "share": 0.04487489263616288
+      },
+      {
+        "op": "DepthToSpace",
+        "duration_us": 14547.0,
+        "events": 24,
+        "share": 0.02652775776894755
+      },
+      {
+        "op": "Add",
+        "duration_us": 12738.0,
+        "events": 255,
+        "share": 0.023228884200237433
+      },
+      {
+        "op": "Transpose",
+        "duration_us": 10248.0,
+        "events": 51,
+        "share": 0.018688146120586686
+      },
+      {
+        "op": "Slice",
+        "duration_us": 8210.0,
+        "events": 69,
+        "share": 0.014971670535715914
+      },
+      {
+        "op": "Div",
+        "duration_us": 6566.0,
+        "events": 159,
+        "share": 0.011973689249392289
+      },
+      {
+        "op": "Pad",
+        "duration_us": 4382.0,
+        "events": 6,
+        "share": 0.007990969584349224
+      },
+      {
+        "op": "LeakyRelu",
+        "duration_us": 3702.0,
+        "events": 192,
+        "share": 0.0067509286629988206
+      },
+      {
+        "op": "Sub",
+        "duration_us": 3167.0,
+        "events": 48,
+        "share": 0.005775308232230487
+      },
+      {
+        "op": "Clip",
+        "duration_us": 2926.0,
+        "events": 6,
+        "share": 0.005335823140987182
+      },
+      {
+        "op": "Mul",
+        "duration_us": 2511.0,
+        "events": 30,
+        "share": 0.004579033461045391
+      },
+      {
+        "op": "Split",
+        "duration_us": 2456.0,
+        "events": 39,
+        "share": 0.004478736033583226
+      },
+      {
+        "op": "Tile",
+        "duration_us": 1111.0,
+        "events": 3,
+        "share": 0.0020260080347357344
+      },
+      {
+        "op": "Neg",
+        "duration_us": 674.0,
+        "events": 21,
+        "share": 0.0012290993838090774
+      },
+      {
+        "op": "Expand",
+        "duration_us": 294.0,
+        "events": 9,
+        "share": 0.0005361353395250279
+      },
+      {
+        "op": "Unsqueeze",
+        "duration_us": 263.0,
+        "events": 27,
+        "share": 0.0004796040622281712
+      },
+      {
+        "op": "Gather",
+        "duration_us": 191.0,
+        "events": 39,
+        "share": 0.000348305611732246
+      },
+      {
+        "op": "Cast",
+        "duration_us": 145.0,
+        "events": 36,
+        "share": 0.00026442049058207157
+      },
+      {
+        "op": "Shape",
+        "duration_us": 116.0,
+        "events": 18,
+        "share": 0.00021153639246565724
+      },
+      {
+        "op": "Where",
+        "duration_us": 91.0,
+        "events": 6,
+        "share": 0.00016594665271012766
+      },
+      {
+        "op": "Sigmoid",
+        "duration_us": 69.0,
+        "events": 3,
+        "share": 0.00012582768172526165
+      },
+      {
+        "op": "Equal",
+        "duration_us": 67.0,
+        "events": 6,
+        "share": 0.00012218050254481926
+      },
+      {
+        "op": "Reshape",
+        "duration_us": 59.0,
+        "events": 12,
+        "share": 0.00010759178582304981
+      },
+      {
+        "op": "Range",
+        "duration_us": 40.0,
+        "events": 6,
+        "share": 7.294358360884732e-05
+      }
+    ]
+  },
+  {
+    "variant": "rife49-dynamic-u8",
+    "profile_file": "profile-rife49-dynamic-u8_2026-11-16_08-47-39_873.json",
+    "model_sha256": "b395e769410f07d1112b879b2953ea7aa6c42be95ce802ce84317e57fd8cd1e1",
+    "scope": "Three full calls, including first-call effects. Share of summed Node kernel event durations, not end-to-end latency or FLOPs. Instrumentation changes timing.",
+    "operators": [
+      {
+        "op": "ConvInteger",
+        "duration_us": 149437.0,
+        "events": 246,
+        "share": 0.3911359240326756
+      },
+      {
+        "op": "GridSample",
+        "duration_us": 126923.0,
+        "events": 48,
+        "share": 0.33220785271384784
+      },
+      {
+        "op": "ConvTranspose",
+        "duration_us": 19897.0,
+        "events": 30,
+        "share": 0.052078343920703346
+      },
+      {
+        "op": "Resize",
+        "duration_us": 11872.0,
+        "events": 66,
+        "share": 0.031073734684957034
+      },
+      {
+        "op": "Concat",
+        "duration_us": 11094.0,
+        "events": 120,
+        "share": 0.02903739998272518
+      },
+      {
+        "op": "Mul",
+        "duration_us": 10248.0,
+        "events": 714,
+        "share": 0.02682308229880725
+      },
+      {
+        "op": "Add",
+        "duration_us": 9488.0,
+        "events": 525,
+        "share": 0.024833860738786417
+      },
+      {
+        "op": "LeakyRelu",
+        "duration_us": 6341.0,
+        "events": 240,
+        "share": 0.016596913042226463
+      },
+      {
+        "op": "DepthToSpace",
+        "duration_us": 6271.0,
+        "events": 24,
+        "share": 0.016413695266961386
+      },
+      {
+        "op": "Cast",
+        "duration_us": 6223.0,
+        "events": 282,
+        "share": 0.016288060221065333
+      },
+      {
+        "op": "DynamicQuantizeLinear",
+        "duration_us": 5792.0,
+        "events": 246,
+        "share": 0.015159962204790359
+      },
+      {
+        "op": "Div",
+        "duration_us": 5650.0,
+        "events": 159,
+        "share": 0.014788291860681204
+      },
+      {
+        "op": "Transpose",
+        "duration_us": 5052.0,
+        "events": 51,
+        "share": 0.013223088580559548
+      },
+      {
+        "op": "Slice",
+        "duration_us": 3158.0,
+        "events": 69,
+        "share": 0.008265739061244467
+      },
+      {
+        "op": "Split",
+        "duration_us": 1307.0,
+        "events": 39,
+        "share": 0.0034209376038779353
+      },
+      {
+        "op": "Clip",
+        "duration_us": 787.0,
+        "events": 6,
+        "share": 0.002059891273337364
+      },
+      {
+        "op": "Tile",
+        "duration_us": 520.0,
+        "events": 3,
+        "share": 0.001361046330540571
+      },
+      {
+        "op": "Pad",
+        "duration_us": 446.0,
+        "events": 6,
+        "share": 0.0011673589681174897
+      },
+      {
+        "op": "Neg",
+        "duration_us": 406.0,
+        "events": 21,
+        "share": 0.0010626630965374457
+      },
+      {
+        "op": "Sub",
+        "duration_us": 277.0,
+        "events": 48,
+        "share": 0.0007250189106918041
+      },
+      {
+        "op": "Gather",
+        "duration_us": 207.0,
+        "events": 39,
+        "share": 0.0005418011354267273
+      },
+      {
+        "op": "Unsqueeze",
+        "duration_us": 199.0,
+        "events": 27,
+        "share": 0.0005208619611107185
+      },
+      {
+        "op": "Expand",
+        "duration_us": 122.0,
+        "events": 9,
+        "share": 0.00031932240831913396
+      },
+      {
+        "op": "Shape",
+        "duration_us": 96.0,
+        "events": 18,
+        "share": 0.0002512700917921054
+      },
+      {
+        "op": "Sigmoid",
+        "duration_us": 84.0,
+        "events": 3,
+        "share": 0.00021986133031809223
+      },
+      {
+        "op": "Reshape",
+        "duration_us": 60.0,
+        "events": 12,
+        "share": 0.00015704380737006587
+      },
+      {
+        "op": "Where",
+        "duration_us": 42.0,
+        "events": 6,
+        "share": 0.00010993066515904611
+      },
+      {
+        "op": "Equal",
+        "duration_us": 31.0,
+        "events": 6,
+        "share": 8.113930047453403e-05
+      },
+      {
+        "op": "Range",
+        "duration_us": 29.0,
+        "events": 6,
+        "share": 7.590450689553184e-05
+      }
+    ]
+  },
+  {
+    "variant": "rife49-qdq-all-conv",
+    "profile_file": "profile-rife49-qdq-all-conv_2026-11-16_08-47-40_722.json",
+    "model_sha256": "f732447d4f834bd17118339f9e5a99290265cca4bc7863da7aea436068dee086",
+    "scope": "Three full calls, including first-call effects. Share of summed Node kernel event durations, not end-to-end latency or FLOPs. Instrumentation changes timing.",
+    "operators": [
+      {
+        "op": "Conv",
+        "duration_us": 190941.0,
+        "events": 198,
+        "share": 0.3302391947283765
+      },
+      {
+        "op": "GridSample",
+        "duration_us": 139217.0,
+        "events": 48,
+        "share": 0.2407807122226258
+      },
+      {
+        "op": "DequantizeLinear",
+        "duration_us": 77871.0,
+        "events": 1020,
+        "share": 0.13468064131167956
+      },
+      {
+        "op": "ConvTranspose",
+        "duration_us": 27762.0,
+        "events": 30,
+        "share": 0.04801535827323198
+      },
+      {
+        "op": "Transpose",
+        "duration_us": 21688.0,
+        "events": 99,
+        "share": 0.037510161019734
+      },
+      {
+        "op": "Concat",
+        "duration_us": 19847.0,
+        "events": 120,
+        "share": 0.03432608658053581
+      },
+      {
+        "op": "Mul",
+        "duration_us": 17842.0,
+        "events": 222,
+        "share": 0.030858368356422628
+      },
+      {
+        "op": "Resize",
+        "duration_us": 14156.0,
+        "events": 66,
+        "share": 0.024483301336930767
+      },
+      {
+        "op": "Add",
+        "duration_us": 12426.0,
+        "events": 279,
+        "share": 0.02149120531313236
+      },
+      {
+        "op": "QuantizeLinear",
+        "duration_us": 11768.0,
+        "events": 420,
+        "share": 0.020353171102924644
+      },
+      {
+        "op": "DepthToSpace",
+        "duration_us": 11767.0,
+        "events": 24,
+        "share": 0.02035144156765077
+      },
+      {
+        "op": "QLinearConv",
+        "duration_us": 7521.0,
+        "events": 48,
+        "share": 0.013007834794790639
+      },
+      {
+        "op": "Slice",
+        "duration_us": 7185.0,
+        "events": 69,
+        "share": 0.012426710942769677
+      },
+      {
+        "op": "Div",
+        "duration_us": 5360.0,
+        "events": 159,
+        "share": 0.00927030906795344
+      },
+      {
+        "op": "LeakyRelu",
+        "duration_us": 4056.0,
+        "events": 216,
+        "share": 0.007014995070824469
+      },
+      {
+        "op": "Split",
+        "duration_us": 2763.0,
+        "events": 39,
+        "share": 0.004778705961708089
+      },
+      {
+        "op": "Clip",
+        "duration_us": 1544.0,
+        "events": 6,
+        "share": 0.00267040246285823
+      },
+      {
+        "op": "QLinearLeakyRelu",
+        "duration_us": 1078.0,
+        "events": 24,
+        "share": 0.0018644390252339196
+      },
+      {
+        "op": "Pad",
+        "duration_us": 766.0,
+        "events": 6,
+        "share": 0.0013248240197858835
+      },
+      {
+        "op": "Neg",
+        "duration_us": 528.0,
+        "events": 21,
+        "share": 0.0009131946246043688
+      },
+      {
+        "op": "Tile",
+        "duration_us": 487.0,
+        "events": 3,
+        "share": 0.0008422836783756204
+      },
+      {
+        "op": "Sub",
+        "duration_us": 429.0,
+        "events": 48,
+        "share": 0.0007419706324910497
+      },
+      {
+        "op": "Expand",
+        "duration_us": 288.0,
+        "events": 9,
+        "share": 0.0004981061588751102
+      },
+      {
+        "op": "Gather",
+        "duration_us": 201.0,
+        "events": 39,
+        "share": 0.00034763659004825403
+      },
+      {
+        "op": "Cast",
+        "duration_us": 183.0,
+        "events": 36,
+        "share": 0.00031650495511855966
+      },
+      {
+        "op": "Unsqueeze",
+        "duration_us": 138.0,
+        "events": 27,
+        "share": 0.00023867586779432367
+      },
+      {
+        "op": "Shape",
+        "duration_us": 127.0,
+        "events": 18,
+        "share": 0.00021965097978173266
+      },
+      {
+        "op": "Reshape",
+        "duration_us": 74.0,
+        "events": 12,
+        "share": 0.00012798561026652137
+      },
+      {
+        "op": "Sigmoid",
+        "duration_us": 69.0,
+        "events": 3,
+        "share": 0.00011933793389716183
+      },
+      {
+        "op": "Where",
+        "duration_us": 44.0,
+        "events": 6,
+        "share": 7.609955205036407e-05
+      },
+      {
+        "op": "Range",
+        "duration_us": 32.0,
+        "events": 6,
+        "share": 5.534512876390114e-05
+      },
+      {
+        "op": "Equal",
+        "duration_us": 32.0,
+        "events": 6,
+        "share": 5.534512876390114e-05
+      }
+    ]
+  }
+]

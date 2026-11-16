@@ -1,0 +1,319 @@
+{
+  "status": "complete",
+  "variant": "rife49-qdq-trunk",
+  "provider": [
+    "CPUExecutionProvider"
+  ],
+  "load_seconds": 0.23721933699926012,
+  "model_sha256": "10b5e3281304da46bf7d4bd3dee0a9918658f9c214c6bfc5dcca683f246e250c",
+  "model_file_bytes": 7330209,
+  "process_peak_rss_mib": 241.03125,
+  "rows": [
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 19.359896961968353,
+      "ssim": 0.4571947282447754,
+      "median_seconds": 0.15167977400051313,
+      "p95_seconds": 0.16737270500234444,
+      "duration_samples": [
+        0.15167977400051313,
+        0.15151584100021864,
+        0.16911636400254793
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 23.013544988599705,
+      "ssim": 0.7365581414968236,
+      "median_seconds": 0.1743584469986672,
+      "p95_seconds": 0.17497881970230084,
+      "duration_samples": [
+        0.17504775000270456,
+        0.1505302000005031,
+        0.1743584469986672
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 18.73240431256329,
+      "ssim": 0.376158853348392,
+      "median_seconds": 0.17875501900198287,
+      "p95_seconds": 0.1816383355009748,
+      "duration_samples": [
+        0.1461987129987392,
+        0.18195870400086278,
+        0.17875501900198287
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 16.448105933248186,
+      "ssim": 0.2864059374263153,
+      "median_seconds": 0.13915482299853466,
+      "p95_seconds": 0.14093005950089718,
+      "duration_samples": [
+        0.13915482299853466,
+        0.13639391199831152,
+        0.1411273080011597
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 15.69910202776631,
+      "ssim": 0.23129519369468857,
+      "median_seconds": 0.14311527599784313,
+      "p95_seconds": 0.2026559810998151,
+      "duration_samples": [
+        0.14311527599784313,
+        0.20927161500003422,
+        0.13398745499944198
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 16.731361071371918,
+      "ssim": 0.2218715781853152,
+      "median_seconds": 0.16181084199706675,
+      "p95_seconds": 0.1799168412999279,
+      "duration_samples": [
+        0.16181084199706675,
+        0.14160108899886836,
+        0.18192861900024582
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 14.438008813644736,
+      "ssim": 0.21258600865219815,
+      "median_seconds": 0.19158597999921767,
+      "p95_seconds": 0.1928631052007404,
+      "duration_samples": [
+        0.18145500800164882,
+        0.19158597999921767,
+        0.19300500800090958
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 13.77130964899102,
+      "ssim": 0.11987821174191082,
+      "median_seconds": 0.19219886800055974,
+      "p95_seconds": 0.19855656970103155,
+      "duration_samples": [
+        0.19926298100108397,
+        0.19219886800055974,
+        0.19062467099865898
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 13.80037606870247,
+      "ssim": 0.11902797163737723,
+      "median_seconds": 0.17024203300024965,
+      "p95_seconds": 0.21741098080019583,
+      "duration_samples": [
+        0.22265197500018985,
+        0.17024203300024965,
+        0.12631263300136197
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 20.25574083961194,
+      "ssim": 0.8348529751721094,
+      "median_seconds": 0.15827398800320225,
+      "p95_seconds": 0.17471558489924063,
+      "duration_samples": [
+        0.12948450399926514,
+        0.17654242899880046,
+        0.15827398800320225
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 19.446876497257808,
+      "ssim": 0.7879204338686553,
+      "median_seconds": 0.1750342190025549,
+      "p95_seconds": 0.18569147359921773,
+      "duration_samples": [
+        0.13352250100069796,
+        0.1750342190025549,
+        0.18687561299884692
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 18.632452182231937,
+      "ssim": 0.7967484208782846,
+      "median_seconds": 0.18655368699910468,
+      "p95_seconds": 0.18836567049838776,
+      "duration_samples": [
+        0.18856700199830811,
+        0.18655368699910468,
+        0.18592173300203285
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 18.733959046292867,
+      "ssim": 0.7658050236336055,
+      "median_seconds": 0.18717346300036297,
+      "p95_seconds": 0.19327468719930038,
+      "duration_samples": [
+        0.19395260099918232,
+        0.18649595200258773,
+        0.18717346300036297
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 18.20912857717609,
+      "ssim": 0.7316957118578861,
+      "median_seconds": 0.18514068299919018,
+      "p95_seconds": 0.18774174779828173,
+      "duration_samples": [
+        0.18309375499666203,
+        0.18803075499818078,
+        0.18514068299919018
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 17.29715350305224,
+      "ssim": 0.748578710640459,
+      "median_seconds": 0.19081242399988696,
+      "p95_seconds": 0.19215290199936136,
+      "duration_samples": [
+        0.18355200400037575,
+        0.19081242399988696,
+        0.19230184399930295
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 17.172178476309647,
+      "ssim": 0.6987231197798461,
+      "median_seconds": 0.19016668900076183,
+      "p95_seconds": 0.20762302240036662,
+      "duration_samples": [
+        0.19016668900076183,
+        0.2095626150003227,
+        0.13500880299761775
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 17.321439725039053,
+      "ssim": 0.6858547842044479,
+      "median_seconds": 0.16691600299964193,
+      "p95_seconds": 0.19585401889926288,
+      "duration_samples": [
+        0.16691600299964193,
+        0.19906935399922077,
+        0.1634594189999916
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-qdq-trunk",
+      "psnr": 16.178255915584092,
+      "ssim": 0.6598991074843774,
+      "median_seconds": 0.16934798000147566,
+      "p95_seconds": 0.19348633010231425,
+      "duration_samples": [
+        0.15417414300100063,
+        0.19616836900240742,
+        0.16934798000147566
+      ]
+    }
+  ]
+}

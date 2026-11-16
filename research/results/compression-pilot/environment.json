@@ -1,0 +1,15 @@
+{
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "packages": {
+    "numpy": "2.5.4",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "opencv-python-headless": "4.14.0.94",
+    "scikit-image": "0.26.0"
+  },
+  "logical_cpus": 3,
+  "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+  "cpu_quota": "200000 100000",
+  "memory_limit": "8589934592"
+}

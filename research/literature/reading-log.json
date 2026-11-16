@@ -1,0 +1,112 @@
+{
+  "review_date": "2026-11-16",
+  "scope": "Focused novelty and baseline audit. Not an exhaustive systematic review.",
+  "search_topics": [
+    "CPU efficient video frame interpolation",
+    "lightweight interpolation distillation",
+    "video quantization progressive multi-teacher distillation",
+    "motion adaptive inference",
+    "temporal gap and quantization",
+    "structured pruning video frame interpolation"
+  ],
+  "screening_note": "Unrelated LLM/video-recognition/3DGS pruning hits excluded as task-mismatched competitors.",
+  "entries": [
+    {
+      "method": "IFRNet",
+      "reported_venue": "CVPR 2022",
+      "paper": "https://arxiv.org/abs/2205.14620",
+      "code": "https://github.com/ltkong218/IFRNet",
+      "review_depth": "abstract and official implementation documentation",
+      "execution": "not executed"
+    },
+    {
+      "method": "AMT",
+      "reported_venue": "CVPR 2023",
+      "paper": "https://arxiv.org/abs/2304.09790",
+      "code": "https://github.com/MCG-NKU/AMT",
+      "review_depth": "abstract and official method/README overview",
+      "execution": "not executed"
+    },
+    {
+      "method": "Motion-Aware Dynamic Architecture",
+      "reported_venue": "ICCV 2021",
+      "paper": "https://openaccess.thecvf.com/content/ICCV2021/papers/Choi_Motion-Aware_Dynamic_Architecture_for_Efficient_Frame_Interpolation_ICCV_2021_paper.pdf",
+      "code": null,
+      "review_depth": "indexed primary excerpts; direct PDF access 403",
+      "execution": "not executed"
+    },
+    {
+      "method": "PMQ-VE",
+      "reported_venue": "NeurIPS 2025",
+      "paper": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/bcfdaf04b54a69f47623c973c864ee8d-Abstract-Conference.html",
+      "code": "https://github.com/xiaoBIGfeng/PMQ-VE",
+      "review_depth": "proceedings, PDF method/experiments, repository API listing LICENSE + README only",
+      "execution": "not executed; code/weights release pending in checked repository"
+    },
+    {
+      "method": "ANVIL",
+      "reported_venue": "2026 preprint; submitted to TCSVT",
+      "paper": "https://arxiv.org/abs/2603.26835v3",
+      "code": "https://github.com/NihilDigit/anvil",
+      "review_depth": "abstract and relevant HTML deployment/quantization sections",
+      "execution": "not executed; NPU/codec side-input protocol differs"
+    },
+    {
+      "method": "SpeedVFI",
+      "reported_venue": "ICML 2026",
+      "paper": "https://proceedings.mlr.press/v306/ding26t.html",
+      "code": null,
+      "review_depth": "official proceedings abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "RDVFI",
+      "reported_venue": "ICLR 2026",
+      "paper": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/1a1f7aeb1f9bd9052cfd11181430b806-Abstract-Conference.html",
+      "code": null,
+      "review_depth": "official proceedings abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "Hierarchical Flow Diffusion",
+      "reported_venue": "CVPR 2025",
+      "paper": "https://openaccess.thecvf.com/content/CVPR2025/html/Hai_Hierarchical_Flow_Diffusion_for_Efficient_Frame_Interpolation_CVPR_2025_paper.html",
+      "code": null,
+      "review_depth": "primary indexed abstract; direct page access 403",
+      "execution": "not executed"
+    },
+    {
+      "method": "AceVFI",
+      "reported_venue": "TCSVT 2026",
+      "paper": "https://arxiv.org/abs/2506.01061v3",
+      "code": "https://github.com/CMLab-Korea/Awesome-Video-Frame-Interpolation",
+      "review_depth": "abstract, journal metadata, bibliography",
+      "execution": "survey; not all cited works reviewed"
+    },
+    {
+      "method": "RIFE",
+      "reported_venue": "ECCV 2022 and practical checkpoints",
+      "paper": "https://arxiv.org/abs/2011.06294",
+      "code": "https://github.com/hzwer/Practical-RIFE",
+      "review_depth": "existing project implementation plus practical export/operator inspection",
+      "execution": "4.9/4.26 executed on CPU; not original-paper reproduction"
+    },
+    {
+      "method": "ORT quantization",
+      "reported_venue": "runtime documentation",
+      "paper": "https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html",
+      "code": null,
+      "review_depth": "documentation and installed quantizer/calibration source behavior",
+      "execution": "dynamic U8, all-Conv QDQ and trunk QDQ executed"
+    },
+    {
+      "method": "PRISM research context",
+      "reported_venue": "lab website",
+      "paper": "https://prism.korea.ac.kr/research.html",
+      "code": null,
+      "review_depth": "official lab research page; prior branch documentation contains linked inverse-problem references",
+      "execution": "context only; no lab method claimed reproduced"
+    }
+  ],
+  "pmq_pdf_sha256": "6aef7ce8f3ce0229cf380771f5255726a9af4f777f5c995024581d26749baa39"
+}

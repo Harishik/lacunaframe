@@ -1,0 +1,319 @@
+{
+  "status": "complete",
+  "variant": "rife49-dynamic-u8",
+  "provider": [
+    "CPUExecutionProvider"
+  ],
+  "load_seconds": 0.4146549010001763,
+  "model_sha256": "b395e769410f07d1112b879b2953ea7aa6c42be95ce802ce84317e57fd8cd1e1",
+  "model_file_bytes": 6210360,
+  "process_peak_rss_mib": 227.78515625,
+  "rows": [
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 19.191355211700518,
+      "ssim": 0.44671009880065643,
+      "median_seconds": 0.11123775300075067,
+      "p95_seconds": 0.13709266949699667,
+      "duration_samples": [
+        0.13996543799657957,
+        0.11004214599961415,
+        0.11123775300075067
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 22.997508418266225,
+      "ssim": 0.7297918047835914,
+      "median_seconds": 0.11588795599891455,
+      "p95_seconds": 0.15506734549853718,
+      "duration_samples": [
+        0.11588795599891455,
+        0.15942061099849525,
+        0.11414964700088603
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 18.70882761865162,
+      "ssim": 0.36821184281221325,
+      "median_seconds": 0.1173625549999997,
+      "p95_seconds": 0.14611991480087455,
+      "duration_samples": [
+        0.14931517700097174,
+        0.11072069000147167,
+        0.1173625549999997
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 16.646143888581612,
+      "ssim": 0.31352233898060505,
+      "median_seconds": 0.12266315799934091,
+      "p95_seconds": 0.14569040770111313,
+      "duration_samples": [
+        0.12266315799934091,
+        0.14824899100131006,
+        0.11453977400014992
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 15.688519631633973,
+      "ssim": 0.23523948308083154,
+      "median_seconds": 0.11428843300018343,
+      "p95_seconds": 0.17972643130087818,
+      "duration_samples": [
+        0.11428843300018343,
+        0.11201516199798789,
+        0.18699732000095537
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 16.718858536685108,
+      "ssim": 0.22081939817720442,
+      "median_seconds": 0.20289897600014228,
+      "p95_seconds": 0.20866110089955328,
+      "duration_samples": [
+        0.20289897600014228,
+        0.20930133699948783,
+        0.20118993000141927
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 14.379535793383415,
+      "ssim": 0.20670278655996513,
+      "median_seconds": 0.20161440700030653,
+      "p95_seconds": 0.20286924190222635,
+      "duration_samples": [
+        0.20161440700030653,
+        0.20300866800243966,
+        0.19882846000109566
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 13.684851651031774,
+      "ssim": 0.11873134240649098,
+      "median_seconds": 0.2055491430000984,
+      "p95_seconds": 0.20762695589983196,
+      "duration_samples": [
+        0.20785782399980235,
+        0.2013312989984115,
+        0.2055491430000984
+      ]
+    },
+    {
+      "scene": "bmx-trees",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 13.840494963242085,
+      "ssim": 0.11742721812598282,
+      "median_seconds": 0.2015844029992877,
+      "p95_seconds": 0.20427618690118834,
+      "duration_samples": [
+        0.2015844029992877,
+        0.20457527400139952,
+        0.16615537400139146
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 2,
+      "target": 1,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 20.102837198323712,
+      "ssim": 0.8328854438813313,
+      "median_seconds": 0.11264009599835845,
+      "p95_seconds": 0.12928572470009386,
+      "duration_samples": [
+        0.11061117699864553,
+        0.11264009599835845,
+        0.13113523900028667
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 14,
+      "target": 13,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 19.37255360857919,
+      "ssim": 0.7838840519810782,
+      "median_seconds": 0.11284947600142914,
+      "p95_seconds": 0.1136248737002461,
+      "duration_samples": [
+        0.11284947600142914,
+        0.11371102900011465,
+        0.10896993200003635
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 26,
+      "target": 25,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 18.443311216068313,
+      "ssim": 0.7949184075375193,
+      "median_seconds": 0.13715491599941743,
+      "p95_seconds": 0.1417679334997956,
+      "duration_samples": [
+        0.12940589299978456,
+        0.14228049099983764,
+        0.13715491599941743
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 4,
+      "target": 2,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 18.72223690577582,
+      "ssim": 0.7676393170799806,
+      "median_seconds": 0.11403204299858771,
+      "p95_seconds": 0.11437417080087471,
+      "duration_samples": [
+        0.11441218500112882,
+        0.11378244400111726,
+        0.11403204299858771
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 16,
+      "target": 14,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 18.31848010361834,
+      "ssim": 0.7333785225990218,
+      "median_seconds": 0.11074392299997271,
+      "p95_seconds": 0.11456763599962869,
+      "duration_samples": [
+        0.11499249299959047,
+        0.11074392299997271,
+        0.1093369750014972
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 28,
+      "target": 26,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 17.32885190422695,
+      "ssim": 0.7494920641919544,
+      "median_seconds": 0.10904027699871222,
+      "p95_seconds": 0.10941652830151724,
+      "duration_samples": [
+        0.10945833400182892,
+        0.10725721500057261,
+        0.10904027699871222
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 0,
+      "right": 8,
+      "target": 4,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 17.15282430274788,
+      "ssim": 0.6992295916600151,
+      "median_seconds": 0.1113646300000255,
+      "p95_seconds": 0.12305160610303574,
+      "duration_samples": [
+        0.1113646300000255,
+        0.12435015900337021,
+        0.10829232499963837
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 12,
+      "right": 20,
+      "target": 16,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 17.27357241330076,
+      "ssim": 0.6838269014514476,
+      "median_seconds": 0.20202151500052423,
+      "p95_seconds": 0.22243909140051982,
+      "duration_samples": [
+        0.11021400800018455,
+        0.20202151500052423,
+        0.22470771100051934
+      ]
+    },
+    {
+      "scene": "breakdance",
+      "left": 24,
+      "right": 32,
+      "target": 28,
+      "t": 0.5,
+      "variant": "rife49-dynamic-u8",
+      "psnr": 16.109283699053954,
+      "ssim": 0.6591430083669864,
+      "median_seconds": 0.2062762739988102,
+      "p95_seconds": 0.2163892220985872,
+      "duration_samples": [
+        0.21751288299856242,
+        0.20497517500189133,
+        0.2062762739988102
+      ]
+    }
+  ]
+}

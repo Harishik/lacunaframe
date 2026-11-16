@@ -16,6 +16,10 @@ Real footage. Actual pixel restoration. Evidence you can inspect.
 
 </div>
 
+## Research track: CPU compression
+
+The [CPU efficiency research branch](research/README.md) now includes six actual deployment configurations, three quantized model artifacts, scene-disjoint calibration, fresh-process measurements and CPU operator traces. A smaller checkpoint did not imply a reliable speedup. This is a feasibility study, **not a trained/distilled/pruned model or a claim of top-tier publication novelty**. [Research program and remaining evidence gates](research/RESEARCH_PROGRAM.md).
+
 ## First, make something disappear.
 
 Choose a recorded clip or upload your own. Remove frames, hide an interval, mask an object, add noise or blur. Then ask several methods to reconstruct the same damaged observations.
