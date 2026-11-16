@@ -1,0 +1,2637 @@
+{
+  "version": "0.2.0",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.5.4",
+    "opencv": "4.14.0",
+    "skimage": "0.26.0"
+  },
+  "source": {
+    "id": "0c8cd368a35846029bebde4dc4f077b6",
+    "name": "Breakdance \u00b7 nonrigid motion",
+    "file": "video/breakdance.mp4",
+    "url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4/resolve/872ccd3c5d4d9c98016798e7af0342b33ec6ab4d/breakdance_raw_24fps.mp4",
+    "sha256": "2b0734cde70c9d2e9261a32c1fb2246e67e8fd6a813660d334b54b1537fec26b",
+    "license": "CC BY-NC 4.0",
+    "attribution": "DAVIS: Perazzi et al., CVPR 2016; Pont-Tuset et al., 2017. MP4 conversion: emirkisa.",
+    "source_url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4",
+    "dataset_sequence": "breakdance",
+    "fps": 12.0,
+    "count": 42,
+    "width": 320,
+    "height": 180,
+    "synthetic": false,
+    "source_fps": 24.0,
+    "source_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      74,
+      76,
+      78,
+      80,
+      82
+    ],
+    "source_timestamps": [
+      0.0,
+      0.08333333333333333,
+      0.16666666666666666,
+      0.25,
+      0.3333333333333333,
+      0.4166666666666667,
+      0.5,
+      0.5833333333333334,
+      0.6666666666666666,
+      0.75,
+      0.8333333333333334,
+      0.9166666666666666,
+      1.0,
+      1.0833333333333333,
+      1.1666666666666667,
+      1.25,
+      1.3333333333333333,
+      1.4166666666666667,
+      1.5,
+      1.5833333333333333,
+      1.6666666666666667,
+      1.75,
+      1.8333333333333333,
+      1.9166666666666667,
+      2.0,
+      2.0833333333333335,
+      2.1666666666666665,
+      2.25,
+      2.3333333333333335,
+      2.4166666666666665,
+      2.5,
+      2.5833333333333335,
+      2.6666666666666665,
+      2.75,
+      2.8333333333333335,
+      2.9166666666666665,
+      3.0,
+      3.0833333333333335,
+      3.1666666666666665,
+      3.25,
+      3.3333333333333335,
+      3.4166666666666665
+    ],
+    "reference_sha256": "2b0734cde70c9d2e9261a32c1fb2246e67e8fd6a813660d334b54b1537fec26b",
+    "reference_note": "Decoded MP4 mirror, letterboxed and sampled every second frame; not camera RAW.",
+    "config": {
+      "source": "natural-breakdance",
+      "seed": 7,
+      "drop": 0.2,
+      "gap": 0,
+      "start": 0.4,
+      "occlusion": 0.0,
+      "mask_shape": "rectangle",
+      "noise": 0.0,
+      "blur": 0.0
+    },
+    "missing": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      false,
+      false
+    ],
+    "scenario": "a5576691f0a741da8e32f5ab909587a1"
+  },
+  "metric_notes": "PSNR from pooled MSE; Infinity string means exact match. SSIM is mean local RGB SSIM; masked SSIM includes neighborhoods outside mask. Temporal error = mean absolute error in consecutive-frame differences / 255. Missing corrupted frames use zero placeholders for metric penalty only.",
+  "corrupted": {
+    "psnr": 14.351950822431032,
+    "ssim": 0.8099128247749127,
+    "affected_psnr": 7.150357788371464,
+    "affected_ssim": 0.0019541482617070277,
+    "affected_frames_psnr": 7.150357788371464,
+    "affected_frames_ssim": 0.00204233006829148,
+    "temporal_error": 0.11313478731601041,
+    "frames": [
+      {
+        "frame": 0,
+        "time": 0.0,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 1,
+        "time": 0.08333333333333333,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 2,
+        "time": 0.16666666666666666,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 3,
+        "time": 0.25,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 4,
+        "time": 0.3333333333333333,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 5,
+        "time": 0.4166666666666667,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 6,
+        "time": 0.5,
+        "mse": 13421.892309027779,
+        "psnr": 6.85266610949,
+        "ssim": 0.0022052709923535384,
+        "affected_psnr": 6.85266610949,
+        "affected_ssim": 0.0021092552721454867
+      },
+      {
+        "frame": 7,
+        "time": 0.5833333333333334,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 8,
+        "time": 0.6666666666666666,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 9,
+        "time": 0.75,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 10,
+        "time": 0.8333333333333334,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 11,
+        "time": 0.9166666666666666,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 12,
+        "time": 1.0,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 13,
+        "time": 1.0833333333333333,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 14,
+        "time": 1.1666666666666667,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 15,
+        "time": 1.25,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 16,
+        "time": 1.3333333333333333,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 17,
+        "time": 1.4166666666666667,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 18,
+        "time": 1.5,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 19,
+        "time": 1.5833333333333333,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 20,
+        "time": 1.6666666666666667,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 21,
+        "time": 1.75,
+        "mse": 12192.593929398148,
+        "psnr": 7.269842508702754,
+        "ssim": 0.0017607384756051947,
+        "affected_psnr": 7.269842508702754,
+        "affected_ssim": 0.0016878308123107067
+      },
+      {
+        "frame": 22,
+        "time": 1.8333333333333333,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 23,
+        "time": 1.9166666666666667,
+        "mse": 12392.100943287038,
+        "psnr": 7.199354184364837,
+        "ssim": 0.0018963944945936736,
+        "affected_psnr": 7.199354184364837,
+        "affected_ssim": 0.0018156118704314088
+      },
+      {
+        "frame": 24,
+        "time": 2.0,
+        "mse": 12586.26474537037,
+        "psnr": 7.131834982074202,
+        "ssim": 0.002045487161767809,
+        "affected_psnr": 7.131834982074202,
+        "affected_ssim": 0.001957246361357897
+      },
+      {
+        "frame": 25,
+        "time": 2.0833333333333335,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 26,
+        "time": 2.1666666666666665,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 27,
+        "time": 2.25,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 28,
+        "time": 2.3333333333333335,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 29,
+        "time": 2.4166666666666665,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 30,
+        "time": 2.5,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 31,
+        "time": 2.5833333333333335,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 32,
+        "time": 2.6666666666666665,
+        "mse": 12280.304363425927,
+        "psnr": 7.2387123007918674,
+        "ssim": 0.00213258535323812,
+        "affected_psnr": 7.2387123007918674,
+        "affected_ssim": 0.0020399299052595707
+      },
+      {
+        "frame": 33,
+        "time": 2.75,
+        "mse": 12633.311221064814,
+        "psnr": 7.115631657707883,
+        "ssim": 0.002044071354368056,
+        "affected_psnr": 7.115631657707883,
+        "affected_ssim": 0.001955898028271621
+      },
+      {
+        "frame": 34,
+        "time": 2.8333333333333335,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 35,
+        "time": 2.9166666666666665,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 36,
+        "time": 3.0,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 37,
+        "time": 3.0833333333333335,
+        "mse": 12296.392766203704,
+        "psnr": 7.233026341030692,
+        "ssim": 0.002174420756893792,
+        "affected_psnr": 7.233026341030692,
+        "affected_ssim": 0.0020785719865924006
+      },
+      {
+        "frame": 38,
+        "time": 3.1666666666666665,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 39,
+        "time": 3.25,
+        "mse": 12458.725434027778,
+        "psnr": 7.17606745934957,
+        "ssim": 0.002079671957511656,
+        "affected_psnr": 7.17606745934957,
+        "affected_ssim": 0.001988841857287132
+      },
+      {
+        "frame": 40,
+        "time": 3.3333333333333335,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      },
+      {
+        "frame": 41,
+        "time": 3.4166666666666665,
+        "mse": 0.0,
+        "psnr": "Infinity",
+        "ssim": 1.0,
+        "affected_psnr": null,
+        "affected_ssim": null
+      }
+    ],
+    "media": "corrupted.mp4"
+  },
+  "methods": {
+    "hold": {
+      "psnr": 25.282852318042515,
+      "ssim": 0.96189588419352,
+      "affected_psnr": 18.08125928398295,
+      "affected_ssim": 0.8056538213496854,
+      "affected_frames_psnr": 18.08125928398295,
+      "affected_frames_ssim": 0.79995339201598,
+      "temporal_error": 0.017392943966204368,
+      "frames": [
+        {
+          "frame": 0,
+          "time": 0.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 1,
+          "time": 0.08333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 2,
+          "time": 0.16666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 3,
+          "time": 0.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 4,
+          "time": 0.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 5,
+          "time": 0.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 6,
+          "time": 0.5,
+          "mse": 1365.254537037037,
+          "psnr": 16.778667324031417,
+          "ssim": 0.773647926626405,
+          "affected_psnr": 16.778667324031417,
+          "affected_ssim": 0.7790191206339884
+        },
+        {
+          "frame": 7,
+          "time": 0.5833333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 8,
+          "time": 0.6666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 9,
+          "time": 0.75,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 10,
+          "time": 0.8333333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 11,
+          "time": 0.9166666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 12,
+          "time": 1.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 13,
+          "time": 1.0833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 14,
+          "time": 1.1666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 15,
+          "time": 1.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 16,
+          "time": 1.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 17,
+          "time": 1.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 18,
+          "time": 1.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 19,
+          "time": 1.5833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 20,
+          "time": 1.6666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 21,
+          "time": 1.75,
+          "mse": 901.0930787037037,
+          "psnr": 18.583107069814705,
+          "ssim": 0.8038676208430577,
+          "affected_psnr": 18.583107069814705,
+          "affected_ssim": 0.8096980533493023
+        },
+        {
+          "frame": 22,
+          "time": 1.8333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 23,
+          "time": 1.9166666666666667,
+          "mse": 913.8906423611111,
+          "psnr": 18.521861304082364,
+          "ssim": 0.814298269042986,
+          "affected_psnr": 18.521861304082364,
+          "affected_ssim": 0.8198259744924199
+        },
+        {
+          "frame": 24,
+          "time": 2.0,
+          "mse": 1359.4135243055555,
+          "psnr": 16.79728774623982,
+          "ssim": 0.7854478061585559,
+          "affected_psnr": 16.79728774623982,
+          "affected_ssim": 0.7922010393217964
+        },
+        {
+          "frame": 25,
+          "time": 2.0833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 26,
+          "time": 2.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 27,
+          "time": 2.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 28,
+          "time": 2.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 29,
+          "time": 2.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 30,
+          "time": 2.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 31,
+          "time": 2.5833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 32,
+          "time": 2.6666666666666665,
+          "mse": 921.2666030092593,
+          "psnr": 18.486950331022086,
+          "ssim": 0.797366887969981,
+          "affected_psnr": 18.486950331022086,
+          "affected_ssim": 0.8043510246136775
+        },
+        {
+          "frame": 33,
+          "time": 2.75,
+          "mse": 984.6963773148149,
+          "psnr": 18.19778020709256,
+          "ssim": 0.7806943949750123,
+          "affected_psnr": 18.19778020709256,
+          "affected_ssim": 0.7864239264921022
+        },
+        {
+          "frame": 34,
+          "time": 2.8333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 35,
+          "time": 2.9166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 36,
+          "time": 3.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 37,
+          "time": 3.0833333333333335,
+          "mse": 867.1012962962963,
+          "psnr": 18.75010525383877,
+          "ssim": 0.8160100269927173,
+          "affected_psnr": 18.75010525383877,
+          "affected_ssim": 0.8211221084829718
+        },
+        {
+          "frame": 38,
+          "time": 3.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 39,
+          "time": 3.25,
+          "mse": 779.0705150462964,
+          "psnr": 19.21503592656801,
+          "ssim": 0.8282942035191256,
+          "affected_psnr": 19.21503592656801,
+          "affected_ssim": 0.8325893234112255
+        },
+        {
+          "frame": 40,
+          "time": 3.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 41,
+          "time": 3.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        }
+      ],
+      "runtime_seconds": 0.006653997000057643,
+      "model_initialization_seconds": 1.3419999049801845e-06,
+      "process_peak_rss_mib": 566.28515625,
+      "model": null,
+      "inference_scale": 1.0,
+      "warnings": [
+        "No denoising or deblurring is implemented; those stimuli may remain in the result."
+      ],
+      "uncertainty": null,
+      "media": "hold.mp4",
+      "reliability_available": false
+    },
+    "linear": {
+      "psnr": 26.81695925714475,
+      "ssim": 0.9650827833881743,
+      "affected_psnr": 19.61536622308518,
+      "affected_ssim": 0.8219258996695739,
+      "affected_frames_psnr": 19.61536622308518,
+      "affected_frames_ssim": 0.8166846127879155,
+      "temporal_error": 0.014416847113732575,
+      "frames": [
+        {
+          "frame": 0,
+          "time": 0.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 1,
+          "time": 0.08333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 2,
+          "time": 0.16666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 3,
+          "time": 0.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 4,
+          "time": 0.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 5,
+          "time": 0.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 6,
+          "time": 0.5,
+          "mse": 732.3176099537037,
+          "psnr": 19.483808831781914,
+          "ssim": 0.815239921390556,
+          "affected_psnr": 19.483808831781914,
+          "affected_ssim": 0.8193593611026873
+        },
+        {
+          "frame": 7,
+          "time": 0.5833333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 8,
+          "time": 0.6666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 9,
+          "time": 0.75,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 10,
+          "time": 0.8333333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 11,
+          "time": 0.9166666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 12,
+          "time": 1.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 13,
+          "time": 1.0833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 14,
+          "time": 1.1666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 15,
+          "time": 1.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 16,
+          "time": 1.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 17,
+          "time": 1.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 18,
+          "time": 1.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 19,
+          "time": 1.5833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 20,
+          "time": 1.6666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 21,
+          "time": 1.75,
+          "mse": 679.6837268518518,
+          "psnr": 19.807734888021255,
+          "ssim": 0.8252880753642383,
+          "affected_psnr": 19.807734888021255,
+          "affected_ssim": 0.8308506349121654
+        },
+        {
+          "frame": 22,
+          "time": 1.8333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 23,
+          "time": 1.9166666666666667,
+          "mse": 690.7440393518518,
+          "psnr": 19.737632149272347,
+          "ssim": 0.8191901897150239,
+          "affected_psnr": 19.737632149272347,
+          "affected_ssim": 0.8246997755588796
+        },
+        {
+          "frame": 24,
+          "time": 2.0,
+          "mse": 1034.2088310185186,
+          "psnr": 17.984721190135286,
+          "ssim": 0.7942724691757372,
+          "affected_psnr": 17.984721190135286,
+          "affected_ssim": 0.8006466284873924
+        },
+        {
+          "frame": 25,
+          "time": 2.0833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 26,
+          "time": 2.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 27,
+          "time": 2.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 28,
+          "time": 2.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 29,
+          "time": 2.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 30,
+          "time": 2.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 31,
+          "time": 2.5833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 32,
+          "time": 2.6666666666666665,
+          "mse": 703.1863194444444,
+          "psnr": 19.660099479597346,
+          "ssim": 0.8046552142337878,
+          "affected_psnr": 19.660099479597346,
+          "affected_ssim": 0.8108779833547974
+        },
+        {
+          "frame": 33,
+          "time": 2.75,
+          "mse": 751.8632118055556,
+          "psnr": 19.369415252784975,
+          "ssim": 0.7914364144169621,
+          "affected_psnr": 19.369415252784975,
+          "affected_ssim": 0.7970694780909412
+        },
+        {
+          "frame": 34,
+          "time": 2.8333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 35,
+          "time": 2.9166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 36,
+          "time": 3.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 37,
+          "time": 3.0833333333333335,
+          "mse": 560.8802083333334,
+          "psnr": 20.642102454497135,
+          "ssim": 0.8401217774445849,
+          "affected_psnr": 20.642102454497135,
+          "affected_ssim": 0.8442455808778141
+        },
+        {
+          "frame": 38,
+          "time": 3.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 39,
+          "time": 3.25,
+          "mse": 530.8498032407407,
+          "psnr": 20.881087001457537,
+          "ssim": 0.8432728405624336,
+          "affected_psnr": 20.881087001457537,
+          "affected_ssim": 0.8476577549719132
+        },
+        {
+          "frame": 40,
+          "time": 3.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 41,
+          "time": 3.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        }
+      ],
+      "runtime_seconds": 0.00487731399994118,
+      "model_initialization_seconds": 2.6999987312592566e-07,
+      "process_peak_rss_mib": 566.28515625,
+      "model": null,
+      "inference_scale": 1.0,
+      "warnings": [
+        "No denoising or deblurring is implemented; those stimuli may remain in the result."
+      ],
+      "uncertainty": null,
+      "media": "linear.mp4",
+      "reliability_available": false
+    },
+    "flow": {
+      "psnr": 26.747624892940514,
+      "ssim": 0.9635501540216984,
+      "affected_psnr": 19.546031858880948,
+      "affected_ssim": 0.8138799044594804,
+      "affected_frames_psnr": 19.546031858880948,
+      "affected_frames_ssim": 0.8086383086139171,
+      "temporal_error": 0.015039230077758295,
+      "frames": [
+        {
+          "frame": 0,
+          "time": 0.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 1,
+          "time": 0.08333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 2,
+          "time": 0.16666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 3,
+          "time": 0.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 4,
+          "time": 0.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 5,
+          "time": 0.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 6,
+          "time": 0.5,
+          "mse": 755.8380381944445,
+          "psnr": 19.3465161649642,
+          "ssim": 0.8125255405970129,
+          "affected_psnr": 19.3465161649642,
+          "affected_ssim": 0.8173886874501199
+        },
+        {
+          "frame": 7,
+          "time": 0.5833333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 8,
+          "time": 0.6666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 9,
+          "time": 0.75,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 10,
+          "time": 0.8333333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 11,
+          "time": 0.9166666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 12,
+          "time": 1.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 13,
+          "time": 1.0833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 14,
+          "time": 1.1666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 15,
+          "time": 1.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 16,
+          "time": 1.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 17,
+          "time": 1.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 18,
+          "time": 1.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 19,
+          "time": 1.5833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 20,
+          "time": 1.6666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 21,
+          "time": 1.75,
+          "mse": 697.2803819444445,
+          "psnr": 19.696729144112037,
+          "ssim": 0.814958749530172,
+          "affected_psnr": 19.696729144112037,
+          "affected_ssim": 0.8206101112374131
+        },
+        {
+          "frame": 22,
+          "time": 1.8333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 23,
+          "time": 1.9166666666666667,
+          "mse": 712.3108449074074,
+          "psnr": 19.604108043548873,
+          "ssim": 0.8085562077972416,
+          "affected_psnr": 19.604108043548873,
+          "affected_ssim": 0.8136465836988638
+        },
+        {
+          "frame": 24,
+          "time": 2.0,
+          "mse": 1077.750023148148,
+          "psnr": 17.805623200141135,
+          "ssim": 0.7794365398644457,
+          "affected_psnr": 17.805623200141135,
+          "affected_ssim": 0.7858569841124713
+        },
+        {
+          "frame": 25,
+          "time": 2.0833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 26,
+          "time": 2.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 27,
+          "time": 2.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 28,
+          "time": 2.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 29,
+          "time": 2.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 30,
+          "time": 2.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 31,
+          "time": 2.5833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 32,
+          "time": 2.6666666666666665,
+          "mse": 709.5079803240741,
+          "psnr": 19.621230762383107,
+          "ssim": 0.7946565229642006,
+          "affected_psnr": 19.621230762383107,
+          "affected_ssim": 0.8006984899160093
+        },
+        {
+          "frame": 33,
+          "time": 2.75,
+          "mse": 725.7486747685185,
+          "psnr": 19.52294109393817,
+          "ssim": 0.7866926720433037,
+          "affected_psnr": 19.52294109393817,
+          "affected_ssim": 0.7919171172807686
+        },
+        {
+          "frame": 34,
+          "time": 2.8333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 35,
+          "time": 2.9166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 36,
+          "time": 3.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 37,
+          "time": 3.0833333333333335,
+          "mse": 556.4909027777778,
+          "psnr": 20.676222917581985,
+          "ssim": 0.833946265172946,
+          "affected_psnr": 20.676222917581985,
+          "affected_ssim": 0.8384141035141767
+        },
+        {
+          "frame": 38,
+          "time": 3.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 39,
+          "time": 3.25,
+          "mse": 540.2749247685185,
+          "psnr": 20.804655493297787,
+          "ssim": 0.8383339709420136,
+          "affected_psnr": 20.804655493297787,
+          "affected_ssim": 0.8425071584660219
+        },
+        {
+          "frame": 40,
+          "time": 3.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 41,
+          "time": 3.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        }
+      ],
+      "runtime_seconds": 0.3797579609999957,
+      "model_initialization_seconds": 2.100000529026147e-07,
+      "process_peak_rss_mib": 566.2890625,
+      "model": null,
+      "inference_scale": 1.0,
+      "warnings": [
+        "No denoising or deblurring is implemented; those stimuli may remain in the result."
+      ],
+      "uncertainty": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.08052083333333333,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.03680555555555556,
+        0.0,
+        0.03605902777777778,
+        0.03439236111111111,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.03619791666666667,
+        0.03730902777777778,
+        0.0,
+        0.0,
+        0.0,
+        0.06829861111111112,
+        0.0,
+        0.05314236111111111,
+        0.0,
+        0.0
+      ],
+      "media": "flow.mp4",
+      "reliability_available": true
+    },
+    "rife": {
+      "psnr": 26.39022209265989,
+      "ssim": 0.9648485423962049,
+      "affected_psnr": 19.18862905860032,
+      "affected_ssim": 0.8211363749037727,
+      "affected_frames_psnr": 19.18862905860032,
+      "affected_frames_ssim": 0.8154548475800756,
+      "temporal_error": 0.01534924256513807,
+      "frames": [
+        {
+          "frame": 0,
+          "time": 0.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 1,
+          "time": 0.08333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 2,
+          "time": 0.16666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 3,
+          "time": 0.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 4,
+          "time": 0.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 5,
+          "time": 0.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 6,
+          "time": 0.5,
+          "mse": 926.3479976851852,
+          "psnr": 18.463061937508115,
+          "ssim": 0.7922307983128388,
+          "affected_psnr": 18.463061937508115,
+          "affected_ssim": 0.7982364477536721
+        },
+        {
+          "frame": 7,
+          "time": 0.5833333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 8,
+          "time": 0.6666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 9,
+          "time": 0.75,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 10,
+          "time": 0.8333333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 11,
+          "time": 0.9166666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 12,
+          "time": 1.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 13,
+          "time": 1.0833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 14,
+          "time": 1.1666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 15,
+          "time": 1.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 16,
+          "time": 1.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 17,
+          "time": 1.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 18,
+          "time": 1.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 19,
+          "time": 1.5833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 20,
+          "time": 1.6666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 21,
+          "time": 1.75,
+          "mse": 676.1817303240741,
+          "psnr": 19.830169284319926,
+          "ssim": 0.8266065248445568,
+          "affected_psnr": 19.830169284319926,
+          "affected_ssim": 0.8320934092249758
+        },
+        {
+          "frame": 22,
+          "time": 1.8333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 23,
+          "time": 1.9166666666666667,
+          "mse": 763.0634664351852,
+          "psnr": 19.305196997461902,
+          "ssim": 0.8224483347469439,
+          "affected_psnr": 19.305196997461902,
+          "affected_ssim": 0.8280552264226472
+        },
+        {
+          "frame": 24,
+          "time": 2.0,
+          "mse": 1219.5365625,
+          "psnr": 17.268855355917054,
+          "ssim": 0.7881127861913958,
+          "affected_psnr": 17.268855355917054,
+          "affected_ssim": 0.7953451999368308
+        },
+        {
+          "frame": 25,
+          "time": 2.0833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 26,
+          "time": 2.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 27,
+          "time": 2.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 28,
+          "time": 2.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 29,
+          "time": 2.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 30,
+          "time": 2.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 31,
+          "time": 2.5833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 32,
+          "time": 2.6666666666666665,
+          "mse": 771.7464409722222,
+          "psnr": 19.256057255251655,
+          "ssim": 0.8073206102931146,
+          "affected_psnr": 19.256057255251655,
+          "affected_ssim": 0.8141628851155033
+        },
+        {
+          "frame": 33,
+          "time": 2.75,
+          "mse": 792.7609895833333,
+          "psnr": 19.139380897558933,
+          "ssim": 0.8009462348096984,
+          "affected_psnr": 19.139380897558933,
+          "affected_ssim": 0.806257338503579
+        },
+        {
+          "frame": 34,
+          "time": 2.8333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 35,
+          "time": 2.9166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 36,
+          "time": 3.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 37,
+          "time": 3.0833333333333335,
+          "mse": 513.8536400462963,
+          "psnr": 21.02240923529669,
+          "ssim": 0.845687721375663,
+          "affected_psnr": 21.02240923529669,
+          "affected_ssim": 0.8500647138789592
+        },
+        {
+          "frame": 38,
+          "time": 3.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 39,
+          "time": 3.25,
+          "mse": 607.0852604166666,
+          "psnr": 20.29830672217357,
+          "ssim": 0.8402857700663934,
+          "affected_psnr": 20.29830672217357,
+          "affected_ssim": 0.8448757783940126
+        },
+        {
+          "frame": 40,
+          "time": 3.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 41,
+          "time": 3.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        }
+      ],
+      "runtime_seconds": 1.8002776260000246,
+      "model_initialization_seconds": 3.6950000321667176e-06,
+      "process_peak_rss_mib": 566.2890625,
+      "model": {
+        "file": "models/rife49.onnx",
+        "name": "RIFE 4.9 \u00b7 ensemble \u00b7 FP32",
+        "url": "https://huggingface.co/yuvraj108c/rife-onnx/resolve/64de7265b6a06637c2f2c6a92ecd1972326499fe/rife49_ensemble_True_scale_1_sim.onnx",
+        "sha256": "76e4cef9ab42fa7dd4e8f6e4aba47462051e3faa969e4bca6479784fbab0ac6f",
+        "license": "MIT",
+        "attribution": "hzwer / Practical-RIFE; ONNX export yuvraj108c",
+        "available": true,
+        "provider": "CPUExecutionProvider",
+        "threads": 2,
+        "runtime": "1.31.1",
+        "optimization": "ORT_ENABLE_ALL",
+        "precision": "float32"
+      },
+      "inference_scale": 1.0,
+      "warnings": [
+        "No denoising or deblurring is implemented; those stimuli may remain in the result.",
+        "Pretrained RIFE estimates missing frames; it cannot verify hidden content. No calibrated confidence is available."
+      ],
+      "uncertainty": null,
+      "media": "rife.mp4",
+      "reliability_available": false
+    },
+    "rife_fast": {
+      "psnr": 25.65278733191363,
+      "ssim": 0.932291439528794,
+      "affected_psnr": 18.45119429785406,
+      "affected_ssim": 0.6483706179029011,
+      "affected_frames_psnr": 18.45119429785406,
+      "affected_frames_ssim": 0.6445300575261681,
+      "temporal_error": 0.023089158563154258,
+      "frames": [
+        {
+          "frame": 0,
+          "time": 0.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 1,
+          "time": 0.08333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 2,
+          "time": 0.16666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 3,
+          "time": 0.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 4,
+          "time": 0.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 5,
+          "time": 0.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 6,
+          "time": 0.5,
+          "mse": 926.81953125,
+          "psnr": 18.46085183586913,
+          "ssim": 0.6333537936490693,
+          "affected_psnr": 18.46085183586913,
+          "affected_ssim": 0.6368737541233721
+        },
+        {
+          "frame": 7,
+          "time": 0.5833333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 8,
+          "time": 0.6666666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 9,
+          "time": 0.75,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 10,
+          "time": 0.8333333333333334,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 11,
+          "time": 0.9166666666666666,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 12,
+          "time": 1.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 13,
+          "time": 1.0833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 14,
+          "time": 1.1666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 15,
+          "time": 1.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 16,
+          "time": 1.3333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 17,
+          "time": 1.4166666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 18,
+          "time": 1.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 19,
+          "time": 1.5833333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 20,
+          "time": 1.6666666666666667,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 21,
+          "time": 1.75,
+          "mse": 890.0491608796297,
+          "psnr": 18.63666365785798,
+          "ssim": 0.6448004783299984,
+          "affected_psnr": 18.63666365785798,
+          "affected_ssim": 0.6489796884941418
+        },
+        {
+          "frame": 22,
+          "time": 1.8333333333333333,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 23,
+          "time": 1.9166666666666667,
+          "mse": 912.7547453703704,
+          "psnr": 18.527262613630345,
+          "ssim": 0.6533140348289829,
+          "affected_psnr": 18.527262613630345,
+          "affected_ssim": 0.6570272257458452
+        },
+        {
+          "frame": 24,
+          "time": 2.0,
+          "mse": 1333.0614351851852,
+          "psnr": 16.882301961899067,
+          "ssim": 0.6192089123953854,
+          "affected_psnr": 16.882301961899067,
+          "affected_ssim": 0.624326898813575
+        },
+        {
+          "frame": 25,
+          "time": 2.0833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 26,
+          "time": 2.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 27,
+          "time": 2.25,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 28,
+          "time": 2.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 29,
+          "time": 2.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 30,
+          "time": 2.5,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 31,
+          "time": 2.5833333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 32,
+          "time": 2.6666666666666665,
+          "mse": 905.4685648148148,
+          "psnr": 18.562069833734835,
+          "ssim": 0.6439839090159952,
+          "affected_psnr": 18.562069833734835,
+          "affected_ssim": 0.6484066985029935
+        },
+        {
+          "frame": 33,
+          "time": 2.75,
+          "mse": 921.3291724537037,
+          "psnr": 18.486655382289108,
+          "ssim": 0.6377040909590374,
+          "affected_psnr": 18.486655382289108,
+          "affected_ssim": 0.6412662598177508
+        },
+        {
+          "frame": 34,
+          "time": 2.8333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 35,
+          "time": 2.9166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 36,
+          "time": 3.0,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 37,
+          "time": 3.0833333333333335,
+          "mse": 768.5590162037037,
+          "psnr": 19.274031390939154,
+          "ssim": 0.6614346132011694,
+          "affected_psnr": 19.274031390939154,
+          "affected_ssim": 0.6642847839796905
+        },
+        {
+          "frame": 38,
+          "time": 3.1666666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 39,
+          "time": 3.25,
+          "mse": 773.0209432870371,
+          "psnr": 19.24889100544954,
+          "ssim": 0.6624406278297066,
+          "affected_psnr": 19.24889100544954,
+          "affected_ssim": 0.6657996337458402
+        },
+        {
+          "frame": 40,
+          "time": 3.3333333333333335,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        },
+        {
+          "frame": 41,
+          "time": 3.4166666666666665,
+          "mse": 0.0,
+          "psnr": "Infinity",
+          "ssim": 1.0,
+          "affected_psnr": null,
+          "affected_ssim": null
+        }
+      ],
+      "runtime_seconds": 0.5917059149999204,
+      "model_initialization_seconds": 1.9330000213813037e-06,
+      "process_peak_rss_mib": 566.2890625,
+      "model": {
+        "file": "models/rife49.onnx",
+        "name": "RIFE 4.9 \u00b7 ensemble \u00b7 FP32",
+        "url": "https://huggingface.co/yuvraj108c/rife-onnx/resolve/64de7265b6a06637c2f2c6a92ecd1972326499fe/rife49_ensemble_True_scale_1_sim.onnx",
+        "sha256": "76e4cef9ab42fa7dd4e8f6e4aba47462051e3faa969e4bca6479784fbab0ac6f",
+        "license": "MIT",
+        "attribution": "hzwer / Practical-RIFE; ONNX export yuvraj108c",
+        "available": true,
+        "provider": "CPUExecutionProvider",
+        "threads": 2,
+        "runtime": "1.31.1",
+        "optimization": "ORT_ENABLE_ALL",
+        "precision": "float32"
+      },
+      "inference_scale": 0.5,
+      "warnings": [
+        "No denoising or deblurring is implemented; those stimuli may remain in the result.",
+        "Pretrained RIFE estimates missing frames; it cannot verify hidden content. No calibrated confidence is available.",
+        "RIFE Fast runs at half spatial resolution then upsamples; fine detail may be lost."
+      ],
+      "uncertainty": null,
+      "media": "rife_fast.mp4",
+      "reliability_available": false
+    }
+  }
+}

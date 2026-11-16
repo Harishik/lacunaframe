@@ -1,0 +1,202 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 805B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 148B done
+#3 DONE 0.0s
+
+#4 [stage-0 1/6] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#4 DONE 0.0s
+
+#5 [stage-0 2/6] WORKDIR /app
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 2.65kB done
+#6 DONE 0.0s
+
+#7 [stage-0 3/6] COPY backend backend
+#7 DONE 1.6s
+
+#8 [stage-0 4/6] COPY assets assets
+#8 DONE 1.3s
+
+#9 [stage-0 5/6] COPY public/reports/natural-study.json examples/natural-v02/summary.json
+#9 DONE 1.7s
+
+#10 [stage-0 6/6] RUN --mount=type=secret,id=pip_ca,target=/run/secrets/pip_ca     useradd --create-home researcher &&     if [ -f /run/secrets/pip_ca ]; then       PIP_CERT=/run/secrets/pip_ca pip install --no-cache-dir -r backend/requirements-lock.txt;     else pip install --no-cache-dir -r backend/requirements-lock.txt; fi
+#10 2.994 Collecting annotated-doc==0.0.6 (from -r backend/requirements-lock.txt (line 1))
+#10 3.164   Downloading annotated_doc-0.0.6-py3-none-any.whl.metadata (6.5 kB)
+#10 3.353 Collecting annotated-types==0.8.0 (from -r backend/requirements-lock.txt (line 2))
+#10 3.549   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#10 3.609 Collecting anyio==4.16.0 (from -r backend/requirements-lock.txt (line 3))
+#10 3.777   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+#10 3.955 Collecting certifi==2026.10.23 (from -r backend/requirements-lock.txt (line 4))
+#10 4.249   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+#10 4.462 Collecting click==8.5.1 (from -r backend/requirements-lock.txt (line 5))
+#10 4.555   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+#10 4.777 Collecting contourpy==1.4.0 (from -r backend/requirements-lock.txt (line 6))
+#10 4.816   Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+#10 4.912 Collecting cycler==0.12.1 (from -r backend/requirements-lock.txt (line 7))
+#10 4.960   Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+#10 5.088 Collecting fastapi==0.162.4 (from -r backend/requirements-lock.txt (line 8))
+#10 5.126   Downloading fastapi-0.162.4-py3-none-any.whl.metadata (27 kB)
+#10 5.175 Collecting flatbuffers==25.12.19 (from -r backend/requirements-lock.txt (line 9))
+#10 5.211   Downloading flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
+#10 5.475 Collecting fonttools==4.68.0 (from -r backend/requirements-lock.txt (line 10))
+#10 5.520   Downloading fonttools-4.68.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (139 kB)
+#10 5.627 Collecting h11==0.16.0 (from -r backend/requirements-lock.txt (line 11))
+#10 5.670   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#10 5.764 Collecting httpcore==1.0.9 (from -r backend/requirements-lock.txt (line 12))
+#10 5.831   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+#10 5.885 Collecting httpx==0.28.1 (from -r backend/requirements-lock.txt (line 13))
+#10 5.935   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+#10 6.002 Collecting idna==3.20 (from -r backend/requirements-lock.txt (line 14))
+#10 6.045   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#10 6.119 Collecting ImageIO==2.38.1 (from -r backend/requirements-lock.txt (line 15))
+#10 6.162   Downloading imageio-2.38.1-py3-none-any.whl.metadata (9.7 kB)
+#10 6.259 Collecting imageio-ffmpeg==0.8.1 (from -r backend/requirements-lock.txt (line 16))
+#10 6.308   Downloading imageio_ffmpeg-0.8.1-py3-none-manylinux_2_28_x86_64.whl.metadata (1.5 kB)
+#10 6.393 Collecting iniconfig==2.3.1 (from -r backend/requirements-lock.txt (line 17))
+#10 6.455   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+#10 6.616 Collecting kiwisolver==1.5.1 (from -r backend/requirements-lock.txt (line 18))
+#10 6.660   Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+#10 6.719 Collecting lazy-loader==0.6 (from -r backend/requirements-lock.txt (line 19))
+#10 6.776   Downloading lazy_loader-0.6-py3-none-any.whl.metadata (6.0 kB)
+#10 7.063 Collecting matplotlib==3.11.2 (from -r backend/requirements-lock.txt (line 20))
+#10 7.106   Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)
+#10 7.221 Collecting ml_dtypes==0.6.0 (from -r backend/requirements-lock.txt (line 21))
+#10 7.274   Downloading ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+#10 7.360 Collecting networkx==3.7 (from -r backend/requirements-lock.txt (line 22))
+#10 7.422   Downloading networkx-3.7-py3-none-any.whl.metadata (6.7 kB)
+#10 7.778 Collecting numpy==2.5.4 (from -r backend/requirements-lock.txt (line 23))
+#10 7.841   Downloading numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+#10 8.014 Collecting onnx==1.23.2 (from -r backend/requirements-lock.txt (line 24))
+#10 8.056   Downloading onnx-1.23.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.7 kB)
+#10 8.189 Collecting onnxruntime==1.31.1 (from -r backend/requirements-lock.txt (line 25))
+#10 8.233   Downloading onnxruntime-1.31.1-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (5.8 kB)
+#10 8.373 Collecting opencv-python-headless==4.14.0.94 (from -r backend/requirements-lock.txt (line 26))
+#10 8.425   Downloading opencv_python_headless-4.14.0.94-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+#10 8.483 Collecting opentelemetry-api==1.45.2 (from -r backend/requirements-lock.txt (line 27))
+#10 8.542   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+#10 8.613 Collecting packaging==26.3 (from -r backend/requirements-lock.txt (line 28))
+#10 8.661   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+#10 8.972 Collecting pillow==13.0.0 (from -r backend/requirements-lock.txt (line 29))
+#10 9.010   Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+#10 9.076 Collecting pluggy==1.7.0 (from -r backend/requirements-lock.txt (line 30))
+#10 9.161   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+#10 9.599 Collecting protobuf==7.36.2 (from -r backend/requirements-lock.txt (line 31))
+#10 9.654   Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+#10 9.794 Collecting psutil==7.2.2 (from -r backend/requirements-lock.txt (line 32))
+#10 9.846   Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+#10 10.15 Collecting pydantic==2.14.3 (from -r backend/requirements-lock.txt (line 33))
+#10 10.22   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+#10 10.98 Collecting pydantic_core==2.50.4 (from -r backend/requirements-lock.txt (line 34))
+#10 11.03   Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+#10 11.17 Collecting Pygments==2.21.0 (from -r backend/requirements-lock.txt (line 35))
+#10 11.24   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+#10 11.28 Collecting pyparsing==3.3.3 (from -r backend/requirements-lock.txt (line 36))
+#10 11.33   Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+#10 11.43 Collecting pytest==9.2.0 (from -r backend/requirements-lock.txt (line 37))
+#10 11.49   Downloading pytest-9.2.0-py3-none-any.whl.metadata (7.9 kB)
+#10 11.56 Collecting python-dateutil==4.0.0 (from -r backend/requirements-lock.txt (line 38))
+#10 11.60   Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+#10 11.65 Collecting python-multipart==0.0.33 (from -r backend/requirements-lock.txt (line 39))
+#10 11.69   Downloading python_multipart-0.0.33-py3-none-any.whl.metadata (6.3 kB)
+#10 11.85 Collecting scikit-image==0.26.0 (from -r backend/requirements-lock.txt (line 40))
+#10 11.90   Downloading scikit_image-0.26.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (15 kB)
+#10 12.09 Collecting scipy==1.18.1 (from -r backend/requirements-lock.txt (line 41))
+#10 12.15   Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+#10 12.27 Collecting starlette==1.10.0 (from -r backend/requirements-lock.txt (line 42))
+#10 12.33   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#10 12.47 Collecting tifffile==2026.11.8 (from -r backend/requirements-lock.txt (line 43))
+#10 12.52   Downloading tifffile-2026.11.8-py3-none-any.whl.metadata (35 kB)
+#10 12.68 Collecting typing-inspection==0.4.5 (from -r backend/requirements-lock.txt (line 44))
+#10 12.73   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#10 12.86 Collecting typing_extensions==4.16.0 (from -r backend/requirements-lock.txt (line 45))
+#10 12.91   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#10 12.96 Collecting tzdata==2026.6 (from -r backend/requirements-lock.txt (line 46))
+#10 13.01   Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+#10 13.15 Collecting uvicorn==0.54.0 (from -r backend/requirements-lock.txt (line 47))
+#10 13.29   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#10 13.80 Downloading annotated_doc-0.0.6-py3-none-any.whl (5.3 kB)
+#10 13.84 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#10 13.89 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+#10 14.05 Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+#10 14.10 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+#10 14.17 Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)
+#10 14.24 Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+#10 14.31 Downloading fastapi-0.162.4-py3-none-any.whl (151 kB)
+#10 14.38 Downloading flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+#10 14.46 Downloading fonttools-4.68.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+#10 14.65    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 29.7 MB/s eta 0:00:00
+#10 14.70 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#10 14.75 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+#10 14.79 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+#10 14.84 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#10 14.91 Downloading imageio-2.38.1-py3-none-any.whl (328 kB)
+#10 14.97 Downloading imageio_ffmpeg-0.8.1-py3-none-manylinux_2_28_x86_64.whl (68.0 MB)
+#10 18.88    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.0/68.0 MB 17.4 MB/s eta 0:00:00
+#10 18.95 Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+#10 19.05 Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+#10 19.08    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 50.1 MB/s eta 0:00:00
+#10 19.15 Downloading lazy_loader-0.6-py3-none-any.whl (8.8 kB)
+#10 19.27 Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+#10 19.67    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 35.2 MB/s eta 0:00:00
+#10 19.78 Downloading ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (409 kB)
+#10 19.85 Downloading networkx-3.7-py3-none-any.whl (2.1 MB)
+#10 19.91    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 35.2 MB/s eta 0:00:00
+#10 19.97 Downloading numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+#10 20.76    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 21.0 MB/s eta 0:00:00
+#10 20.85 Downloading onnx-1.23.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (8.9 MB)
+#10 21.37    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.9/8.9 MB 17.1 MB/s eta 0:00:00
+#10 21.49 Downloading onnxruntime-1.31.1-cp312-cp312-manylinux_2_28_x86_64.whl (23.8 MB)
+#10 22.44    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.8/23.8 MB 25.2 MB/s eta 0:00:00
+#10 22.49 Downloading opencv_python_headless-4.14.0.94-cp37-abi3-manylinux_2_28_x86_64.whl (62.0 MB)
+#10 25.68    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 MB 19.4 MB/s eta 0:00:00
+#10 25.75 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+#10 25.85 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+#10 25.92 Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+#10 26.19    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 28.1 MB/s eta 0:00:00
+#10 26.25 Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+#10 26.28 Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+#10 26.35 Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+#10 26.39 Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+#10 26.46 Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+#10 26.56    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 21.3 MB/s eta 0:00:00
+#10 26.60 Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+#10 26.66    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 22.6 MB/s eta 0:00:00
+#10 26.70 Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+#10 26.75 Downloading pytest-9.2.0-py3-none-any.whl (411 kB)
+#10 26.80 Downloading python_dateutil-4.0.0-py3-none-any.whl (92 kB)
+#10 26.85 Downloading python_multipart-0.0.33-py3-none-any.whl (32 kB)
+#10 26.90 Downloading scikit_image-0.26.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (13.6 MB)
+#10 27.59    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.6/13.6 MB 19.7 MB/s eta 0:00:00
+#10 27.65 Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+#10 29.25    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 22.7 MB/s eta 0:00:00
+#10 29.31 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+#10 29.39 Downloading tifffile-2026.11.8-py3-none-any.whl (278 kB)
+#10 29.46 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+#10 29.51 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#10 29.56 Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+#10 29.61 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#10 30.21 Installing collected packages: flatbuffers, tzdata, typing_extensions, python-multipart, pyparsing, Pygments, psutil, protobuf, pluggy, pillow, packaging, numpy, networkx, kiwisolver, iniconfig, imageio-ffmpeg, idna, h11, fonttools, cycler, click, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, tifffile, scipy, python-dateutil, pytest, pydantic_core, opentelemetry-api, opencv-python-headless, onnxruntime, ml_dtypes, lazy-loader, ImageIO, httpcore, contourpy, anyio, starlette, scikit-image, pydantic, onnx, matplotlib, httpx, fastapi
+#10 53.76 Successfully installed ImageIO-2.38.1 Pygments-2.21.0 annotated-doc-0.0.6 annotated-types-0.8.0 anyio-4.16.0 certifi-2026.10.23 click-8.5.1 contourpy-1.4.0 cycler-0.12.1 fastapi-0.162.4 flatbuffers-25.12.19 fonttools-4.68.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 imageio-ffmpeg-0.8.1 iniconfig-2.3.1 kiwisolver-1.5.1 lazy-loader-0.6 matplotlib-3.11.2 ml_dtypes-0.6.0 networkx-3.7 numpy-2.5.4 onnx-1.23.2 onnxruntime-1.31.1 opencv-python-headless-4.14.0.94 opentelemetry-api-1.45.2 packaging-26.3 pillow-13.0.0 pluggy-1.7.0 protobuf-7.36.2 psutil-7.2.2 pydantic-2.14.3 pydantic_core-2.50.4 pyparsing-3.3.3 pytest-9.2.0 python-dateutil-4.0.0 python-multipart-0.0.33 scikit-image-0.26.0 scipy-1.18.1 starlette-1.10.0 tifffile-2026.11.8 typing-inspection-0.4.5 typing_extensions-4.16.0 tzdata-2026.6 uvicorn-0.54.0
+#10 53.76 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#10 54.15 
+#10 54.15 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#10 54.15 [notice] To update, run: pip install --upgrade pip
+#10 DONE 54.4s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 2.6s done
+#11 writing image sha256:be533f8e5d06734731e4384c29a4729295e9700b17378d2b7c8cf70b07c64e26 done
+#11 naming to docker.io/library/lacunaframe-backend:v0.3 done
+#11 DONE 2.6s

@@ -1,0 +1,13 @@
+# Preserve exact evidence bytes; no LFS server is required.
+*.onnx binary
+*.npz binary
+*.mp4 binary
+*.gif binary
+*.png binary
+*.jpg binary
+*.woff binary
+*.woff2 binary
+# CSV writers use CRLF. Keep original experiment bytes and accept that EOL.
+*.csv -text whitespace=cr-at-eol
+# Two trailing spaces are intentional Markdown hard line breaks.
+*.md whitespace=-blank-at-eol

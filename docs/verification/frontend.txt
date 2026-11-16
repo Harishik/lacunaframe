@@ -1,0 +1,35 @@
+
+> lacunaframe@0.3.0 build
+> tsc -b && vite build
+
+vite v6.4.6 building for production...
+transforming...
+✓ 1594 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                 0.42 kB │ gzip:  0.31 kB
+dist/assets/ibm-plex-mono-latin-400-normal-CvHOgSBP.woff       13.14 kB
+dist/assets/ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2      14.71 kB
+dist/assets/instrument-sans-latin-400-normal-DRC__1Mx.woff2    16.86 kB
+dist/assets/instrument-sans-latin-700-normal-CYfAanHo.woff2    17.01 kB
+dist/assets/instrument-sans-latin-500-normal-Dk9ku72i.woff2    17.23 kB
+dist/assets/instrument-sans-latin-600-normal-B7fBEWYG.woff2    17.41 kB
+dist/assets/instrument-serif-latin-400-normal-BVbkICAY.woff    18.34 kB
+dist/assets/instrument-serif-latin-400-italic-u__WvvIK.woff    19.26 kB
+dist/assets/instrument-serif-latin-400-normal-DnYpCC2O.woff2   21.03 kB
+dist/assets/instrument-sans-latin-400-normal-D1W7dsQl.woff     21.24 kB
+dist/assets/instrument-sans-latin-700-normal-DfAjL1vF.woff     21.29 kB
+dist/assets/instrument-sans-latin-500-normal-Z6ESRlEs.woff     21.65 kB
+dist/assets/instrument-sans-latin-600-normal-B9e8oLYv.woff     21.68 kB
+dist/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2   22.13 kB
+dist/assets/index-Bd7f9Vyb.css                                 48.04 kB │ gzip: 10.93 kB
+dist/assets/index-Dw2GNYpW.js                                 280.33 kB │ gzip: 85.77 kB
+✓ built in 2.67s
+
+> lacunaframe@0.3.0 lint
+> eslint .
+
+
+> lacunaframe@0.3.0 typecheck
+> tsc --noEmit
+

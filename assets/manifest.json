@@ -1,0 +1,45 @@
+{
+  "model": {
+    "file": "models/rife49.onnx",
+    "name": "RIFE 4.9 \u00b7 ensemble \u00b7 FP32",
+    "url": "https://huggingface.co/yuvraj108c/rife-onnx/resolve/64de7265b6a06637c2f2c6a92ecd1972326499fe/rife49_ensemble_True_scale_1_sim.onnx",
+    "sha256": "76e4cef9ab42fa7dd4e8f6e4aba47462051e3faa969e4bca6479784fbab0ac6f",
+    "license": "MIT",
+    "attribution": "hzwer / Practical-RIFE; ONNX export yuvraj108c"
+  },
+  "videos": [
+    {
+      "id": "natural-blackswan",
+      "name": "Black swan \u00b7 water & reflections",
+      "file": "video/blackswan.mp4",
+      "url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4/resolve/872ccd3c5d4d9c98016798e7af0342b33ec6ab4d/blackswan_raw_24fps.mp4",
+      "sha256": "fe06906d1a41caccdb024d98598728448805792d9732ac8ecb69c2c0f1365ca6",
+      "license": "CC BY-NC 4.0",
+      "attribution": "DAVIS: Perazzi et al., CVPR 2016; Pont-Tuset et al., 2017. MP4 conversion: emirkisa.",
+      "source_url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4",
+      "dataset_sequence": "blackswan"
+    },
+    {
+      "id": "natural-bmx-trees",
+      "name": "BMX \u00b7 motion & occlusion",
+      "file": "video/bmx-trees.mp4",
+      "url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4/resolve/872ccd3c5d4d9c98016798e7af0342b33ec6ab4d/bmx-trees_raw_24fps.mp4",
+      "sha256": "a86d9972fa6bcb0f7cbe6b2d699aabf23a1fb3072dc961006a16b37712a1e986",
+      "license": "CC BY-NC 4.0",
+      "attribution": "DAVIS: Perazzi et al., CVPR 2016; Pont-Tuset et al., 2017. MP4 conversion: emirkisa.",
+      "source_url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4",
+      "dataset_sequence": "bmx-trees"
+    },
+    {
+      "id": "natural-breakdance",
+      "name": "Breakdance \u00b7 nonrigid motion",
+      "file": "video/breakdance.mp4",
+      "url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4/resolve/872ccd3c5d4d9c98016798e7af0342b33ec6ab4d/breakdance_raw_24fps.mp4",
+      "sha256": "4f759ec58761c3175e7fe4aaf97cfa5d94870ded93a62792362bd58de3276fdb",
+      "license": "CC BY-NC 4.0",
+      "attribution": "DAVIS: Perazzi et al., CVPR 2016; Pont-Tuset et al., 2017. MP4 conversion: emirkisa.",
+      "source_url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4",
+      "dataset_sequence": "breakdance"
+    }
+  ]
+}

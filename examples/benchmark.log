@@ -1,0 +1,98 @@
+[
+  {
+    "scenario": 1,
+    "method": "hold",
+    "psnr": 35.186916875337054,
+    "affected_psnr": 26.825484901723755,
+    "ssim": 0.9963350761563105,
+    "runtime_seconds": 0.0035989780000136307
+  },
+  {
+    "scenario": 1,
+    "method": "linear",
+    "psnr": 37.9644836987216,
+    "affected_psnr": 29.6030517251083,
+    "ssim": 0.9960512464978848,
+    "runtime_seconds": 0.024698388999922827
+  },
+  {
+    "scenario": 1,
+    "method": "flow",
+    "psnr": 46.769956873097186,
+    "affected_psnr": 38.40852489948388,
+    "ssim": 0.9951998197739185,
+    "runtime_seconds": 0.44066926999994394
+  },
+  {
+    "scenario": 1,
+    "method": "telea",
+    "psnr": 35.186916875337054,
+    "affected_psnr": 26.825484901723755,
+    "ssim": 0.9963350761563105,
+    "runtime_seconds": 0.00521514800004752
+  },
+  {
+    "scenario": 2,
+    "method": "hold",
+    "psnr": 26.93108508012388,
+    "affected_psnr": 21.258106229436375,
+    "ssim": 0.9804824531340506,
+    "runtime_seconds": 0.002457994999986113
+  },
+  {
+    "scenario": 2,
+    "method": "linear",
+    "psnr": 28.33812761437084,
+    "affected_psnr": 22.665148763683334,
+    "ssim": 0.9793402413616562,
+    "runtime_seconds": 0.005765615999962392
+  },
+  {
+    "scenario": 2,
+    "method": "flow",
+    "psnr": 27.948815692492147,
+    "affected_psnr": 22.275836841804644,
+    "ssim": 0.9709548320317802,
+    "runtime_seconds": 0.5987664439999207
+  },
+  {
+    "scenario": 2,
+    "method": "telea",
+    "psnr": 26.93108508012388,
+    "affected_psnr": 21.258106229436375,
+    "ssim": 0.9804824531340506,
+    "runtime_seconds": 0.0026502769999297016
+  },
+  {
+    "scenario": 3,
+    "method": "hold",
+    "psnr": 20.27681462033387,
+    "affected_psnr": 12.288382567912489,
+    "ssim": 0.8573085874961613,
+    "runtime_seconds": 0.002472236000016892
+  },
+  {
+    "scenario": 3,
+    "method": "linear",
+    "psnr": 20.373856400183907,
+    "affected_psnr": 12.385424347762527,
+    "ssim": 0.8624869410041732,
+    "runtime_seconds": 0.0047061919999578095
+  },
+  {
+    "scenario": 3,
+    "method": "flow",
+    "psnr": 20.452883295770018,
+    "affected_psnr": 12.464451243348638,
+    "ssim": 0.8836616058045955,
+    "runtime_seconds": 0.17390031700006148
+  },
+  {
+    "scenario": 3,
+    "method": "telea",
+    "psnr": 28.334091963577293,
+    "affected_psnr": 20.345659911155913,
+    "ssim": 0.8949559891369129,
+    "runtime_seconds": 0.07794546299999183
+  }
+]

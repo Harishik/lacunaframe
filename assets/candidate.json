@@ -1,0 +1,9 @@
+{
+  "file": "models/rife426.onnx",
+  "name": "RIFE 4.26 \u00b7 FP32 \u00b7 research candidate",
+  "url": "https://huggingface.co/kortique/photoview-ai-models/resolve/db2b050bcecf5c9b9398b92dd4fba38f573c9ae6/permissive/rife_v4.26.onnx",
+  "sha256": "af8392796b0ed769b8fcaeee0fbf5feee9c647d11a2575e50b620786f2536114",
+  "license": "MIT",
+  "attribution": "hzwer / Practical-RIFE; vs-mlrt ONNX export; kortique mirror",
+  "abi": "vs-mlrt v1, 11 channels, padding multiple 64"
+}

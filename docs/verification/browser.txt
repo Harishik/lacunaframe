@@ -1,0 +1,24 @@
+
+> lacunaframe@0.3.0 test:browser
+> playwright test
+
+[WebServer] INFO:     Started server process [10014]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[WebServer] (node:10064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 5 tests using 1 worker
+
+(node:10082) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] {"event": "run_complete", "id": "36c15fd7baf94bb18139430bcc695e85", "methods": ["linear", "flow", "rife"]}
+  ✓  1 tests/accessibility.spec.ts:4:1 › workspace, evaluation and project accessibility (9.8s)
+  ✓  2 tests/documentation.spec.ts:4:1 › interactive field guide works offline with measured data and responsive comparisons (2.1s)
+[WebServer] {"event": "run_complete", "id": "3be203eae4a24d80ae388da09c67357c", "methods": ["linear", "flow", "rife"]}
+  ✓  3 tests/workbench.spec.ts:3:1 › complete natural-video experiment, evidence and project presentation (11.2s)
+  ✓  4 tests/workbench.spec.ts:54:1 › keyboard controls, help dialog, source drawer and configuration invalidation (1.4s)
+  ✓  5 tests/workbench.spec.ts:80:1 › offline engine is explicit and project remains readable without backend (821ms)
+
+  5 passed (31.4s)
