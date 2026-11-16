@@ -1,8 +1,8 @@
 # Private repository publication
 
-Target: **[Harishik/lacunaframe](https://github.com/Harishik/lacunaframe)**. The owner created this private repository; authenticated access confirms private visibility and push permission. The owner’s original README/MIT-license commit is preserved in the merged history. All authored project commits use Harishik Dev Singh Jamwal; the owner’s GitHub-created initial commit uses the Harishik account identity. `.mailmap` connects those two identities in local author summaries. No automated-agent author or co-author is added.
+Target: **[Harishik/lacunaframe](https://github.com/Harishik/lacunaframe)**. The owner created this private repository; authenticated access confirms private visibility and push permission. The owner’s original README/MIT-license commit is preserved in the merged history. All authored project commits use Harishik Dev Singh Jamwal; the owner’s GitHub-created initial commit uses the Harishik account identity. `.mailmap` connects the owner’s local and GitHub identities. Subsequent commits use the account’s GitHub noreply address so GitHub links them directly to `Harishik`; existing history remains intact. No automated-agent author or co-author is added.
 
-The release includes the complete source, pinned assets/checkpoints, measured experiment archives, lossless comparison arrays and interactive documentation. The machine-readable verification record is [github-publication.json](verification/github-publication.json).
+**Published and verified:** the initial full-release tree contains 404 files, matches the prepared release commit, and has zero active workflow files. The release includes the complete source, pinned assets/checkpoints, measured experiment archives, lossless comparison arrays and interactive documentation. The machine-readable verification record is [github-publication.json](verification/github-publication.json).
 
 ## Publish subsequent changes
 

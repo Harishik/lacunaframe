@@ -1,5 +1,5 @@
 {
-  "status": "publishing",
+  "status": "published",
   "repository": "Harishik/lacunaframe",
   "url": "https://github.com/Harishik/lacunaframe",
   "private": true,
@@ -9,5 +9,15 @@
   "active_workflows": 0,
   "workflow_template": ".github/verification.workflow.yml",
   "paid_actions": false,
-  "deployment_performed": false
+  "deployment_performed": false,
+  "pushed": true,
+  "verified_release_commit": "1a256b9afbec9605b506913d642a12524568eca2",
+  "verified_release_files": 404,
+  "remote_tree_truncated": false,
+  "project_author": "Harishik Dev Singh Jamwal",
+  "github_owner": "Harishik",
+  "author_identity_mapping": ".mailmap",
+  "future_commit_email": "117257860+Harishik@users.noreply.github.com",
+  "automated_agent_authors": 0,
+  "coauthor_trailers": 0
 }

@@ -1,7 +1,7 @@
 {
   "scope": "Git-tracked payload at publication; excludes this manifest and Git metadata",
   "files": 403,
-  "total_bytes": 121415984,
+  "total_bytes": 121416821,
   "entries": [
     {
       "path": ".dockerignore",
@@ -35,8 +35,8 @@
     },
     {
       "path": ".mailmap",
-      "bytes": 105,
-      "sha256": "35b7e7f1a56015cbfae3d5e783902d5be498b0a1123795a0749555858c5c05e6"
+      "bytes": 249,
+      "sha256": "6abd3d3f9e08c5115905fc33f863febb56092d3d4080799b96fff34547d0ca0c"
     },
     {
       "path": "AUTHORS",
@@ -225,8 +225,8 @@
     },
     {
       "path": "docs/PUBLICATION.md",
-      "bytes": 2302,
-      "sha256": "8b956703dabb5936b8f8ccfcf9a1e3a3b8e76cb38f8b52cdd60be2b68e384e40"
+      "bytes": 2588,
+      "sha256": "6f1cd377f4d0de92cc91b9b1ed75086dcd69fdff6f0c3ede990d172347c3e82c"
     },
     {
       "path": "docs/README.md",
@@ -370,8 +370,8 @@
     },
     {
       "path": "docs/verification/github-publication.json",
-      "bytes": 466,
-      "sha256": "f51c82a5fcb0028cabbeb2bec6d1c3e3d44238e9f22d684456f3fa00f578a3c1"
+      "bytes": 873,
+      "sha256": "f10060ace8dfb0f0d8bcd12aca96d7954395c5b1d3c42045f0e14438f6e59ced"
     },
     {
       "path": "docs/verification/pytest.txt",
