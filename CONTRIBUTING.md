@@ -1,5 +1,7 @@
 # Working on Lacunaframe
 
+Project author and maintainer: **Harishik Dev Singh Jamwal** (`@Harishik`). Use the owner’s configured Git author and committer identity for authorized project commits. Do not add automated tools or agents as project authors, contributors, committers, or co-authors. Required third-party license notices and research citations retain their original attribution.
+
 Start with the [architecture](docs/guides/ARCHITECTURE.md) and [experiment protocol](docs/guides/EXPERIMENTS.md). The local workflow needs Python 3.12, Node 20.19+, CPU and no API keys.
 
 ## Keep the scientific boundary intact

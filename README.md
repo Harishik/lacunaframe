@@ -152,3 +152,5 @@ Three natural scenes do not establish generalization or superiority to those pub
 **Our code and synthetic controls: MIT.** RIFE retains upstream MIT attribution. **DAVIS footage and derived media: CC BY-NC 4.0**, per the pinned mirror. Local fonts retain SIL Open Font License notices. [Asset sources, changes and licenses](assets/THIRD_PARTY.md).
 
 Uploads stay on the local backend; temporary experiments expire after one hour. MP4/MOV decoding depends on available codecs, with image sequences and GIF export as fallbacks. This is a single-user local app. Docker image build passed; runtime smoke verification hit the workspace disk cap. No hosted deployment is included. The retained workflow requires manual dispatch. The prepared publishing script verifies private visibility and disables Actions before pushing. GitHub publication is currently blocked by the connected integration’s repository-creation permission; see [publication status](docs/PUBLICATION.md).
+
+**Project author and maintainer:** [Harishik Dev Singh Jamwal](https://github.com/Harishik).

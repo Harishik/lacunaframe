@@ -1,7 +1,7 @@
 {
   "scope": "Git-tracked payload at publication; excludes this manifest and Git metadata",
-  "files": 400,
-  "total_bytes": 121414943,
+  "files": 402,
+  "total_bytes": 121415498,
   "entries": [
     {
       "path": ".dockerignore",
@@ -19,6 +19,11 @@
       "sha256": "77193006a7483257eafaec212a828200441c96229525abea8edf81c66c140cda"
     },
     {
+      "path": ".github/CODEOWNERS",
+      "bytes": 28,
+      "sha256": "c3114e5159139cfc98959849526212a41f6b64cc21ea199a6b4f75e03de990cb"
+    },
+    {
       "path": ".github/workflows/verify.yml",
       "bytes": 966,
       "sha256": "193a1907241283bff4e1559e439f068bfff268f52913a729c910b8a8c3c47c27"
@@ -29,14 +34,19 @@
       "sha256": "ca857027a73ace5802da8098ec8fa57ff92c3a0a83d67d39358250dcbb00ae89"
     },
     {
+      "path": "AUTHORS",
+      "bytes": 26,
+      "sha256": "798c96cb2b4e580ded48e21d4cdf872289d8347effdf7be0cb2e8f2b6662c113"
+    },
+    {
       "path": "CHANGELOG.md",
       "bytes": 2282,
       "sha256": "67240c74f7844743e9e4b3cd5624c8b3f18e8854850a62a57b557e0d960d145c"
     },
     {
       "path": "CONTRIBUTING.md",
-      "bytes": 2360,
-      "sha256": "dede74df77aa03c8b1376ed265499e03642af714fdd514d5592fea9324d03321"
+      "bytes": 2725,
+      "sha256": "0deb40e8f7f75d4212b1560746230d476e8270ff2f964467853ef9324b945035"
     },
     {
       "path": "Dockerfile",
@@ -45,13 +55,13 @@
     },
     {
       "path": "LICENSE",
-      "bytes": 1081,
-      "sha256": "75a5673759272dc983293414598d2f2812f716c7e1c0c7341e4717384e1ee6f4"
+      "bytes": 1082,
+      "sha256": "fea3bb2fce5880d5de8a6018ebc79e3bbd59d179e570cebb7d08337b47b5ed83"
     },
     {
       "path": "README.md",
-      "bytes": 9124,
-      "sha256": "95ebd8c5d70242700a3e9e413253734745ce3aae98081dcd0fa90ab4c762ee8c"
+      "bytes": 9218,
+      "sha256": "30d9aec2d94fca4174dc5aa674ee80d8fd0ce3b9f0c815b8d54befb3deac5f3c"
     },
     {
       "path": "assets/DAVIS-model-card.md",
@@ -1805,8 +1815,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 923,
-      "sha256": "96d1065f9b0b66480ef92cf91fcd89a53bbf3e86e3acf537e2056b4626d1245e"
+      "bytes": 964,
+      "sha256": "7fe1eabdfa857e1b326597075ceebb4ac320ee086650149bcb63bf899e3cd748"
     },
     {
       "path": "playwright.config.ts",
