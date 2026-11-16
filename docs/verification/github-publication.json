@@ -1,0 +1,14 @@
+{
+  "status": "blocked",
+  "authenticated_account": "Harishik",
+  "intended_repository": "Harishik/lacunaframe",
+  "intended_visibility": "private",
+  "repository_created": false,
+  "pushed": false,
+  "graphql_error": "Resource not accessible by integration (createRepository)",
+  "rest_status": 403,
+  "rest_error": "Resource not accessible by integration",
+  "next_step": "Grant repository-creation access or create the empty private target and grant this integration access. Run scripts/publish_private.sh with appropriate GitHub authorization.",
+  "paid_actions": false,
+  "deployment_performed": false
+}

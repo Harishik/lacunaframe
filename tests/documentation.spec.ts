@@ -1,0 +1,33 @@
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+test('interactive field guide works offline with measured data and responsive comparisons', async ({ page }) => {
+  const errors: string[] = [];
+  const network: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('request', request => { if (/^https?:/.test(request.url())) network.push(request.url()); });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(new URL('../docs/experience/index.html', import.meta.url).href);
+  await expect(page.getByRole('heading', { name: /What happened/ })).toBeVisible();
+  await expect(page.locator('#worst-note')).toContainText('Frame 19');
+  await expect(page.locator('#bars')).toContainText('20.79 dB');
+  await page.getByRole('button', { name: 'Long interval', exact: true }).click();
+  await expect(page.locator('#bars')).toContainText('17.88 dB');
+  await page.getByLabel('Reference and RIFE comparison divider').fill('72');
+  await expect(page.locator('.after')).toHaveCSS('clip-path', 'inset(0px 0px 0px 72%)');
+  await page.getByText('Inspect all baselines and the error map', { exact: true }).click();
+  await expect(page.getByAltText('Reference, damaged, linear, optical flow, RIFE and fixed-scale RIFE error map')).toBeVisible();
+  await page.waitForFunction(() => Array.from(document.images).every(img => img.complete && img.naturalWidth > 0));
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForFunction(() => scrollY === 0);
+  await page.screenshot({ path: 'docs/design/07-documentation.png', fullPage: true });
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(page.locator('.animated')).not.toBeVisible();
+  await expect(page.locator('.poster')).toBeVisible();
+  await page.screenshot({ path: 'docs/design/08-documentation-mobile.png', fullPage: true });
+  expect(errors).toEqual([]);
+  expect(network).toEqual([]);
+});

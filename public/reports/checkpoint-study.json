@@ -1,0 +1,436 @@
+{
+  "protocol": "Identical normalized input arrays, corruption and metric implementation. 3 DAVIS clips \u00d7 2 gap regimes \u00d7 seeds 7/42/99. CPU, 2 ORT threads, warm inference timed separately. No retraining. Candidate chosen after the original benchmark: exploratory comparison, not a held-out test.",
+  "combined_initialization_seconds": 0.5865358330000277,
+  "rows": [
+    {
+      "sequence": "natural-blackswan",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "rife49",
+      "affected_psnr": 20.473858744211398,
+      "affected_ssim": 0.5217991416140838,
+      "temporal_error": 0.011647608213810216,
+      "runtime_seconds": 0.409426069999995,
+      "seconds_per_missing_frame": 0.10235651749999874
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "rife426",
+      "affected_psnr": 20.45183482536213,
+      "affected_ssim": 0.5155508385732613,
+      "temporal_error": 0.011755689640825465,
+      "runtime_seconds": 0.2731999660000497,
+      "seconds_per_missing_frame": 0.06829999150001242
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "rife49",
+      "affected_psnr": 25.728559476611586,
+      "affected_ssim": 0.7433828162431382,
+      "temporal_error": 0.008018325617283951,
+      "runtime_seconds": 0.44516069699994887,
+      "seconds_per_missing_frame": 0.14838689899998295
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "rife426",
+      "affected_psnr": 24.951891873631826,
+      "affected_ssim": 0.7211640742732937,
+      "temporal_error": 0.008693154653836844,
+      "runtime_seconds": 0.3463091469999995,
+      "seconds_per_missing_frame": 0.11543638233333316
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "rife49",
+      "affected_psnr": 25.85641711845492,
+      "affected_ssim": 0.7636730249094239,
+      "temporal_error": 0.0026017705307431614,
+      "runtime_seconds": 0.18070935599996574,
+      "seconds_per_missing_frame": 0.18070935599996574
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "rife426",
+      "affected_psnr": 25.29458441098768,
+      "affected_ssim": 0.7466533753516107,
+      "temporal_error": 0.002768405047204067,
+      "runtime_seconds": 0.0838207169999805,
+      "seconds_per_missing_frame": 0.0838207169999805
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "rife49",
+      "affected_psnr": 19.64418779665795,
+      "affected_ssim": 0.40356244912754136,
+      "temporal_error": 0.03307701960027839,
+      "runtime_seconds": 1.109270797000022,
+      "seconds_per_missing_frame": 0.12325231077778022
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "rife426",
+      "affected_psnr": 18.841576553534324,
+      "affected_ssim": 0.3490361136525755,
+      "temporal_error": 0.03567016063755749,
+      "runtime_seconds": 0.5171673520000013,
+      "seconds_per_missing_frame": 0.05746303911111125
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "rife49",
+      "affected_psnr": 20.68888866608348,
+      "affected_ssim": 0.4862973919191744,
+      "temporal_error": 0.028446770606390705,
+      "runtime_seconds": 1.010200865999991,
+      "seconds_per_missing_frame": 0.12627510824999888
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "rife426",
+      "affected_psnr": 19.53077460641419,
+      "affected_ssim": 0.4194778283996584,
+      "temporal_error": 0.03152215905652384,
+      "runtime_seconds": 0.650856651999959,
+      "seconds_per_missing_frame": 0.08135708149999488
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "rife49",
+      "affected_psnr": 20.234702166012866,
+      "affected_ssim": 0.44341753333186257,
+      "temporal_error": 0.026223948877390463,
+      "runtime_seconds": 0.8490286830000286,
+      "seconds_per_missing_frame": 0.12128981185714695
+    },
+    {
+      "sequence": "natural-blackswan",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "rife426",
+      "affected_psnr": 19.083376099024925,
+      "affected_ssim": 0.37323836045501707,
+      "temporal_error": 0.02889494447470346,
+      "runtime_seconds": 0.5312001830000099,
+      "seconds_per_missing_frame": 0.07588574042857285
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "rife49",
+      "affected_psnr": 18.399485645808507,
+      "affected_ssim": 0.4145328533131158,
+      "temporal_error": 0.025878960439826456,
+      "runtime_seconds": 0.8179231830000049,
+      "seconds_per_missing_frame": 0.10224039787500061
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "rife426",
+      "affected_psnr": 17.7527987843293,
+      "affected_ssim": 0.3648817635495877,
+      "temporal_error": 0.028347820419715845,
+      "runtime_seconds": 0.5370156120000047,
+      "seconds_per_missing_frame": 0.06712695150000059
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "rife49",
+      "affected_psnr": 19.4225490877965,
+      "affected_ssim": 0.4672314235204773,
+      "temporal_error": 0.025928797041133645,
+      "runtime_seconds": 0.9475175300000274,
+      "seconds_per_missing_frame": 0.11843969125000342
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "rife426",
+      "affected_psnr": 19.47724043096652,
+      "affected_ssim": 0.49332888620048393,
+      "temporal_error": 0.025399420190678357,
+      "runtime_seconds": 0.5766254089999734,
+      "seconds_per_missing_frame": 0.07207817612499667
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "rife49",
+      "affected_psnr": 19.56809844818742,
+      "affected_ssim": 0.45852715898594315,
+      "temporal_error": 0.015511491443680987,
+      "runtime_seconds": 0.5821303999999827,
+      "seconds_per_missing_frame": 0.11642607999999655
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "rife426",
+      "affected_psnr": 19.255857642587163,
+      "affected_ssim": 0.44547159695838945,
+      "temporal_error": 0.01608189137478353,
+      "runtime_seconds": 0.3753714910000099,
+      "seconds_per_missing_frame": 0.07507429820000197
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "rife49",
+      "affected_psnr": 15.573225530269104,
+      "affected_ssim": 0.2933947358642852,
+      "temporal_error": 0.04679700621939184,
+      "runtime_seconds": 1.3099190099999873,
+      "seconds_per_missing_frame": 0.11908354636363522
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "rife426",
+      "affected_psnr": 15.349153790148847,
+      "affected_ssim": 0.25711640295896926,
+      "temporal_error": 0.04892435943988231,
+      "runtime_seconds": 0.7802817300000129,
+      "seconds_per_missing_frame": 0.0709347027272739
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "rife49",
+      "affected_psnr": 14.673764004991806,
+      "affected_ssim": 0.18447289689677726,
+      "temporal_error": 0.03911323273373927,
+      "runtime_seconds": 0.9572497639999824,
+      "seconds_per_missing_frame": 0.1196562204999978
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "rife426",
+      "affected_psnr": 14.536407694996921,
+      "affected_ssim": 0.17685958940600346,
+      "temporal_error": 0.03985305173826416,
+      "runtime_seconds": 0.6621459760000334,
+      "seconds_per_missing_frame": 0.08276824700000418
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "rife49",
+      "affected_psnr": 14.973747922666103,
+      "affected_ssim": 0.2366969593477369,
+      "temporal_error": 0.03629470071504385,
+      "runtime_seconds": 0.9865279169999894,
+      "seconds_per_missing_frame": 0.12331598962499868
+    },
+    {
+      "sequence": "natural-bmx-trees",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "rife426",
+      "affected_psnr": 14.875911998288991,
+      "affected_ssim": 0.24173364516245277,
+      "temporal_error": 0.0365085598104389,
+      "runtime_seconds": 0.6367187759999524,
+      "seconds_per_missing_frame": 0.07958984699999405
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "rife49",
+      "affected_psnr": 19.18862905860032,
+      "affected_ssim": 0.8211363749037727,
+      "temporal_error": 0.01534924256513807,
+      "runtime_seconds": 0.9419000629999914,
+      "seconds_per_missing_frame": 0.11773750787499893
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "rife426",
+      "affected_psnr": 18.91732926489598,
+      "affected_ssim": 0.8213968749357005,
+      "temporal_error": 0.01542535801583506,
+      "runtime_seconds": 0.599184197999989,
+      "seconds_per_missing_frame": 0.07489802474999863
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "rife49",
+      "affected_psnr": 19.013772301268055,
+      "affected_ssim": 0.8125196345810171,
+      "temporal_error": 0.01571765901482544,
+      "runtime_seconds": 1.0328774230000022,
+      "seconds_per_missing_frame": 0.12910967787500027
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "rife426",
+      "affected_psnr": 19.02589199461093,
+      "affected_ssim": 0.8193922909399197,
+      "temporal_error": 0.015132683945303505,
+      "runtime_seconds": 0.6277340030000005,
+      "seconds_per_missing_frame": 0.07846675037500006
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "rife49",
+      "affected_psnr": 19.486948320845713,
+      "affected_ssim": 0.8123515627361313,
+      "temporal_error": 0.009066310422091148,
+      "runtime_seconds": 0.7063886280000133,
+      "seconds_per_missing_frame": 0.14127772560000268
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "rife426",
+      "affected_psnr": 19.265085120394467,
+      "affected_ssim": 0.8132201667861371,
+      "temporal_error": 0.009104403572630497,
+      "runtime_seconds": 0.423182378999968,
+      "seconds_per_missing_frame": 0.0846364757999936
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "rife49",
+      "affected_psnr": 18.41150881352317,
+      "affected_ssim": 0.7817338595006813,
+      "temporal_error": 0.018834793515418814,
+      "runtime_seconds": 1.4843358840000178,
+      "seconds_per_missing_frame": 0.13493962581818345
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "rife426",
+      "affected_psnr": 18.24141809222891,
+      "affected_ssim": 0.7837787331504317,
+      "temporal_error": 0.018920822484368632,
+      "runtime_seconds": 0.9658314020000489,
+      "seconds_per_missing_frame": 0.08780285472727717
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "rife49",
+      "affected_psnr": 18.344996583163784,
+      "affected_ssim": 0.770449444974272,
+      "temporal_error": 0.012883413482827639,
+      "runtime_seconds": 1.1011523780000516,
+      "seconds_per_missing_frame": 0.13764404725000645
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "rife426",
+      "affected_psnr": 18.122236820993326,
+      "affected_ssim": 0.7720187498970886,
+      "temporal_error": 0.013102332306002797,
+      "runtime_seconds": 0.6169057490000114,
+      "seconds_per_missing_frame": 0.07711321862500142
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "rife49",
+      "affected_psnr": 18.379651932153294,
+      "affected_ssim": 0.7674045460548169,
+      "temporal_error": 0.012845540632693908,
+      "runtime_seconds": 0.9935408690000145,
+      "seconds_per_missing_frame": 0.12419260862500181
+    },
+    {
+      "sequence": "natural-breakdance",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "rife426",
+      "affected_psnr": 18.15202043294622,
+      "affected_ssim": 0.7701500557453443,
+      "temporal_error": 0.013030253112988645,
+      "runtime_seconds": 0.8167788060000021,
+      "seconds_per_missing_frame": 0.10209735075000026
+    }
+  ],
+  "summary": [
+    {
+      "regime": "scattered",
+      "method": "rife49",
+      "n": 9,
+      "mean_affected_psnr": 20.79314646686494,
+      "mean_affected_ssim": 0.6461282212007892,
+      "mean_seconds_per_missing_frame": 0.12852042810832776
+    },
+    {
+      "regime": "scattered",
+      "method": "rife426",
+      "n": 9,
+      "mean_affected_psnr": 20.488057149751782,
+      "mean_affected_ssim": 0.6378955408409316,
+      "mean_seconds_per_missing_frame": 0.07998197417592418
+    },
+    {
+      "regime": "long-gap",
+      "method": "rife49",
+      "n": 9,
+      "mean_affected_psnr": 17.880519268391286,
+      "mean_affected_ssim": 0.48526997966857205,
+      "mean_seconds_per_missing_frame": 0.12551658545186106
+    },
+    {
+      "regime": "long-gap",
+      "method": "rife426",
+      "n": 9,
+      "mean_affected_psnr": 17.41476400984185,
+      "mean_affected_ssim": 0.4603788309808379,
+      "mean_seconds_per_missing_frame": 0.0794457868743589
+    }
+  ]
+}

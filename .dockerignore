@@ -1,0 +1,11 @@
+.venv
+node_modules
+.git
+examples
+dist
+
+docs
+tests
+test-results
+playwright-report
+assets/models/rife426.onnx
