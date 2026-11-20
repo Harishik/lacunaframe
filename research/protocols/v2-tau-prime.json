@@ -1,0 +1,7 @@
+{
+  "tau_prime": 18.140625,
+  "definition": "80th percentile of RIFE per-pixel absolute error (80x45 pooled maps) over all dev missing frames",
+  "dev_pixels": 6966000,
+  "computed": "2026-11-20, before any Xiph frame was scored",
+  "bad_rate_dev_check": 0.19999181739879415
+}
