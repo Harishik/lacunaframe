@@ -1,15 +1,16 @@
 import cv2
 import numpy as np
+from backend import decode
 from backend.learned import ASSETS, interpolate, model_info, session
 from backend.core import restore
 
 
 def real_frames():
-    cap=cv2.VideoCapture(str(ASSETS/'video/blackswan.mp4'));frames=[]
-    for _ in range(5):
-        ok,a=cap.read();assert ok
-        frames.append(cv2.cvtColor(cv2.resize(a,(96,54)),cv2.COLOR_BGR2RGB))
-    cap.release()
+    frames=[]
+    for a in decode.frames(ASSETS/'video/blackswan.mp4'):
+        frames.append(cv2.resize(a,(96,54)))
+        if len(frames)==5:break
+    assert len(frames)==5
     return np.stack(frames)
 
 

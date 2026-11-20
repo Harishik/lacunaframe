@@ -1,0 +1,27 @@
+{
+  "archived_runtime": "1.31.1",
+  "archived_platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "local_runtime": "1.23.2",
+  "local_platform": "macOS-26.7.1-x86_64-i386-64bit",
+  "case": "bmx-trees left=0 right=2 t=0.5",
+  "variants": {
+    "rife49-dynamic-u8": {
+      "mean_abs": 0.0,
+      "max_abs": 0,
+      "p99_abs": 0.0,
+      "psnr_vs_archive_db": "inf"
+    },
+    "rife49-qdq-all-conv": {
+      "mean_abs": 2.0349016203703703,
+      "max_abs": 108,
+      "p99_abs": 19.0,
+      "psnr_vs_archive_db": 35.13676354675181
+    },
+    "rife49-qdq-trunk": {
+      "mean_abs": 0.0,
+      "max_abs": 0,
+      "p99_abs": 0.0,
+      "psnr_vs_archive_db": "inf"
+    }
+  }
+}

@@ -1,5 +1,15 @@
 # Changes
 
+## 0.3.1 (unreleased) — Phase 0: portability, prior art, presentation — 2026-11-20
+
+- **Fixed a cross-platform reproducibility flaw.** OpenCV decoded the source MP4s with FFmpeg on Linux but AVFoundation on macOS, and the two differ by up to 71 levels per pixel. All decoding now goes through the pinned FFmpeg path in `backend/decode.py`, which reproduces the archived scores bit-exactly. See `research/results/portability/`.
+- Found and documented that static all-Conv INT8 (QDQ) outputs differ across ONNX Runtime versions and CPUs (35 dB vs archive). The evidence test now records drift outside the archived runtime instead of demanding bit-equality.
+- Research runners: `--out` / `LACUNA_PILOT_OUT` for fresh trial directories, with the archived pilot protected from overwrites. Fixed macOS peak-RSS units (bytes, not KiB) in the pilot and the profiler. Added macOS CPU, memory and power provenance. Added `onnx` to the requirements, plus an Intel-macOS lock (`requirements-lock-macos-x86_64.txt`; ORT 1.31 has no Intel-macOS wheel).
+- Upload decoding derives the container suffix from the validated MIME type.
+- Added a recoverability and calibrated-recovery prior-art audit with a machine-readable ledger and novelty verdict.
+- Rewrote the README to lead with results. Added `CITATION.cff` and a Hugging Face Docker Space scaffold (`deploy/huggingface/`, not deployed), plus optional same-origin frontend serving (`LACUNA_STATIC`).
+- 25 backend/research tests pass on Intel macOS (ORT 1.23.2).
+
 ## Documentation and private repository edition — 2026-11-16
 
 - Added a visual README and structured reading routes, setup/workflow/protocol/architecture guides, and archive indexes.

@@ -24,6 +24,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.responses import Response, FileResponse
 from pydantic import BaseModel, Field
 from .core import demo, corrupt, restore, evaluate
+from . import decode
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 log = logging.getLogger('lacunaframe')
@@ -112,15 +113,10 @@ async def lifespan(app: FastAPI):
         if hashlib.sha256(source.read_bytes()).hexdigest()!=video['sha256']:
             raise RuntimeError('Natural-video checksum mismatch: '+video['file'])
         p=ROOT/video['id'];p.mkdir(exist_ok=True)
-        cap=cv2.VideoCapture(str(source));frames=[];indices=[];i=0
-        source_fps=cap.get(cv2.CAP_PROP_FPS)
-        while len(frames)<48:
-            ok,a=cap.read()
-            if not ok:break
-            if i%2==0:
-                frames.append(cv2.cvtColor(normalize(a),cv2.COLOR_BGR2RGB));indices.append(i)
-            i+=1
-        cap.release()
+        # Deterministic FFmpeg decode: identical references on every OS (see backend/decode.py).
+        source_fps=decode.probe(source).fps
+        decoded_rgb,indices=decode.sampled(source,every=2,limit=48)
+        frames=[normalize(a) for a in decoded_rgb]
         if len(frames)<2:raise RuntimeError('Natural clip failed to decode')
         ref=np.stack(frames);np.save(p/'reference.npy',ref)
         if not (p/'original.mp4').exists(): encode(p,'original',ref,source_fps/2)
@@ -200,26 +196,33 @@ async def upload(files: list[UploadFile] = File(...)) -> dict:
                 image_shape=a.shape
                 decoded.append(normalize(a))
             else:
-                raw=p/'input.bin'; raw.write_bytes(data)
-                cap=cv2.VideoCapture(str(raw))
+                # FFmpeg selects the demuxer from the suffix; derive it from the validated MIME type, never the client filename.
+                raw=p/('input.mov' if f.content_type=='video/quicktime' else 'input.mp4'); raw.write_bytes(data)
                 try:
-                    fps=cap.get(cv2.CAP_PROP_FPS); count=cap.get(cv2.CAP_PROP_FRAME_COUNT)
-                    width=cap.get(cv2.CAP_PROP_FRAME_WIDTH); height=cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-                    if not np.isfinite(fps) or fps<=0 or count<2 or count/fps>8.1 or width*height>1920*1080:
+                    try:
+                        info=decode.probe(raw)
+                    except Exception as exc:
+                        raise ValueError('Video must be decodable, ≤8 seconds and ≤1920×1080.') from exc
+                    fps,count=info.fps,info.frame_count
+                    if not np.isfinite(fps) or fps<=0 or count<2 or count/fps>8.1 or info.width*info.height>1920*1080:
                         raise ValueError('Video must be decodable, ≤8 seconds and ≤1920×1080.')
                     target=min(12.,fps); next_time=0.; index=0
-                    while True:
-                        ok,a=cap.read()
-                        if not ok: break
-                        if index>2000: raise ValueError('Input frame limit exceeded.')
-                        if index/fps+1e-6>=next_time:
-                            decoded.append(normalize(a)); next_time+=1/target
-                        index+=1
-                        if len(decoded)>96: raise ValueError('More than 96 sampled frames.')
-                    if index < count-1: raise ValueError('Video is truncated or partially undecodable.')
+                    try:
+                        for a in decode.frames(raw):
+                            if index>2000: raise ValueError('Input frame limit exceeded.')
+                            if index/fps+1e-6>=next_time:
+                                # Uploaded images arrive as BGR from cv2.imdecode; keep one channel order.
+                                decoded.append(normalize(cv2.cvtColor(a,cv2.COLOR_RGB2BGR))); next_time+=1/target
+                            index+=1
+                            if len(decoded)>96: raise ValueError('More than 96 sampled frames.')
+                    except ValueError:
+                        raise
+                    except Exception as exc:
+                        raise ValueError('Video is truncated or partially undecodable.') from exc
+                    if np.isfinite(count) and index < count-1: raise ValueError('Video is truncated or partially undecodable.')
                     fps=target
                 finally:
-                    cap.release(); raw.unlink(missing_ok=True)
+                    raw.unlink(missing_ok=True)
         if len(decoded)<2: raise ValueError('At least two decoded frames required.')
         if images:
             if len({a.shape for a in decoded})!=1: raise ValueError('Sequence images must have matching dimensions.')
@@ -368,3 +371,10 @@ def download(ident: str,filename: str) -> FileResponse:
     p=locate(ident)/filename
     if not p.exists(): raise HTTPException(404,'Artifact unavailable')
     return FileResponse(p,filename=filename)
+
+
+# Optional single-container mode (e.g. a Hugging Face Space): serve the built
+# frontend from the same origin. Mounted last so every /api route takes precedence.
+if os.environ.get('LACUNA_STATIC'):
+    from fastapi.staticfiles import StaticFiles
+    app.mount('/', StaticFiles(directory=os.environ['LACUNA_STATIC'], html=True), name='frontend')

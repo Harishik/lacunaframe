@@ -33,7 +33,7 @@ A ratio below 1 means slower than the FP32 ensemble baseline. The preset gate re
 
 ## Scope and reproduction
 
-Run `.venv/bin/python research/scripts/compression_pilot.py`, then `profile_operators.py` and `summarize_pilot.py` from the repository root. The runner overwrites this pilot directory; preserve a copy for subsequent independent trials. See [protocol](../../protocols/compression-pilot.json), [full JSON](summary.json), [CSV](summary.csv), [environment](environment.json), and [operator diagnostics](operator-profile.json).
+Run `.venv/bin/python research/scripts/compression_pilot.py`, then `profile_operators.py` and `summarize_pilot.py` from the repository root. New trials must use `--out <fresh dir>` (or `LACUNA_PILOT_OUT`); the archived directory is protected from overwrites. See [protocol](../../protocols/compression-pilot.json), [full JSON](summary.json), [CSV](summary.csv), [environment](environment.json), and [operator diagnostics](operator-profile.json).
 
 Nine calibration triplets from black swan. Eighteen evaluation triplets from two other scenes; anchor separations 2/4/8 and starts 0/12/24; midpoint only. Same normalized RGB arrays and target timestamps for every method. The source scenes were used in earlier exploratory work, so they are not an untouched research test set. Pretraining overlap is unknown. Two intra-op CPU threads and one inter-op thread; fresh process per variant. Quantizer calibration uses ORT internal CPU defaults.
 

@@ -4,157 +4,141 @@
 
 # Every missing frame leaves a trace.
 
-A local video-corruption and recovery workbench.<br/>
-Real footage. Actual pixel restoration. Evidence you can inspect.
+A reproducible workbench for **missing-frame video recovery**. Remove frames from real footage, reconstruct them with classical and neural methods on a CPU, and measure exactly where each method fails.
 
-[Start the guided tour](docs/README.md) · [Run the app](docs/guides/QUICKSTART.md) · [Explore the experiments](examples/README.md) · [Read the results](docs/REPORT.md)
+[Run it](docs/guides/QUICKSTART.md) · [Results](docs/REPORT.md) · [Research direction](research/README.md) · [Guided tour](docs/README.md)
 
 ![Synchronized reference, damage and actual RIFE output](docs/visuals/recovery-loop.gif)
 
-*Recorded DAVIS footage / BMX / seed 42. Coral marks an absent sample.*<br/>
-*These are actual aligned arrays, annotated for this guide.*
+*Real DAVIS footage (BMX, seed 42). Coral marks an absent frame. Every pixel shown is an actual aligned array.*
 
 </div>
 
-## Research track: CPU compression
+## Highlights
 
-The [CPU efficiency research branch](research/README.md) now includes six actual deployment configurations, three quantized model artifacts, scene-disjoint calibration, fresh-process measurements and CPU operator traces. A smaller checkpoint did not imply a reliable speedup. This is a feasibility study, **not a trained/distilled/pruned model or a claim of top-tier publication novelty**. [Research program and remaining evidence gates](research/RESEARCH_PROGRAM.md).
+- **Five reconstructors, one sealed protocol.** Nearest-frame hold, linear blending, bidirectional Farnebäck flow with consistency rejection, RIFE 4.9, and half-resolution RIFE all get identical damaged observations. The clean reference is visible only to the evaluator, never to a solver.
+- **Measured, not asserted.** 18 natural-video conditions (3 scenes × 2 loss regimes × 3 seeds) and 90 method runs. Every score is recomputable from saved arrays: 120 MP4s and 36 condition reports pass automated verification.
+- **Neural interpolation on a plain CPU.** Pinned RIFE ONNX checkpoints run through ONNX Runtime. No GPU, API key or network access is needed at runtime.
+- **Reproducible across machines.** All video decoding goes through one pinned FFmpeg path, so reference frames are bit-identical on Linux and macOS ([why that mattered](research/results/portability/README.md)).
+- **Negative results kept.** A newer checkpoint that loses 16/18 conditions, INT8 builds that don't get faster, and the worst failure frame are all published alongside the wins.
 
-## First, make something disappear.
+## Results
 
-Choose a recorded clip or upload your own. Remove frames, hide an interval, mask an object, add noise or blur. Then ask several methods to reconstruct the same damaged observations.
+![Actual affected-frame PSNR across two corruption regimes](docs/visuals/natural-results.png)
 
-The original stays untouched. The viewer, timeline, error map, and evaluation report all refer to the same timestamps. Every solver operates on pixels. Every result has settings, provenance, and limitations.
+| Regime | Hold | Linear | Optical flow | **RIFE 4.9** | RIFE fast |
+|---|---:|---:|---:|---:|---:|
+| Scattered loss, affected PSNR (dB) | 17.30 | 18.65 | 19.51 | **20.79** | 20.33 |
+| Long gap (6 frames), affected PSNR (dB) | 16.38 | 17.53 | 17.61 | **17.88** | 17.75 |
+| Seconds per missing frame (CPU, 2 threads) | 0.0005 | 0.001 | 0.038 | 0.14 | 0.057 |
+
+RIFE beats classical flow in **12/18** conditions: by +1.28 dB on scattered loss but only +0.28 dB on long gaps. Long missing runs remain the open problem, and that is what the [research track](research/README.md) targets.
+
+<details>
+<summary><strong>The worst case, not the best one</strong></summary>
+
+![Same worst RIFE absent frame across methods and fixed-scale error map](docs/visuals/failure-contact-sheet.png)
+
+This is the highest-error missing frame in the BMX long-gap run, shown across all methods with a fixed-scale error map. Large motion, newly visible content and long gaps break every method tested.
+
+</details>
+
+[Full report](docs/REPORT.md) · [Natural-study CSV](examples/natural-v02/summary.csv) · [Checkpoint study](examples/checkpoint-v03/README.md) · [All experiments](examples/README.md)
+
+## The workbench
+
+![Completed experiment in the reconstruction workbench](docs/design/02-reconstruction.png)
+
+Choose a clip or upload your own (MP4/MOV, or a PNG/JPEG sequence). Drop frames, hide an interval, mask a region, add noise or blur. Then run several reconstructors on the same damaged observations and scrub any frame side by side. The **Evaluation** view shows per-frame PSNR/SSIM, temporal error, runtime and a downloadable report. Space plays, arrow keys step.
+
+<details>
+<summary><strong>Evaluation page and mobile layout</strong></summary>
+
+![Per-method results, frame error and recorded benchmark](docs/design/03-evaluation.png)
+
+[Mobile workspace](docs/design/06-workspace-mobile.png) · [Project page](docs/design/04-project.png) · [Design rationale](docs/DESIGN.md)
+
+</details>
+
+## Quick start
+
+Python 3.12 and Node 20.19+:
+
+```bash
+python -m venv .venv
+.venv/bin/pip install -r backend/requirements-lock.txt      # Intel macOS: requirements-lock-macos-x86_64.txt
+npm ci
+.venv/bin/python scripts/fetch_assets.py                     # verifies checksums, fetches only missing files
+.venv/bin/python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
+```
+
+In a second terminal, run `npm run dev -- --port 5173`, then open http://localhost:5173. Docker, uploads and troubleshooting: [Quick start guide](docs/guides/QUICKSTART.md).
+
+## How it works
 
 ```mermaid
 flowchart LR
-    A[Recorded footage<br/>or synthetic control] --> B[Seeded corruption]
-    B --> C[CPU restoration]
+    A[Real footage<br/>or synthetic control] --> B[Seeded corruption<br/>y = M·B·x + n]
+    B --> C[CPU reconstruction<br/>hold · linear · flow · RIFE]
     C --> D[Aligned comparison]
     A -. evaluator-only reference .-> E[PSNR · SSIM<br/>temporal error · runtime]
     D --> E
     E --> F[Media + reproducible report]
 ```
 
-## Take the reconstruction desk.
+| Method | What it does |
+|---|---|
+| Nearest frame | Reuses the closest surviving frame |
+| Linear | Time-weighted blend of the frames on either side of the gap |
+| Optical flow | Dense bidirectional Farnebäck flow, inverse warping, forward/backward consistency rejection |
+| RIFE 4.9 | Pretrained intermediate-flow network (ONNX, CPU) at the exact missing timestamp |
+| RIFE fast | Same weights at half resolution, then upsampled: about 2.4× faster |
+| Telea | Spatial inpainting for masked regions within surviving frames |
 
-![Actual completed experiment in the redesigned workbench](docs/design/02-reconstruction.png)
+Outside models can be scored on identical pixels through a sealed exchange format (`inputs.npz` for the solver, `targets.npz` for the evaluator only): see [Experiments](docs/guides/EXPERIMENTS.md#4-compare-an-outside-model-on-identical-pixels). Details: [Architecture](docs/guides/ARCHITECTURE.md) · [Conventions](docs/RESEARCH.md).
 
-Source library on the left. Pixels and time in the center. Damage and restoration settings on the right. **Workspace**, **Evaluation**, and **The project** connect making an experiment, examining it, and understanding its purpose.
+## Research direction
 
-<details>
-<summary><strong>See the evaluation page and mobile layout</strong></summary>
+The next phase asks a question existing interpolation work doesn't answer: **given only the surviving frames, how much of a missing interval can be recovered, and where will the reconstruction be wrong?** The plan has three parts:
 
-![Actual per-method results, frame error and recorded benchmark](docs/design/03-evaluation.png)
+- a realistic missing-frame benchmark (burst and codec loss, gaps of 1–32 frames);
+- a recoverability estimate computed from the observations alone;
+- reconstruction with statistically calibrated, distribution-free risk maps.
 
-[Mobile workspace](docs/design/06-workspace-mobile.png) · [Project presentation](docs/design/04-project.png) · [Mobile project](docs/design/05-project-mobile.png) · [Design rationale](docs/DESIGN.md)
+[Prior-art audit and novelty check](research/literature/RECOVERABILITY_PRIOR_ART.md) · [CPU compression pilot](research/results/compression-pilot/README.md) · [Research program](research/RESEARCH_PROGRAM.md)
 
-</details>
-
-## Read it as an experience.
-
-The [documentation map](docs/README.md) offers short routes for builders, researchers, and reviewers. For an interactive tour, open **[docs/experience/index.html](docs/experience/index.html)** locally. It includes a real comparison wipe, switchable measured charts, expandable explanations, command copying, and an experiment trail. It works without the processing backend or an external service.
-
-GitHub displays HTML source. To view the rendered guide after cloning:
-
-```bash
-python -m http.server 8080 --directory . --bind 127.0.0.1
-# Open http://localhost:8080/docs/experience/
-```
-
-## Run your first experiment.
-
-Python **3.12** and Node **20.19+**. From the repository root:
+## Verify everything
 
 ```bash
-python -m venv .venv
-.venv/bin/pip install -r backend/requirements-lock.txt
-npm ci
-.venv/bin/python scripts/fetch_assets.py
-.venv/bin/python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
+.venv/bin/python -m pytest -q backend/tests research/tests   # 25 tests
+.venv/bin/python scripts/verify_artifacts.py                 # 120 MP4s, 36 reports, checksums
+npm run build && npm run lint && npm run typecheck
+npx playwright install chromium && npm run test:browser
 ```
 
-In a second terminal:
+Captured outputs: [verification evidence](docs/verification/README.md).
 
-```bash
-npm run dev -- --port 5173
-```
+## Limitations
 
-Open **http://localhost:5173**. Choose **Between the trees**, create damage, run Linear / Optical flow / RIFE, scrub an absent frame, then open Evaluation. Space plays, arrows step, and Home rewinds outside form controls.
+Three DAVIS scenes at 320×180, with already-compressed MP4 references, are a diagnostic set. They don't establish generalization, and RIFE's training overlap with DAVIS is unknown. No model has been trained or fine-tuned here. Noise and blur are stress tests with no dedicated solver. This is a single-user local app with no hosted deployment yet. Comparisons with published methods require the matched protocol described in [Related work](docs/RELATED_WORK.md).
 
-Pinned source clips and checkpoints are included. Asset setup verifies checksums and fetches only missing or corrupt files. No API keys, GPU, inference service, or automatic runtime downloads. [Setup, uploads, troubleshooting and Docker →](docs/guides/QUICKSTART.md)
-
-## Let the measurements speak.
-
-![Actual affected-frame PSNR across two corruption regimes](docs/visuals/natural-results.png)
-
-Three natural sequences × two corruption regimes × three seeds = **18 conditions**, **90 method runs**. RIFE 4.9 exceeds our classical optical-flow baseline in affected PSNR in **12/18** conditions. Its mean advantage is **1.28 dB** for scattered loss and **0.28 dB** for long intervals.
-
-A second, matched **36-run checkpoint experiment** finds RIFE 4.26 faster, but lower in affected PSNR in **16/18** conditions. We retained that negative result and kept 4.9 as the default. The comparison uses 4.9 ensemble versus 4.26 FP32 exports, so it does not isolate architecture version.
-
-[All study files](examples/README.md) · [Measured report](docs/REPORT.md) · [Natural-study CSV](examples/natural-v02/summary.csv) · [Checkpoint CSV](examples/checkpoint-v03/summary.csv)
-
-<details>
-<summary><strong>Look at a failure, not just a headline.</strong></summary>
-
-![Same worst RIFE absent frame across methods and fixed-scale error map](docs/visuals/failure-contact-sheet.png)
-
-This is the highest-error missing RIFE frame in the documented BMX long-gap experiment. The figure uses actual arrays, not a reconstructed video thumbnail. Large motion, new visibility, and long gaps remain difficult. [How this figure was made](scripts/build_documentation.py).
-
-</details>
-
-## What actually runs?
-
-| Method | Pixel operation | Use it for |
-|---|---|---|
-| Nearest frame | Reuse the closest surviving temporal observation | A transparent low-compute baseline |
-| Linear | Time-weighted blend of bracketing observations | A simple temporal baseline |
-| Optical flow | Dense bidirectional Farnebäck flow, inverse warps, consistency rejection | Motion-compensated interpolation |
-| RIFE 4.9 | Pinned pretrained intermediate-flow neural synthesis on ONNX CPU | Learned missing-frame interpolation |
-| RIFE fast | Half-resolution inference with the same weights, then upsample | A measured compute/detail tradeoff |
-| Telea | OpenCV spatial inpainting; nearest hold for absent frames | Masked regions within observed frames |
-
-RIFE 4.26 is an optional research adapter with a separate comparison script. No denoising or deblurring solver is included; noise and blur are stress tests. No training, distillation, pruning, or diffusion restoration is claimed. [Conventions and assumptions →](docs/RESEARCH.md)
-
-## Find your way through the repository.
+## Repository
 
 ```text
-src/                 React application: components, typed state and API client
-backend/             FastAPI, pixel algorithms, learned adapters and pytest tests
-scripts/             Asset setup, benchmarks, documentation and artifact verification
-assets/              Pinned clips, two checkpoints, manifests and third-party licenses
-examples/            Complete measured studies, controls, arrays, reports and media
-public/              Bundled frontend previews and copies of measured summaries
-docs/               Guided documentation, figures, interactive tour and QA evidence
-tests/              Browser flow and accessibility tests
-.github/            Ownership and inactive verification workflow template
+src/        React + TypeScript workbench
+backend/    FastAPI, decoding, pixel algorithms, ONNX adapters, pytest
+research/   Research track: protocols, runners, literature audit, results
+scripts/    Asset setup, benchmarks, documentation, artifact verification
+examples/   Complete measured studies (arrays, reports, media)
+docs/       Guides, report, figures, interactive tour, QA evidence
 ```
 
-[Architecture](docs/guides/ARCHITECTURE.md) · [Repository map](docs/guides/REPOSITORY.md) · [Experiment protocol](docs/guides/EXPERIMENTS.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+[Repository map](docs/guides/REPOSITORY.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [Cite this work](CITATION.cff)
 
-## Check the evidence yourself.
+## License and credits
 
-```bash
-.venv/bin/python -m pytest -q
-npm run build
-npm run lint
-npm run typecheck
-npx playwright install chromium
-npm run test:browser
-.venv/bin/python scripts/verify_artifacts.py
-.venv/bin/python scripts/check_documentation.py
-```
+Code and synthetic controls are **MIT**. RIFE weights keep their upstream MIT attribution. **DAVIS footage and derived media are CC BY-NC 4.0** (non-commercial). Fonts are under the SIL OFL. See [asset sources and licenses](assets/THIRD_PARTY.md).
 
-The current release passed **17 pytest tests**, **5 browser tests**, build, lint and strict TypeScript. Artifact verification checked **120 decoded experiment MP4s** and **36 aligned natural/checkpoint condition reports**. New documentation has its own browser and link checks; see [verification evidence](docs/verification/README.md) for current outputs.
+Research context: Korea University PRISM Lab (inverse problems and generative priors). This is independent work with no lab affiliation.
 
-## Research scope and rights.
-
-This is an independent educational/research portfolio, with research context from Korea University PRISM Lab. We reviewed related work including AVIS, InverseCrafter, EPS, InvFusion, BiM-VFI, controllable tracking-based VFI, FILM, and RIFE. [Primary-source comparison and what remains untested →](docs/RELATED_WORK.md)
-
-Three natural scenes do not establish generalization or superiority to those publications. Model training overlap with DAVIS is unknown. The contribution is an inspectable workbench and reproducible comparison infrastructure; algorithmic novelty has not been demonstrated.
-
-**Our code and synthetic controls: MIT.** RIFE retains upstream MIT attribution. **DAVIS footage and derived media: CC BY-NC 4.0**, per the pinned mirror. Local fonts retain SIL Open Font License notices. [Asset sources, changes and licenses](assets/THIRD_PARTY.md).
-
-Uploads stay on the local backend; temporary experiments expire after one hour. MP4/MOV decoding depends on available codecs, with image sequences and GIF export as fallbacks. This is a single-user local app. Docker image build passed; runtime smoke verification hit the workspace disk cap. No hosted deployment is included. The verification workflow is stored as an inactive template outside `.github/workflows`, so pushing cannot start a hosted runner. The publishing script verifies private visibility and rejects active workflows. See [publication status](docs/PUBLICATION.md).
-
-**Project author and maintainer:** [Harishik Dev Singh Jamwal](https://github.com/Harishik).
+**Author and maintainer:** [Harishik Dev Singh Jamwal](https://github.com/Harishik)

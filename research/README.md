@@ -2,6 +2,10 @@
 
 Author: **Harishik Dev Singh Jamwal**.
 
+[Local CPU resumption handoff (2026-11-17)](LOCAL_CPU_HANDOFF.md) records the
+Intel MacBook hardware inspection, local execution blockers, and next steps.
+Read it before rerunning the archived pilot on this laptop.
+
 This branch begins the research program requested after the v0.3 portfolio release. It adds **actual compressed CPU graphs and measurements**, while keeping a clear distinction between a working instrument and a new research result. The requested top-tier research standard has **not yet been achieved**.
 
 | Open | What it contains |

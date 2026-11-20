@@ -5,6 +5,9 @@ from pathlib import Path
 import cv2
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0,str(ROOT))
+from backend import decode
 
 
 def main() -> None:
@@ -32,13 +35,11 @@ def main() -> None:
                 assert abs(row['affected_psnr']-metric['affected_psnr'])<1e-10
                 assert abs(row['affected_ssim']-metric['affected_ssim'])<1e-10
             for media in condition.glob('*.mp4'):
-                cap=cv2.VideoCapture(str(media));decoded=0
-                while True:
-                    ok,frame=cap.read()
-                    if not ok:break
+                decoded=0
+                for frame in decode.frames(media):
                     assert frame.shape==(180,320,3),str(media)
                     decoded+=1
-                cap.release();assert decoded==count,(str(media),decoded,count)
+                assert decoded==count,(str(media),decoded,count)
                 assert media.stat().st_size>100
                 total_media+=1
         for mean in summary['summary']:

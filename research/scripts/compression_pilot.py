@@ -24,11 +24,44 @@ import cv2
 import numpy as np
 import onnx
 import onnxruntime as ort
+from backend import decode
 from backend.app import normalize
 from backend.core import evaluate
 PROTOCOL=json.loads((ROOT/'research/protocols/compression-pilot.json').read_text())
-OUT=ROOT/'research/results/compression-pilot'
+ARCHIVE=ROOT/'research/results/compression-pilot'
+# New trials must write elsewhere so the archived evidence is never overwritten.
+# The variable is inherited by build/worker subprocesses and the profiler/summary.
+OUT=Path(os.environ.get('LACUNA_PILOT_OUT',ARCHIVE)).resolve()
 MODELS=OUT/'models'
+
+
+def peak_rss_mib(maxrss: int|None=None,system: str|None=None) -> float:
+    """Convert ru_maxrss to MiB. Linux reports KiB; macOS reports bytes."""
+    value=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss if maxrss is None else maxrss
+    return value/1024**2 if (system or platform.system())=='Darwin' else value/1024
+
+
+def host_metadata() -> dict:
+    """CPU, memory and power provenance for Linux (proc/cgroup) and macOS (sysctl/pmset)."""
+    data=dict(platform=platform.platform(),python=platform.python_version(),logical_cpus=os.cpu_count(),
+              packages={n:importlib.metadata.version(n) for n in ['numpy','onnx','onnxruntime','opencv-python-headless','scikit-image']})
+    def run(*cmd: str) -> str:
+        try:return subprocess.run(cmd,capture_output=True,text=True,timeout=10).stdout.strip()
+        except (OSError,subprocess.TimeoutExpired):return ''
+    if platform.system()=='Darwin':
+        data['cpu_model']=run('sysctl','-n','machdep.cpu.brand_string') or 'unknown'
+        data['physical_cpus']=run('sysctl','-n','hw.physicalcpu') or 'unknown'
+        memory=run('sysctl','-n','hw.memsize');data['memory_bytes']=int(memory) if memory.isdigit() else 'unknown'
+        power=run('pmset','-g')
+        data['low_power_mode']=next((line.split()[-1] for line in power.splitlines() if 'lowpowermode' in line),'unknown')
+        data['thermal']=run('pmset','-g','therm') or 'unknown'
+        data['cpu_quota']=data['memory_limit']='not applicable (macOS)'
+    else:
+        cpu=Path('/proc/cpuinfo')
+        data['cpu_model']=next((line.split(':',1)[1].strip() for line in cpu.read_text().splitlines() if line.startswith('model name')),'unknown') if cpu.exists() else 'unknown'
+        for name,path in [('cpu_quota','/sys/fs/cgroup/cpu.max'),('memory_limit','/sys/fs/cgroup/memory.max')]:
+            p=Path(path);data[name]=p.read_text().strip() if p.exists() else 'unknown'
+    return data
 
 
 def sha(path: Path) -> str:
@@ -36,14 +69,8 @@ def sha(path: Path) -> str:
 
 
 def frames(scene: str) -> np.ndarray:
-    cap=cv2.VideoCapture(str(ROOT/f'assets/video/{scene}.mp4'));items=[];index=0
-    try:
-        while len(items)<48:
-            ok,a=cap.read()
-            if not ok:break
-            if index%2==0:items.append(normalize(cv2.cvtColor(a,cv2.COLOR_BGR2RGB)))
-            index+=1
-    finally:cap.release()
+    decoded,_=decode.sampled(ROOT/f'assets/video/{scene}.mp4',every=2,limit=48)
+    items=[normalize(a) for a in decoded]
     if not items:raise ValueError(f'No decoded frames: {scene}')
     return np.stack(items)
 
@@ -128,12 +155,20 @@ def worker(variant: str) -> None:
         rows.append(dict(**{k:case[k] for k in ['scene','left','right','target','t']},variant=variant,psnr=metric['psnr'],ssim=metric['ssim'],median_seconds=float(np.median(durations)),p95_seconds=float(np.percentile(durations,95)),duration_samples=durations))
         outputs.append(image)
     np.save(OUT/f'{variant}-predictions.npy',np.stack(outputs))
-    data=dict(status='complete',variant=variant,provider=session.get_providers(),load_seconds=load,model_sha256=sha(path),model_file_bytes=path.stat().st_size,process_peak_rss_mib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024,rows=rows)
+    data=dict(status='complete',variant=variant,provider=session.get_providers(),load_seconds=load,model_sha256=sha(path),model_file_bytes=path.stat().st_size,process_peak_rss_mib=peak_rss_mib(),rows=rows)
     (OUT/f'{variant}.json').write_text(json.dumps(data,indent=2,allow_nan=False))
 
 
 def main() -> None:
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--worker');parser.add_argument('--build');args=parser.parse_args()
+    global OUT,MODELS
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--worker');parser.add_argument('--build')
+    parser.add_argument('--out',type=Path,help='fresh trial directory; must not exist or must be empty')
+    args=parser.parse_args()
+    if args.out:
+        target=args.out.resolve()
+        if target==ARCHIVE.resolve():raise SystemExit('Refusing to overwrite the archived pilot; choose a new --out directory')
+        if target.exists() and any(target.iterdir()):raise SystemExit(f'Refusing to reuse non-empty trial directory: {target}')
+        os.environ['LACUNA_PILOT_OUT']=str(target);OUT=target;MODELS=OUT/'models'
     OUT.mkdir(parents=True,exist_ok=True);MODELS.mkdir(exist_ok=True)
     if args.worker:worker(args.worker);return
     if args.build:build(args.build);return
@@ -142,10 +177,7 @@ def main() -> None:
     for entry in [manifest['model'],*manifest['videos'],candidate]:
         assert sha(ROOT/'assets'/entry['file'])==entry['sha256'],f'Input checksum mismatch: {entry["file"]}'
     assert PROTOCOL['calibration_scene'] not in PROTOCOL['evaluation_scenes']
-    hardware=dict(platform=platform.platform(),python=platform.python_version(),packages={n:importlib.metadata.version(n) for n in ['numpy','onnx','onnxruntime','opencv-python-headless','scikit-image']},logical_cpus=os.cpu_count())
-    cpu=Path('/proc/cpuinfo');hardware['cpu_model']=next((line.split(':',1)[1].strip() for line in cpu.read_text().splitlines() if line.startswith('model name')),'unknown') if cpu.exists() else 'unknown'
-    for name,path in [('cpu_quota','/sys/fs/cgroup/cpu.max'),('memory_limit','/sys/fs/cgroup/memory.max')]:
-        p=Path(path);hardware[name]=p.read_text().strip() if p.exists() else 'unknown'
+    hardware=host_metadata()
     (OUT/'environment.json').write_text(json.dumps(hardware,indent=2))
     statuses=[]
     for variant in PROTOCOL['variants']:

@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software or its evaluation protocol, please cite it as below."
+title: "LACUNAFRAME: a reproducible workbench for missing-frame video recovery"
+type: software
+authors:
+  - family-names: "Jamwal"
+    given-names: "Harishik Dev Singh"
+repository-code: "https://github.com/Harishik/lacunaframe"
+license: MIT
+version: "0.3.1"
+date-released: "2026-11-20"
+keywords:
+  - video frame interpolation
+  - missing frame recovery
+  - inverse problems
+  - reproducibility
+  - uncertainty quantification

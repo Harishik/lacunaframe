@@ -15,6 +15,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from backend.core import restore,evaluate
+from backend import decode
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'docs/visuals'
 OUT.mkdir(parents=True,exist_ok=True)
@@ -70,12 +71,9 @@ def main() -> None:
     ax.set(title='Errors occur at missing samples · shaded intervals are absent observations',xlabel='Time · seconds',ylabel='RGB MSE ↓');ax.legend();ax.spines[['top','right']].set_visible(False)
     fig.tight_layout();fig.savefig(OUT/'error-timeline.png',dpi=150);plt.close(fig)
     # A short synthetic control remains visibly labeled as such.
-    cap=cv2.VideoCapture(str(ROOT/'examples/synthetic-v01/scenario-1/flow.mp4'));synthetic=[]
-    while True:
-        ok,a=cap.read()
-        if not ok:break
-        image=Image.new('RGB',(320,208),'#17191c');image.paste(Image.fromarray(cv2.cvtColor(a,cv2.COLOR_BGR2RGB)),(0,28));ImageDraw.Draw(image).text((8,7),'SYNTHETIC CONTROL / optical flow',font=font(11),fill='#eeeae2');synthetic.append(image)
-    cap.release()
+    synthetic=[]
+    for a in decode.frames(ROOT/'examples/synthetic-v01/scenario-1/flow.mp4'):
+        image=Image.new('RGB',(320,208),'#17191c');image.paste(Image.fromarray(a),(0,28));ImageDraw.Draw(image).text((8,7),'SYNTHETIC CONTROL / optical flow',font=font(11),fill='#eeeae2');synthetic.append(image)
     synthetic[0].save(OUT/'synthetic-control.gif',save_all=True,append_images=synthetic[1:],duration=83,loop=0,optimize=True)
     guide=ROOT/'docs/experience/index.html'
     data=dict(natural=data,checkpoints=json.loads((ROOT/'examples/checkpoint-v03/summary.json').read_text()),example=json.loads((OUT/'example.json').read_text()))

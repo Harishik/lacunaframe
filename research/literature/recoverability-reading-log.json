@@ -1,0 +1,184 @@
+{
+  "review_date": "2026-11-20",
+  "scope": "Phase 0 novelty audit for recoverability estimation and calibrated missing-frame recovery. Abstract/snippet depth; not a systematic review.",
+  "search_topics": [
+    "uncertainty estimation video frame interpolation",
+    "conformal risk control image restoration masks",
+    "conformal prediction temporal dependence dense video",
+    "frame interpolation conformal / risk control / coverage",
+    "long-gap multi-frame missing interpolation benchmarks",
+    "video inpainting uncertainty and hallucination detection",
+    "selective restoration risk certificates",
+    "recoverability / difficulty prediction for interpolation"
+  ],
+  "entries": [
+    {
+      "method": "Frame Interpolation Transformer and Uncertainty Guidance (Plack et al.)",
+      "reported_venue": "CVPR 2023 (to verify)",
+      "paper": null,
+      "role": "closest VFI uncertainty",
+      "review_depth": "seen as citation only",
+      "execution": "not executed"
+    },
+    {
+      "method": "Time-adaptive VFI based on Residual Diffusion",
+      "reported_venue": "arXiv 2025",
+      "paper": "https://arxiv.org/abs/2504.05402",
+      "role": "VFI pixel-wise uncertainty from diffusion",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "Multiple Hypothesis Flow Estimation under Matching Ambiguity",
+      "reported_venue": "arXiv 2026",
+      "paper": "https://arxiv.org/abs/2608.07120",
+      "role": "multi-hypothesis VFI, MA-HD benchmark",
+      "review_depth": "aggregator fragments",
+      "execution": "not executed"
+    },
+    {
+      "method": "Disambiguation for VFI",
+      "reported_venue": "arXiv 2023/2025",
+      "paper": "https://arxiv.org/abs/2311.08007",
+      "role": "ambiguity background",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "VFI-DPA",
+      "reported_venue": "arXiv 2023",
+      "paper": "https://arxiv.org/abs/2304.12664",
+      "role": "C2 primary baseline",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "Conformal Risk Control",
+      "reported_venue": "arXiv 2022",
+      "paper": "https://arxiv.org/abs/2208.02814",
+      "role": "C3 framework",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "How to Trust Your Diffusion Model",
+      "reported_venue": "arXiv 2023",
+      "paper": "https://arxiv.org/abs/2302.03791",
+      "role": "high-dimensional CRC",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "Conformal Bounds on Full-Reference IQA",
+      "reported_venue": "arXiv 2025",
+      "paper": "https://arxiv.org/abs/2505.09528",
+      "role": "conformal quality bounds",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "SafeRestore",
+      "reported_venue": "arXiv 2026",
+      "paper": "https://arxiv.org/abs/2609.03475",
+      "role": "selective restoration certificates",
+      "review_depth": "abstract fragments",
+      "execution": "not executed"
+    },
+    {
+      "method": "CHEM",
+      "reported_venue": "arXiv 2025",
+      "paper": "https://arxiv.org/abs/2512.09806",
+      "role": "conformal hallucination measure",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "Selective Conformal Risk Control",
+      "reported_venue": "arXiv 2025",
+      "paper": "https://arxiv.org/abs/2512.12844",
+      "role": "abstention tool",
+      "review_depth": "title/abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "Conditional Conformal Risk Adaptation",
+      "reported_venue": "arXiv 2025",
+      "paper": "https://arxiv.org/abs/2504.07611",
+      "role": "conditional coverage tool",
+      "review_depth": "title/abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "CUPS",
+      "reported_venue": "arXiv 2024",
+      "paper": "https://arxiv.org/abs/2412.10431",
+      "role": "non-exchangeable conformal on video",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "Non-exchangeable CP for Temporal GNNs",
+      "reported_venue": "KDD 2025",
+      "paper": "https://arxiv.org/abs/2507.02151",
+      "role": "temporal non-exchangeability",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "Split conformal under temporal dependence",
+      "reported_venue": "arXiv 2025",
+      "paper": "https://arxiv.org/abs/2510.02471",
+      "role": "theory",
+      "review_depth": "title",
+      "execution": "not executed"
+    },
+    {
+      "method": "Conformal Coverage for Any Video Temporal Grounder",
+      "reported_venue": "arXiv 2026",
+      "paper": "https://arxiv.org/abs/2608.07434",
+      "role": "possible overlap check",
+      "review_depth": "reference list only",
+      "execution": "not executed"
+    },
+    {
+      "method": "C3 calibrated video generation uncertainty",
+      "reported_venue": "arXiv 2025",
+      "paper": "https://arxiv.org/abs/2512.05927",
+      "role": "dense calibrated uncertainty, generation",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "ArbInterp / MultiInterpBench",
+      "reported_venue": "ICLR 2026",
+      "paper": "https://proceedings.iclr.cc/paper_files/paper/2026/file/36572cc8bb2a939f0d998847cb44776e-Paper-Conference.pdf",
+      "role": "C1 comparator benchmark",
+      "review_depth": "snippet",
+      "execution": "not executed"
+    },
+    {
+      "method": "Benchmarking Video Frame Interpolation",
+      "reported_venue": "arXiv 2024",
+      "paper": "https://arxiv.org/abs/2403.17128",
+      "role": "benchmark methodology",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "TAI video frame inpainting",
+      "reported_venue": "arXiv 2018",
+      "paper": "https://arxiv.org/abs/1803.07218",
+      "role": "missing-run reconstruction",
+      "review_depth": "abstract",
+      "execution": "not executed"
+    },
+    {
+      "method": "BSCV bitstream corruption",
+      "reported_venue": "NTU repository",
+      "paper": "https://dr.ntu.edu.sg/server/api/core/bitstreams/3018cecb-61d0-4e43-9006-bcc5af1884ab/content",
+      "role": "realistic loss benchmark",
+      "review_depth": "snippet",
+      "execution": "not executed"
+    }
+  ]
+}
