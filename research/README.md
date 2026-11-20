@@ -10,6 +10,9 @@ This branch begins the research program requested after the v0.3 portfolio relea
 
 | Open | What it contains |
 |---|---|
+| [Protocol v2 (frozen)](protocols/RECOVERABILITY_V2.md) | Untouched Xiph confirmation set, published baselines, revised G4, amendment 1 (arbitrary-time checkpoints), gate outcomes |
+| [Confirmation v2 (Xiph)](results/confirmation-v2/README.md) | G2′ passed (ρ = 0.881 on unseen data), G3′ and G4′ failed under dataset shift; all methods on Xiph |
+| [Published baselines on LacunaBench](results/lacunabench-v1-baselines/README.md) | AMT-S, IFRNet-S, IFRNet (midpoint- and arbitrary-time checkpoints) vs v1 methods on the test split |
 | [Recoverability v1 (C2/C3)](results/recoverability-v1/README.md) | Observation-only recoverability prediction (G2 passed), conformal risk masks (G3 passed, G4 failed, with diagnosis) |
 | [LacunaBench v1 results](results/lacunabench-v1/README.md) | T3 missing runs on 31 SNU-FILM clips: gap curves, loss processes, LPIPS/DISTS, gate G1 (failed) |
 | [Data ledger](data/LEDGER.md) | Every external source, pinned revision, selection and bytes against the 6 GB cap |

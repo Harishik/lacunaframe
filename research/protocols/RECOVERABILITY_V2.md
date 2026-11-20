@@ -52,3 +52,15 @@ Unit of analysis (the clip), bootstrap CIs, paired Wilcoxon with Holm correction
 **Change.** Each baseline is also evaluated with its *official arbitrary-time checkpoint* trained for ×8 interpolation on GoPro: `gopro_amt-s.pth` (`huggingface.co/lalala125/AMT`), and `IFRNet_GoPro.pth` and `IFRNet_S_GoPro.pth` (official IFRNet archive). The same export-parity gate P1 applies. Both checkpoint families are reported, labelled `*_vimeo` (midpoint-trained) and `*_gopro` (arbitrary-time).
 
 **Caveat recorded in advance.** The GoPro checkpoints were trained on the GOPRO training split. SNU-FILM's GoPro test clips come from GOPRO *test* sequences: different scenes, same camera and capture pipeline. Results on the SNU test split may therefore favour the `*_gopro` checkpoints. The Xiph set has no such overlap and is the fair comparison.
+
+## Results against the v2 gates (2026-11-20)
+
+| Gate | Outcome | Evidence |
+|---|---|---|
+| **P1** export parity | **Passed** for all 7 exports (≤ 3.9e-5) | `$LACUNA_EXTERNAL/weights/baselines-manifest.json` |
+| **P2** Vimeo checkpoint | **Passed**: paper RIFE 35.40 dB; AMT-S/IFRNet-S/IFRNet within 0.13–0.22 dB of published | [vimeo-parity](../results/vimeo-parity/README.md) |
+| **G2′** recoverability transfer | **Passed**: ρ = 0.881 on untouched Xiph (pair-only 0.845; per-clip Δρ CI [+0.021, +0.153]) | [confirmation-v2](../results/confirmation-v2/README.md) |
+| **G3′** calibration transfer | **Failed**: worst stratum coverage 0.815 (4 of 11 gated strata below 0.88) | same |
+| **G4′** conditioning | **Failed**: area ratio 0.961 (pass ≤ 0.85) | same |
+
+**What this establishes.** Recoverability prediction (C2) generalises to a new camera, new content and a new frame rate without retraining; this is the project's strongest result. Conformal coverage (C3) holds within the calibration source (G3, v1) but **not** across this dataset shift: split-conformal guarantees assume exchangeable calibration and test clips, and Xiph violates that. Making C3 a contribution requires shift-aware calibration (e.g. weighted conformal prediction with recoverability-based density-ratio weights, or a small labelled calibration set from the target domain). That is the next research step, to be pre-registered before it is run.

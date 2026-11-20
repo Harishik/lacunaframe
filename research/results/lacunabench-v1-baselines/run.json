@@ -1,0 +1,21 @@
+{
+  "clips": 11,
+  "rows": 3234,
+  "workers": 3,
+  "wall_seconds": 3360.6081229640004,
+  "methods": [
+    "amt_s",
+    "ifrnet_s",
+    "ifrnet"
+  ],
+  "gaps": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "loss_rate": 0.25,
+  "splits": "research/protocols/splits-v1.json"
+}

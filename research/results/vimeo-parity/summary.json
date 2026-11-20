@@ -1,29 +1,5 @@
 {
   "subsets": {
-    "shard0-256.npz": {
-      "label": "shard 0 only (first quarter of the test set, ordered by sequence)",
-      "triplets": 256,
-      "results": {
-        "linear": {
-          "psnr": 25.786021377424333,
-          "psnr_std": 4.6089269460598885,
-          "ssim": 0.7624658075202673,
-          "seconds_per_frame": 0.12325863614844224
-        },
-        "flow": {
-          "psnr": 31.6183908711489,
-          "psnr_std": 4.7011565574375815,
-          "ssim": 0.9230957722462865,
-          "seconds_per_frame": 0.2318409734218747
-        },
-        "rife": {
-          "psnr": 33.88305046702857,
-          "psnr_std": 4.663768406790513,
-          "ssim": 0.953952415063253,
-          "seconds_per_frame": 0.863888801437497
-        }
-      }
-    },
     "balanced-256.npz": {
       "label": "64 evenly spaced triplets from each of the 4 shards",
       "triplets": 256,
@@ -32,19 +8,43 @@
           "psnr": 25.470746997514667,
           "psnr_std": 4.553756269743993,
           "ssim": 0.7585907916538976,
-          "seconds_per_frame": 0.1458279725312508
+          "seconds_per_frame": 0.06093077657422441
         },
         "flow": {
           "psnr": 31.081470470897436,
           "psnr_std": 4.575957498415818,
           "ssim": 0.9175106352745098,
-          "seconds_per_frame": 0.5039780751875043
+          "seconds_per_frame": 0.23150436805077845
         },
         "rife": {
           "psnr": 33.47682756281779,
           "psnr_std": 4.575112747369639,
           "ssim": 0.9525121708643254,
-          "seconds_per_frame": 1.0927926302812523
+          "seconds_per_frame": 0.6212135400781165
+        },
+        "rife_paper": {
+          "psnr": 35.39527783489271,
+          "psnr_std": 4.6810721697213635,
+          "ssim": 0.9652267608825374,
+          "seconds_per_frame": 0.6467640400468753
+        },
+        "amt_s": {
+          "psnr": 35.836300871315615,
+          "psnr_std": 4.66841209245737,
+          "ssim": 0.9692774772455868,
+          "seconds_per_frame": 1.9525435429960964
+        },
+        "ifrnet_s": {
+          "psnr": 35.42843808106137,
+          "psnr_std": 4.765595222865437,
+          "ssim": 0.9659600019129466,
+          "seconds_per_frame": 0.9012049177890731
+        },
+        "ifrnet": {
+          "psnr": 35.64479178725823,
+          "psnr_std": 4.703183788633094,
+          "ssim": 0.967874815924318,
+          "seconds_per_frame": 1.0831119752773333
         }
       }
     }
@@ -52,6 +52,7 @@
   "published_reference_full_test_set": {
     "RIFE (ECCV 2022, paper Table)": 35.62,
     "IFRNet-S (CVPR 2022, paper)": 35.59,
+    "IFRNet (CVPR 2022, paper)": 35.8,
     "AMT-S (CVPR 2023, paper)": 35.97
   }
 }

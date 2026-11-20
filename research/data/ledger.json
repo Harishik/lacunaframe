@@ -356,7 +356,150 @@
         3
       ],
       "sha256": "5cb9035031de186221e39b62bc08a37d23ff94cfbb85d5c48ca7268c003cc8a9"
+    },
+    {
+      "name": "xiph",
+      "repo": "https://media.xiph.org/video/derf/y4m/",
+      "revision": "static files (sizes verified at fetch)",
+      "license": "Xiph.org derf collection; per-sequence terms (SVT sequences free for research).",
+      "selection": "centred 48-frame windows via HTTP range reads, stride 2 (50 fps) or 1 (25 fps); I420->RGB; 16:9 crop, 640x360",
+      "bytes_fetched_this_run": 1791593856,
+      "stored_bytes": 321770365,
+      "sequences": [
+        {
+          "id": "xiph-crowd_run_1080p50",
+          "file": "crowd_run_1080p50.npz",
+          "frames": 48,
+          "stride": 2,
+          "source_indices": [
+            202,
+            296
+          ],
+          "sha256": "d7c4b09e71cb88ba500d5c3d00825fba0da1b2f1998f289522bba76f117f6580"
+        },
+        {
+          "id": "xiph-park_joy_1080p50",
+          "file": "park_joy_1080p50.npz",
+          "frames": 48,
+          "stride": 2,
+          "source_indices": [
+            202,
+            296
+          ],
+          "sha256": "326faa3ef408e9b9d06eea6c3af340e91d1b07c646b29342bcbff83d3adcef70"
+        },
+        {
+          "id": "xiph-ducks_take_off_1080p50",
+          "file": "ducks_take_off_1080p50.npz",
+          "frames": 48,
+          "stride": 2,
+          "source_indices": [
+            202,
+            296
+          ],
+          "sha256": "e9902da93c991f7eca49e464c35d27cabcb4f9fb8b89bc1c071835267b6134a9"
+        },
+        {
+          "id": "xiph-in_to_tree_1080p50",
+          "file": "in_to_tree_1080p50.npz",
+          "frames": 48,
+          "stride": 2,
+          "source_indices": [
+            202,
+            296
+          ],
+          "sha256": "6e07a02826722300ee843cad9e7d0954bd940b3466fc97d2d480d17d46e99ee0"
+        },
+        {
+          "id": "xiph-old_town_cross_1080p50",
+          "file": "old_town_cross_1080p50.npz",
+          "frames": 48,
+          "stride": 2,
+          "source_indices": [
+            202,
+            296
+          ],
+          "sha256": "1e31aeaa8c6ee89a1fee1c5bb208a07a23ff04bbbd078a6978e63019dfc6f7f9"
+        },
+        {
+          "id": "xiph-riverbed_1080p25",
+          "file": "riverbed_1080p25.npz",
+          "frames": 48,
+          "stride": 1,
+          "source_indices": [
+            101,
+            148
+          ],
+          "sha256": "121189c9bdc7f0f2fb75e75cddd880d197a79a97273dcfbe4b692ed20626ecb3"
+        },
+        {
+          "id": "xiph-pedestrian_area_1080p25",
+          "file": "pedestrian_area_1080p25.npz",
+          "frames": 48,
+          "stride": 1,
+          "source_indices": [
+            163,
+            210
+          ],
+          "sha256": "a1d33553ea02c5e07106ede0ad5be8dcffd8a88e26b307fcab105d4950823f9d"
+        },
+        {
+          "id": "xiph-rush_hour_1080p25",
+          "file": "rush_hour_1080p25.npz",
+          "frames": 48,
+          "stride": 1,
+          "source_indices": [
+            226,
+            273
+          ],
+          "sha256": "b3e41e6e12b304a0f295ae3cf1569283171cf24b08473cfec26a65893c0ef21f"
+        },
+        {
+          "id": "xiph-station2_1080p25",
+          "file": "station2_1080p25.npz",
+          "frames": 48,
+          "stride": 1,
+          "source_indices": [
+            132,
+            179
+          ],
+          "sha256": "492a6f007ad7df97398b890efa945cd6d27ce1724b6ef2b3f19435e30285f165"
+        },
+        {
+          "id": "xiph-sunflower_1080p25",
+          "file": "sunflower_1080p25.npz",
+          "frames": 48,
+          "stride": 1,
+          "source_indices": [
+            226,
+            273
+          ],
+          "sha256": "0a3e3e7730e8ed04c9c18b62c9a9c67770bc91b2a1d5df4006477af17484801e"
+        },
+        {
+          "id": "xiph-tractor_1080p25",
+          "file": "tractor_1080p25.npz",
+          "frames": 48,
+          "stride": 1,
+          "source_indices": [
+            321,
+            368
+          ],
+          "sha256": "854bbd805bf4a7bdfe5a17ab3a923561d2ce35bc4d74e3ddb2d2e720f331ff3e"
+        },
+        {
+          "id": "xiph-blue_sky_1080p25",
+          "file": "blue_sky_1080p25.npz",
+          "frames": 48,
+          "stride": 1,
+          "source_indices": [
+            84,
+            131
+          ],
+          "sha256": "c35a89d4b2eee81e1387427806efbc0d7696235bc187eb9c454e71cd630d5322"
+        }
+      ]
     }
   ],
-  "stored_bytes_total": 976191348
+  "stored_bytes_total": 1297961713
 }

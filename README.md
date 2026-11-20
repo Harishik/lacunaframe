@@ -55,7 +55,7 @@ Protocol v1 was frozen before any data was downloaded. The test split is **11 Go
 - Burst and codec-chain loss are much harder than random loss at the same 25% rate (RIFE: 22.7 → 20.4 → 18.1 dB on test).
 - **Pre-registered gate G1 failed:** quadratic multi-anchor motion did not beat two-anchor flow on test gaps ≥ 4 (−0.14 dB, 95% CI [−0.38, +0.13]). It is reported as a negative result.
 
-[Full results](research/results/lacunabench-v1/README.md) · [Protocol](research/protocols/RECOVERABILITY_V1.md) · [Frozen splits](research/protocols/splits-v1.json) · [Data ledger (0.88 GB of the 6 GB cap)](research/data/LEDGER.md) · [Vimeo90K parity check (open issue)](research/results/vimeo-parity/README.md)
+[Full results](research/results/lacunabench-v1/README.md) · [Protocol](research/protocols/RECOVERABILITY_V1.md) · [Frozen splits](research/protocols/splits-v1.json) · [Data ledger](research/data/LEDGER.md)
 
 ## The workbench
 
@@ -114,6 +114,17 @@ Outside models can be scored on identical pixels through a sealed exchange forma
 From the surviving frames alone, and **before** any reconstruction, a model trained on development clips predicts how well a missing frame can be recovered. On the 11 held-out test clips it ranks RIFE's per-frame quality at **Spearman ρ = 0.675**. It beats a pair-only baseline (the two anchor frames, no gap/time context) in 10 of 11 clips, and it transfers across methods: trained on flow errors, it ranks RIFE errors at ρ = 0.673. Per-pixel risk masks calibrated with conformal risk control hold their coverage target in every gap and loss stratum (worst 0.899 against a 0.88 floor).
 
 Pre-registered outcomes: **G2 passed, G3 passed, G4 failed.** The recoverability-conditioned masks are not smaller than pair-only masks, because 44% of test pixels exceed the fixed error threshold, against 18% on dev. The fix is designed for protocol v2 rather than applied after the fact. [C2/C3 results and diagnosis](research/results/recoverability-v1/README.md)
+
+## Confirmation on untouched data and published baselines
+
+Protocol v2 was frozen and pushed **before** a fresh test set was downloaded: 12 Xiph 1080p sequences with a different camera, different content and 25 fps.
+
+- **Recoverability generalises.** The recoverability model trained on the YouTube dev clips ranks RIFE's per-frame quality on Xiph at **ρ = 0.881** without retraining, beating the pair-only baseline (per-clip Δρ CI [+0.021, +0.153]). Pre-registered G2′ passed.
+- **Calibration does not transfer across datasets.** Risk masks calibrated on the dev clips fall to 0.82–0.85 coverage in 4 of 11 Xiph strata (G3′ failed), and conditioning does not shrink them (G4′ failed). Shift-aware calibration is the open problem.
+- **The pipeline reproduces published numbers.** Official AMT-S, IFRNet-S, IFRNet and paper-RIFE checkpoints, converted to ONNX with a parity gate, land within 0.13–0.22 dB of their published Vimeo90K PSNR. The workbench's RIFE 4.9 is a practical-footage model and scores 2 dB lower on Vimeo90K.
+- **On missing runs, perceptual quality and PSNR disagree.** On Xiph, the arbitrary-time AMT/IFRNet checkpoints tie RIFE 4.9 on PSNR (CIs include 0), but RIFE 4.9 is far better on LPIPS (0.159 vs 0.238–0.303). Midpoint-trained checkpoints collapse away from t = 0.5.
+
+[Confirmation results](research/results/confirmation-v2/README.md) · [Baselines on LacunaBench](research/results/lacunabench-v1-baselines/README.md) · [Protocol v2 and gate outcomes](research/protocols/RECOVERABILITY_V2.md) · [Vimeo90K parity](research/results/vimeo-parity/README.md)
 
 ## Research direction
 

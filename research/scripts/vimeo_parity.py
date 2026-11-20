@@ -17,16 +17,20 @@ import numpy as np
 from skimage.metrics import structural_similarity
 from backend.core import motion
 from backend.learned import interpolate
+from backend import external
 
 EXTERNAL = Path(os.environ.get('LACUNA_EXTERNAL', REPO.parent / 'lacuna-data')).resolve()
 OUT = REPO / 'research/results/vimeo-parity'
-REFERENCE = {'RIFE (ECCV 2022, paper Table)': 35.62, 'IFRNet-S (CVPR 2022, paper)': 35.59, 'AMT-S (CVPR 2023, paper)': 35.97}
+REFERENCE = {'RIFE (ECCV 2022, paper Table)': 35.62, 'IFRNet-S (CVPR 2022, paper)': 35.59, 'IFRNet (CVPR 2022, paper)': 35.80, 'AMT-S (CVPR 2023, paper)': 35.97}
 
 
 def score(triplets: np.ndarray) -> dict:
     methods = {'linear': lambda a, b: ((a.astype(float) + b) / 2).round().astype(np.uint8),
                'flow': lambda a, b: motion(a, b, .5)[0],
                'rife': lambda a, b: interpolate(a, b, .5)}
+    for name in ('rife_paper', 'amt_s', 'ifrnet_s', 'ifrnet'):
+        if external.available(name):
+            methods[name] = (lambda n: lambda a, b: external.interpolate(n, a, b, .5))(name)
     results = {}
     for name, fn in methods.items():
         psnrs, ssims, began = [], [], time.perf_counter()
@@ -41,8 +45,7 @@ def score(triplets: np.ndarray) -> dict:
     return results
 
 
-SUBSETS = {'shard0-256.npz': 'shard 0 only (first quarter of the test set, ordered by sequence)',
-           'balanced-256.npz': '64 evenly spaced triplets from each of the 4 shards'}
+SUBSETS = {'balanced-256.npz': '64 evenly spaced triplets from each of the 4 shards'}
 
 
 def main() -> None:

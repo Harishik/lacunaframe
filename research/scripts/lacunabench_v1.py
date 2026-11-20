@@ -26,10 +26,14 @@ import numpy as np
 
 EXTERNAL = Path(os.environ.get('LACUNA_EXTERNAL', REPO.parent / 'lacuna-data')).resolve()
 SPLITS = json.loads((REPO / 'research/protocols/splits-v1.json').read_text())
-OUT = REPO / 'research/results/lacunabench-v1'
-MAPS = EXTERNAL / 'results/lacunabench-v1'
+DATASET = os.environ.get('LACUNA_BENCH_DATASET', 'snu')   # 'snu' (v1 dev/test) or 'xiph' (v2 confirmation)
+SUFFIX = os.environ.get('LACUNA_BENCH_TAG', '' if DATASET == 'snu' else f'-{DATASET}')  # separate output folder per run family
+RUN_SPLITS = tuple(os.environ.get('LACUNA_BENCH_SPLITS', 'dev,test').split(','))
+OUT = REPO / f'research/results/lacunabench-v1{SUFFIX}'
+MAPS = EXTERNAL / f'results/lacunabench-v1{SUFFIX}'
+DATA_DIR = {'snu': 'snu-film', 'xiph': 'xiph'}[DATASET]
 GAPS = (1, 2, 4, 8, 16, 32)
-METHODS = ('hold', 'linear', 'flow', 'flow_quadratic', 'rife')
+METHODS = tuple(os.environ.get('LACUNA_BENCH_METHODS', 'hold,linear,flow,flow_quadratic,rife').split(','))
 RATE = .25
 DISTS_GAPS = (4, 16)
 MAP_SIZE = (80, 45)
@@ -81,7 +85,7 @@ def clip_worker(args: tuple[str, str, str]) -> list[dict]:
     from skimage.metrics import structural_similarity
     from backend import perceptual
     from backend.core import restore
-    frames = np.load(EXTERNAL / 'snu-film' / file)['frames']
+    frames = np.load(EXTERNAL / DATA_DIR / file)['frames']
     n = len(frames)
     rows, maps = [], {}
     for task in tasks(clip, n):
@@ -91,7 +95,7 @@ def clip_worker(args: tuple[str, str, str]) -> list[dict]:
         damaged = frames.copy()
         damaged[missing] = 0
         mask = np.zeros(frames.shape[:3], bool)
-        with_dists = split == 'test' and task['process'] == 'contiguous' and int(task['task'][3:]) in DISTS_GAPS
+        with_dists = split in ('test', 'xiph') and task['process'] == 'contiguous' and int(task['task'][3:]) in DISTS_GAPS
         for method in METHODS:
             began = time.perf_counter()
             out, _, _ = restore(damaged, missing, mask, method)
@@ -125,7 +129,12 @@ FIELDS = ['clip', 'split', 'task', 'process', 'frame', 'run_length', 't', 'metho
 
 
 def run(workers: int, limit: int | None) -> None:
-    jobs = [(c['id'], split, c['file']) for split in ('dev', 'test') for c in SPLITS[split]]
+    if DATASET == 'xiph':
+        ledger = json.loads((REPO / 'research/data/ledger.json').read_text())
+        xiph = next(s for s in ledger['sources'] if s['name'] == 'xiph')
+        jobs = [(c['id'], 'xiph', c['file']) for c in xiph['sequences']]
+    else:
+        jobs = [(c['id'], split, c['file']) for split in RUN_SPLITS for c in SPLITS[split]]
     if limit:
         jobs = jobs[:limit]
     OUT.mkdir(parents=True, exist_ok=True)

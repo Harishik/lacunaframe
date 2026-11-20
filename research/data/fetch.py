@@ -195,9 +195,72 @@ def vimeo_balanced(per_shard: int = 64) -> None:
     print(f'vimeo-balanced stored {target.stat().st_size/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
 
 
+XIPH = 'https://media.xiph.org/video/derf/y4m/'
+
+
+def _range(url: str, start: int, length: int) -> bytes:
+    req = urllib.request.Request(url, headers={'Range': f'bytes={start}-{start + length - 1}'})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        data = r.read()
+    if len(data) != length:
+        raise IOError(f'Short range read from {url}: {len(data)} != {length}')
+    return data
+
+
+def xiph(window: int = 48) -> None:
+    """Protocol v2 confirmatory set: centred 48-frame windows from 12 Xiph 1080p sequences via HTTP range reads.
+
+    Only the needed frames are transferred; raw YUV is converted immediately and never stored.
+    """
+    spec = json.loads((REPO / 'research/protocols/recoverability-v2.json').read_text())['confirmatory_test_set']
+    clips = [(c, 2) for c in spec['clips_50fps_stride2']] + [(c, 1) for c in spec['clips_25fps_stride1']]
+    out = EXTERNAL / 'xiph'
+    out.mkdir(parents=True, exist_ok=True)
+    entries, fetched = [], 0
+    for name, stride in clips:
+        target = out / f'{name}.npz'
+        url = XIPH + f'{name}.y4m'
+        head = _range(url, 0, 512)
+        header = head[:head.index(b'\n') + 1]
+        fields = dict((f[:1].decode(), f[1:].decode()) for f in header.split()[1:])
+        w, h = int(fields['W']), int(fields['H'])
+        if not fields.get('C', '420').startswith('420'):
+            raise SystemExit(f'Unsupported chroma in {name}: {fields.get("C")}')
+        frame_bytes = w * h * 3 // 2
+        with urllib.request.urlopen(urllib.request.Request(url, method='HEAD'), timeout=60) as r:
+            total = int(r.headers['Content-Length'])
+        if head[len(header):len(header) + 6] != b'FRAME\n':
+            raise SystemExit(f'Unexpected per-frame header in {name}')
+        record_bytes = 6 + frame_bytes
+        n = (total - len(header)) // record_bytes
+        span = (window - 1) * stride + 1
+        start = (n - span) // 2
+        indices = [start + k * stride for k in range(window)]
+        if not target.exists():
+            check_cap(window * record_bytes)
+            frames = []
+            for i in indices:
+                blob = _range(url, len(header) + i * record_bytes, record_bytes)
+                if blob[:6] != b'FRAME\n':
+                    raise SystemExit(f'Frame marker missing at {name}[{i}]')
+                yuv = np.frombuffer(blob[6:], np.uint8).reshape(h * 3 // 2, w)
+                frames.append(to_16x9(cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB_I420)))
+                fetched += record_bytes
+            np.savez_compressed(target, frames=np.stack(frames), source_indices=np.array(indices), stride=stride,
+                                source_fps=float(fields['F'].split(':')[0]) / float(fields['F'].split(':')[1]))
+        entries.append(dict(id=f'xiph-{name}', file=target.name, frames=window, stride=stride, source_indices=[indices[0], indices[-1]],
+                            sha256=hashlib.sha256(target.read_bytes()).hexdigest()))
+        print(name, 'frames', indices[0], '..', indices[-1], flush=True)
+    stored = sum((out / e['file']).stat().st_size for e in entries)
+    record(dict(name='xiph', repo=XIPH, revision='static files (sizes verified at fetch)', license='Xiph.org derf collection; per-sequence terms (SVT sequences free for research).',
+                selection='centred 48-frame windows via HTTP range reads, stride 2 (50 fps) or 1 (25 fps); I420->RGB; 16:9 crop, 640x360',
+                bytes_fetched_this_run=fetched, stored_bytes=stored, sequences=entries))
+    print(f'xiph stored {stored/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('source', choices=['snu-film', 'vimeo-triplets', 'vimeo-balanced'])
+    parser.add_argument('source', choices=['snu-film', 'vimeo-triplets', 'vimeo-balanced', 'xiph'])
     args = parser.parse_args()
     EXTERNAL.mkdir(parents=True, exist_ok=True)
-    {'snu-film': snu_film, 'vimeo-triplets': vimeo_triplets, 'vimeo-balanced': vimeo_balanced}[args.source]()
+    {'snu-film': snu_film, 'vimeo-triplets': vimeo_triplets, 'vimeo-balanced': vimeo_balanced, 'xiph': xiph}[args.source]()

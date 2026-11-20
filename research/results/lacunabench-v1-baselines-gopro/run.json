@@ -1,0 +1,21 @@
+{
+  "clips": 11,
+  "rows": 3234,
+  "workers": 2,
+  "wall_seconds": 3832.521494113,
+  "methods": [
+    "amt_s_gopro",
+    "ifrnet_s_gopro",
+    "ifrnet_gopro"
+  ],
+  "gaps": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "loss_rate": 0.25,
+  "splits": "research/protocols/splits-v1.json"
+}

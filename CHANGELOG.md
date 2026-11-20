@@ -1,5 +1,14 @@
 # Changes
 
+## Phase 3 — untouched confirmation, published baselines, parity resolved — 2026-11-20
+
+- Protocol v2 frozen and pushed before any v2 data (`6e7d31f`); τ′ fixed from dev only (`1afb007`); amendment 1 (arbitrary-time checkpoints) pushed before running them (`f388a12`).
+- Xiph confirmation set: 12 1080p sequences fetched with HTTP range reads (48 frames each, 322 MB stored; raw YUV never stored). The project uses 1.7 GB of the 6 GB cap.
+- Published baselines via ONNX with gate P1 (all 7 exports ≤ 3.9e-5 vs PyTorch): AMT-S, IFRNet-S, IFRNet (Vimeo90K and GoPro ×8 checkpoints) and the ECCV 2022 RIFE paper model. `backend/external.py` replicates official padding; midpoint-only graphs reject other timesteps.
+- **P2 passed:** the paper RIFE model scores 35.40 dB on balanced Vimeo90K, and all official baselines are within 0.22 dB of published numbers. The RIFE 4.9 gap is the checkpoint, not the pipeline. Parity issue closed.
+- **G2′ passed:** recoverability ρ = 0.881 on untouched Xiph. **G3′ failed** (coverage 0.815 in the worst stratum under dataset shift). **G4′ failed** (area ratio 0.961).
+- Baselines: midpoint-trained checkpoints collapse away from t = 0.5; arbitrary-time checkpoints tie RIFE 4.9 on PSNR and lose on LPIPS. RIFE 4.9 stays the workbench default.
+
 ## Phase 2 — recoverability and calibrated risk masks — 2026-11-20
 
 - `research/lacunabench/recoverability.py`: observation-only per-pixel features (motion, flow inconsistency, anchor disagreement, warp residual, texture, divergence, outer-anchor acceleration, gap and anchor distance), with a test that features never read missing frames.

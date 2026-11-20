@@ -14,9 +14,10 @@ import cv2
 import numpy as np
 from skimage.metrics import structural_similarity
 
-METHODS = ('hold', 'linear', 'flow', 'telea', 'rife', 'rife_fast', 'flow_quadratic')
+EXTERNAL_METHODS = ('amt_s', 'ifrnet_s', 'ifrnet', 'rife_paper', 'amt_s_gopro', 'ifrnet_s_gopro', 'ifrnet_gopro')  # published models via backend/external.py (ONNX); plain names = Vimeo90K (midpoint-trained) weights
+METHODS = ('hold', 'linear', 'flow', 'telea', 'rife', 'rife_fast', 'flow_quadratic', *EXTERNAL_METHODS)
 # Research-only methods: available to benchmarks, not yet exposed through the API/UI.
-RESEARCH_METHODS = ('flow_quadratic',)
+RESEARCH_METHODS = ('flow_quadratic', *EXTERNAL_METHODS)
 LONG_GAP = 6  # anchor separation above which a gap is reported as underconstrained
 
 
@@ -265,6 +266,9 @@ def _interpolate(method: str, frames: np.ndarray, left: int, right: int, t: floa
         return frames[left if t <= .5 else right], 0.0
     if method == 'linear':
         return ((1 - t) * a.astype(float) + t * b).round().astype('uint8'), 0.0
+    if method in EXTERNAL_METHODS:
+        from .external import interpolate as external
+        return external(method, a, b, t), 0.0
     if method.startswith('rife'):
         from .learned import interpolate
         return interpolate(a, b, t, fast=method == 'rife_fast'), 0.0
@@ -293,7 +297,7 @@ def restore(damaged: np.ndarray, missing: np.ndarray, mask: np.ndarray, method: 
         warnings.append('Telea fills spatial masks only; missing frames use nearest observed frame.')
     elif mask.any():
         warnings.append('Temporal methods leave within-frame masks unrepaired. Choose Telea for spatial inpainting.')
-    if method.startswith('rife'):
+    if method.startswith('rife') and method not in EXTERNAL_METHODS:
         warnings.append('Pretrained RIFE estimates missing frames; it cannot verify hidden content. No calibrated confidence is available.')
         if method == 'rife_fast':
             warnings.append('RIFE Fast runs at half spatial resolution then upsamples; fine detail may be lost.')

@@ -33,11 +33,13 @@ PIXELS_PER_FRAME = 300
 SEED = 20261120
 
 
-def clip_features(args: tuple[str, str]) -> str:
-    clip, file = args
+def clip_features(args: tuple) -> str:
+    clip, file = args[:2]
+    data_dir, bench_dir, feats_dir = (args[2:] + (None, None, None))[:3] if len(args) > 2 else (None, None, None)
+    data_dir, bench_dir, feats_dir = data_dir or EXTERNAL / 'snu-film', bench_dir or BENCH, feats_dir or FEATS
     from research.lacunabench.recoverability import BracketFeatures, brackets, frame_summary
-    frames = np.load(EXTERNAL / 'snu-film' / file)['frames']
-    bench = np.load(BENCH / f'{clip}.npz')
+    frames = np.load(Path(data_dir) / file)['frames']
+    bench = np.load(Path(bench_dir) / f'{clip}.npz')
     out = {}
     for task in TASKS:
         missing = bench[f'{task}/missing']
@@ -52,8 +54,8 @@ def clip_features(args: tuple[str, str]) -> str:
         out[f'{task}/maps'] = maps.astype(np.float16)
         out[f'{task}/summary'] = np.stack([frame_summary(m) for m in maps]).astype(np.float32)
         out[f'{task}/frames'] = np.array(order)
-    FEATS.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(FEATS / f'{clip}.npz', **out)
+    Path(feats_dir).mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(Path(feats_dir) / f'{clip}.npz', **out)
     return clip
 
 
@@ -66,23 +68,26 @@ def features(workers: int = 4) -> None:
 
 # --------------------------------------------------------------------------- data assembly
 
-def load_psnr() -> dict:
+def load_psnr(rows_csv: Path | None = None) -> dict:
     table = {}
-    with (REPO / 'research/results/lacunabench-v1/rows.csv').open() as f:
+    with (rows_csv or REPO / 'research/results/lacunabench-v1/rows.csv').open() as f:
         for r in csv.DictReader(f):
             table[(r['clip'], r['task'], int(r['frame']), r['method'])] = min(float(r['psnr']), 60.0)
     return table
 
 
-def assemble(split: str, psnr: dict) -> dict:
-    """Per-frame and per-pixel arrays for one split."""
+def assemble(split: str | list[dict], psnr: dict, bench_dir: Path | None = None, feats_dir: Path | None = None,
+             methods: tuple[str, ...] = METHODS) -> dict:
+    """Per-frame and per-pixel arrays for one split (name) or an explicit list of clip entries."""
+    clips = SPLITS[split] if isinstance(split, str) else split
+    bench_dir, feats_dir = bench_dir or BENCH, feats_dir or FEATS
     from research.lacunabench.recoverability import CHANNELS, PAIR_ONLY
     pair_idx = [CHANNELS.index(c) for c in PAIR_ONLY]
-    frames = dict(clip=[], task=[], run=[], summary=[], pair_summary=[], maps=[], err={m: [] for m in METHODS}, psnr={m: [] for m in METHODS})
+    frames = dict(clip=[], task=[], run=[], summary=[], pair_summary=[], maps=[], err={m: [] for m in methods}, psnr={m: [] for m in methods})
     from research.lacunabench.recoverability import frame_summary
-    for c in SPLITS[split]:
+    for c in clips:
         clip = c['id']
-        fz, bz = np.load(FEATS / f'{clip}.npz'), np.load(BENCH / f'{clip}.npz')
+        fz, bz = np.load(Path(feats_dir) / f'{clip}.npz'), np.load(Path(bench_dir) / f'{clip}.npz')
         for task in TASKS:
             maps = fz[f'{task}/maps'].astype(np.float32)
             idx = fz[f'{task}/frames']
@@ -95,7 +100,7 @@ def assemble(split: str, psnr: dict) -> dict:
                 frames['summary'].append(fz[f'{task}/summary'][k])
                 frames['pair_summary'].append(frame_summary(maps[k], PAIR_ONLY))
                 frames['maps'].append(maps[k])
-                for m in METHODS:
+                for m in methods:
                     frames['err'][m].append(bz[f'{task}/{m}'][k].astype(np.float32))
                     frames['psnr'][m].append(psnr[(clip, task, int(i), m)])
     out = {k: np.array(v) if k not in ('err', 'psnr') else {m: np.array(x) for m, x in v.items()} for k, v in frames.items()}
