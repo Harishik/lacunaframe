@@ -1,0 +1,16 @@
+{
+  "version": 4,
+  "frozen": "2026-11-21",
+  "frozen_before": "any LacunaNet code, training, or v4 test download",
+  "hardware": "Intel Core i9-9880H (8C/16T), 16 GB, macOS, CPU only (no GPU at any stage)",
+  "architecture": {"inputs": "inner anchors A-1, A+1; optional outer A-2, A+2 with masks; anchor times; target t; log2 gap", "encoder": "shared 3-level depthwise-separable pyramid (C, 2C, 4C)", "motion": "3-level coarse-to-fine target->inner flows, outer-anchor context, FiLM conditioning", "synthesis": "backward warp + occlusion mask + small U-Net residual", "self_error": "per-pixel Laplace scale head", "width_grid": [16, 24, 32, 48]},
+  "training": {"data": {"gopro_train": "GOPRO_Large train sharp, 22 scenes, 2103 frames, 640x360, gaps 1-16, outer anchors p=0.8", "vimeo_train": "bijinc/vimeo-90k-medium train (25,656 triplets, ~50% official), streamed per shard"}, "mixture": {"gopro": 0.7, "vimeo": 0.3}, "crop": 256, "loss": "Charbonnier + 0.1*LPIPS-alex + Laplace NLL (stop-grad residual into scale)", "optimizer": "AdamW lr 3e-4 cosine, batch 8, wd 1e-4", "budget_wall_hours": 48, "checkpoint_every_hours": 2, "selection": "dev SNU YouTube T3: scene-mean PSNR - 20*LPIPS"},
+  "size_rule": "largest C with 640x360 ORT CPU latency (2 threads, warm, median of 20) <= RIFE 4.9 under identical conditions",
+  "eval_sets": {"xiph_c": ["720p50_mobcal_ter", "720p50_parkrun_ter", "720p50_shields_ter", "720p5994_stockholm_ter", "vidyo1_720p_60fps", "vidyo3_720p_60fps", "vidyo4_720p_60fps", "elephants_dream_1080p24", "sintel_trailer_2k_1080p24"], "xiph_c_rules": "centred 48-frame window, stride 2 for >=50 fps, v3 cut rule, min 6 clips", "vimeo_test": "full 3782 triplets", "snu_film": "full easy/medium/hard/extreme lists at native 1280x720"},
+  "gates": {
+    "G8": "Xiph-C T3: LacunaNet - RIFE4.9 PSNR paired CI lower > 0 AND mean LPIPS diff <= 0",
+    "G9": "LacunaNet CPU latency <= RIFE 4.9 at 640x360",
+    "G10": "Vimeo test and each SNU-FILM level: no baseline both faster and higher PSNR than LacunaNet",
+    "G11": "self-error per-frame Spearman >= 0.6 on Xiph-C AND conformal coverage >= 0.88 in every gated stratum"
+  }
+}
