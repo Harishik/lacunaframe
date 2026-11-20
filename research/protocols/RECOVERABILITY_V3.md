@@ -49,3 +49,14 @@ The clip is the unit of analysis; bootstrap CIs, paired Wilcoxon with Holm, the 
 **Finding.** The centred window of `aspen_1080p` contains two editorial cuts: consecutive-frame mean absolute differences of 58 and 70 against a within-shot median of about 5. Interpolating across a cut has no ground truth to recover, and only `rush_field_cuts` had been excluded in advance.
 
 **Rule (mechanical, applied to every Xiph-B clip before any method is run on it).** A cut is a consecutive-frame mean absolute RGB difference greater than 25 **and** more than 4× the clip's median consecutive difference. Any clip whose 48-frame window contains a cut is **excluded**. The exclusion list and the per-clip difference statistics are written to `research/results/fusion-v3/xiph-b-cuts.json`. If fewer than 6 clips remain, G5/G6 are reported as underpowered rather than passed or failed.
+
+## Results against the v3 gates (Xiph-B, 8 clips after the cut rule; 2026-11-21)
+
+| Gate | Outcome |
+|---|---|
+| **G5** RGF beats RIFE 4.9 | **Failed** on the LPIPS clause. PSNR **+0.40 dB** [+0.35, +0.47], 8/8 clips (Wilcoxon p = 0.0078), but LPIPS +0.034 [+0.020, +0.050] against the +0.005 limit |
+| **G5b** no regression vs the best single candidate | **Passed**: RGF is the best PSNR method at every gap length and loss process (worst margin +0.10 dB) |
+| **G6** coverage under shift | **Passed**: worst gated stratum 0.927 ≥ 0.88 |
+| **G7** (descriptive) | The label-free target threshold was larger than the dev threshold in both strata, so the deployed λ always equalled λ_dev. LFAC added no adaptation here, and G6's pass comes from the disagreement-augmented classifier scores calibrated on dev. Xiph-B also appears closer to dev than Xiph v2 was (RIFE 34.5 dB at g = 1) |
+
+**Interpretation.** Per-pixel fusion guided by predicted error is a reliable *fidelity* improvement over every single model, on unseen data. Softmax blending, however, trades perceptual sharpness for PSNR (the perception–distortion trade-off). A method that wins on both needs reconstruction trained with a perceptual objective, not a post-hoc blend. That motivates training our own model next.

@@ -1,5 +1,13 @@
 # Changes
 
+## Phase 4 — recoverability-guided fusion — 2026-11-21
+
+- Protocol v3 frozen before any data or fitting (`d097873`); scene-cut amendment (`da07f7f`) applied before evaluation (excluded `aspen`, `life`; an audit found no cuts in SNU-FILM or Xiph v2).
+- Xiph-B: 10 untouched 30 fps 1080p clips via range reads, with 4:2:2 handled; 8 remain after the cut rule.
+- `research/lacunabench/fusion.py`: candidate-disagreement features, per-candidate error predictors, per-pixel softmax fusion (tests included). `research/scripts/fusion_v3.py`: dev pass, 5-fold clip-grouped tuning, out-of-fold calibration, Xiph-B evaluation and judging.
+- **Results:** RGF +0.40 dB PSNR over RIFE 4.9 on Xiph-B (8/8 clips) and best at every gap/process (G5b passed), but LPIPS worse by 0.034 (**G5 failed**). Disagreement-aware masks hold ≥ 0.927 coverage (**G6 passed**); the label-free threshold never activated.
+- Temporary dev candidates deleted after fitting (reproducible with `devpass`).
+
 ## Phase 3 — untouched confirmation, published baselines, parity resolved — 2026-11-20
 
 - Protocol v2 frozen and pushed before any v2 data (`6e7d31f`); τ′ fixed from dev only (`1afb007`); amendment 1 (arbitrary-time checkpoints) pushed before running them (`f388a12`).

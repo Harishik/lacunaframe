@@ -1,0 +1,278 @@
+{
+  "xiph-b": {
+    "xiphb-aspen_1080p": {
+      "cut": true,
+      "max_diff": 70.25,
+      "median_diff": 5.49
+    },
+    "xiphb-controlled_burn_1080p": {
+      "cut": false,
+      "max_diff": 3.04,
+      "median_diff": 2.26
+    },
+    "xiphb-red_kayak_1080p": {
+      "cut": false,
+      "max_diff": 3.01,
+      "median_diff": 2.96
+    },
+    "xiphb-snow_mnt_1080p": {
+      "cut": false,
+      "max_diff": 9.12,
+      "median_diff": 7.83
+    },
+    "xiphb-speed_bag_1080p": {
+      "cut": false,
+      "max_diff": 20.62,
+      "median_diff": 3.94
+    },
+    "xiphb-touchdown_pass_1080p": {
+      "cut": false,
+      "max_diff": 10.92,
+      "median_diff": 10.12
+    },
+    "xiphb-west_wind_easy_1080p": {
+      "cut": false,
+      "max_diff": 10.98,
+      "median_diff": 10.33
+    },
+    "xiphb-dinner_1080p30": {
+      "cut": false,
+      "max_diff": 10.01,
+      "median_diff": 7.64
+    },
+    "xiphb-factory_1080p30": {
+      "cut": false,
+      "max_diff": 65.16,
+      "median_diff": 18.98
+    },
+    "xiphb-life_1080p30": {
+      "cut": true,
+      "max_diff": 90.45,
+      "median_diff": 4.34
+    }
+  },
+  "xiph": {
+    "xiph-crowd_run_1080p50": {
+      "cut": false,
+      "max_diff": 19.67,
+      "median_diff": 17.34
+    },
+    "xiph-park_joy_1080p50": {
+      "cut": false,
+      "max_diff": 27.17,
+      "median_diff": 23.57
+    },
+    "xiph-ducks_take_off_1080p50": {
+      "cut": false,
+      "max_diff": 13.33,
+      "median_diff": 12.93
+    },
+    "xiph-in_to_tree_1080p50": {
+      "cut": false,
+      "max_diff": 9.0,
+      "median_diff": 8.17
+    },
+    "xiph-old_town_cross_1080p50": {
+      "cut": false,
+      "max_diff": 9.62,
+      "median_diff": 7.27
+    },
+    "xiph-riverbed_1080p25": {
+      "cut": false,
+      "max_diff": 22.3,
+      "median_diff": 20.8
+    },
+    "xiph-pedestrian_area_1080p25": {
+      "cut": false,
+      "max_diff": 10.83,
+      "median_diff": 6.81
+    },
+    "xiph-rush_hour_1080p25": {
+      "cut": false,
+      "max_diff": 4.83,
+      "median_diff": 4.24
+    },
+    "xiph-station2_1080p25": {
+      "cut": false,
+      "max_diff": 5.11,
+      "median_diff": 4.66
+    },
+    "xiph-sunflower_1080p25": {
+      "cut": false,
+      "max_diff": 12.95,
+      "median_diff": 7.25
+    },
+    "xiph-tractor_1080p25": {
+      "cut": false,
+      "max_diff": 18.24,
+      "median_diff": 15.17
+    },
+    "xiph-blue_sky_1080p25": {
+      "cut": false,
+      "max_diff": 21.6,
+      "median_diff": 20.41
+    }
+  },
+  "snu-film": {
+    "GOPRO_test-GOPR0384_11_00": {
+      "cut": false,
+      "max_diff": 24.39,
+      "median_diff": 11.58
+    },
+    "GOPRO_test-GOPR0384_11_05": {
+      "cut": false,
+      "max_diff": 24.83,
+      "median_diff": 16.57
+    },
+    "GOPRO_test-GOPR0385_11_01": {
+      "cut": false,
+      "max_diff": 20.75,
+      "median_diff": 15.21
+    },
+    "GOPRO_test-GOPR0396_11_00": {
+      "cut": false,
+      "max_diff": 21.22,
+      "median_diff": 14.91
+    },
+    "GOPRO_test-GOPR0410_11_00": {
+      "cut": false,
+      "max_diff": 25.92,
+      "median_diff": 16.43
+    },
+    "GOPRO_test-GOPR0854_11_00": {
+      "cut": false,
+      "max_diff": 38.04,
+      "median_diff": 22.91
+    },
+    "GOPRO_test-GOPR0862_11_00": {
+      "cut": false,
+      "max_diff": 40.4,
+      "median_diff": 28.22
+    },
+    "GOPRO_test-GOPR0868_11_00": {
+      "cut": false,
+      "max_diff": 34.75,
+      "median_diff": 26.92
+    },
+    "GOPRO_test-GOPR0869_11_00": {
+      "cut": false,
+      "max_diff": 33.21,
+      "median_diff": 23.25
+    },
+    "GOPRO_test-GOPR0871_11_00": {
+      "cut": false,
+      "max_diff": 36.76,
+      "median_diff": 28.61
+    },
+    "GOPRO_test-GOPR0881_11_01": {
+      "cut": false,
+      "max_diff": 25.24,
+      "median_diff": 15.82
+    },
+    "YouTube_test-0000": {
+      "cut": false,
+      "max_diff": 25.68,
+      "median_diff": 13.9
+    },
+    "YouTube_test-0001": {
+      "cut": false,
+      "max_diff": 20.9,
+      "median_diff": 9.34
+    },
+    "YouTube_test-0002": {
+      "cut": false,
+      "max_diff": 5.0,
+      "median_diff": 3.08
+    },
+    "YouTube_test-0003": {
+      "cut": false,
+      "max_diff": 19.12,
+      "median_diff": 12.01
+    },
+    "YouTube_test-0004": {
+      "cut": false,
+      "max_diff": 1.72,
+      "median_diff": 1.57
+    },
+    "YouTube_test-0005": {
+      "cut": false,
+      "max_diff": 2.87,
+      "median_diff": 1.38
+    },
+    "YouTube_test-0006": {
+      "cut": false,
+      "max_diff": 9.69,
+      "median_diff": 6.35
+    },
+    "YouTube_test-0007": {
+      "cut": false,
+      "max_diff": 3.98,
+      "median_diff": 2.87
+    },
+    "YouTube_test-0008": {
+      "cut": false,
+      "max_diff": 12.4,
+      "median_diff": 10.76
+    },
+    "YouTube_test-0009": {
+      "cut": false,
+      "max_diff": 16.42,
+      "median_diff": 13.61
+    },
+    "YouTube_test-0010": {
+      "cut": false,
+      "max_diff": 4.85,
+      "median_diff": 4.06
+    },
+    "YouTube_test-0011": {
+      "cut": false,
+      "max_diff": 26.52,
+      "median_diff": 20.39
+    },
+    "YouTube_test-0012": {
+      "cut": false,
+      "max_diff": 12.98,
+      "median_diff": 7.89
+    },
+    "YouTube_test-0013": {
+      "cut": false,
+      "max_diff": 9.6,
+      "median_diff": 5.43
+    },
+    "YouTube_test-0014": {
+      "cut": false,
+      "max_diff": 23.17,
+      "median_diff": 17.88
+    },
+    "YouTube_test-0015": {
+      "cut": false,
+      "max_diff": 7.7,
+      "median_diff": 6.51
+    },
+    "YouTube_test-0016": {
+      "cut": false,
+      "max_diff": 21.63,
+      "median_diff": 14.15
+    },
+    "YouTube_test-0017": {
+      "cut": false,
+      "max_diff": 20.51,
+      "median_diff": 17.95
+    },
+    "YouTube_test-0018": {
+      "cut": false,
+      "max_diff": 28.96,
+      "median_diff": 21.33
+    },
+    "YouTube_test-0019": {
+      "cut": false,
+      "max_diff": 2.79,
+      "median_diff": 2.14
+    }
+  },
+  "xiph-b_excluded": [
+    "xiphb-aspen_1080p",
+    "xiphb-life_1080p30"
+  ],
+  "rule": "cut = consecutive mean |dRGB| > 25 and > 4x clip median; Xiph-B clips with a cut are excluded (v3 amendment 1)"
+}

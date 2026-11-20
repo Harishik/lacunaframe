@@ -499,7 +499,128 @@
           "sha256": "c35a89d4b2eee81e1387427806efbc0d7696235bc187eb9c454e71cd630d5322"
         }
       ]
+    },
+    {
+      "name": "xiph-b",
+      "repo": "https://media.xiph.org/video/derf/y4m/",
+      "revision": "static files",
+      "license": "Xiph.org derf collection; per-sequence terms.",
+      "selection": "protocol v3: centred 48-frame windows, stride 1 (30 fps), 4:2:2 averaged to 4:2:0, I420->RGB, 16:9 crop, 640x360",
+      "bytes_fetched_this_run": 1841359680,
+      "stored_bytes": 243125025,
+      "sequences": [
+        {
+          "id": "xiphb-aspen_1080p",
+          "file": "aspen_1080p.npz",
+          "frames": 48,
+          "chroma": "422",
+          "source_indices": [
+            261,
+            308
+          ],
+          "sha256": "d02e9604be0d54f81b003ad53815c60b25fda15a0be2e696edb6e8587cee2e29"
+        },
+        {
+          "id": "xiphb-controlled_burn_1080p",
+          "file": "controlled_burn_1080p.npz",
+          "frames": 48,
+          "chroma": "422",
+          "source_indices": [
+            261,
+            308
+          ],
+          "sha256": "a4b84f6c36efab31d104f61d29a6f058970e0a5db3ada9c1752a8b5d859d48e6"
+        },
+        {
+          "id": "xiphb-red_kayak_1080p",
+          "file": "red_kayak_1080p.npz",
+          "frames": 48,
+          "chroma": "422",
+          "source_indices": [
+            261,
+            308
+          ],
+          "sha256": "78fc8855f8260ce078b0f4c6662f3327c4df076f65bf0dcc75c6bf981b53f3a0"
+        },
+        {
+          "id": "xiphb-snow_mnt_1080p",
+          "file": "snow_mnt_1080p.npz",
+          "frames": 48,
+          "chroma": "422",
+          "source_indices": [
+            261,
+            308
+          ],
+          "sha256": "7db9a9edde562fcf1626cf2a92a0c84a7cab1c2b4b66f765f07331613fe979e4"
+        },
+        {
+          "id": "xiphb-speed_bag_1080p",
+          "file": "speed_bag_1080p.npz",
+          "frames": 48,
+          "chroma": "422",
+          "source_indices": [
+            261,
+            308
+          ],
+          "sha256": "4211c50dc387126283be8d6684609c976c07ca8ae4a4ce5f7e5ad8af08f054cb"
+        },
+        {
+          "id": "xiphb-touchdown_pass_1080p",
+          "file": "touchdown_pass_1080p.npz",
+          "frames": 48,
+          "chroma": "422",
+          "source_indices": [
+            261,
+            308
+          ],
+          "sha256": "d6b226e742a1fb0061728555cd413b3bb2a191db884b5b8444a2dd5cd4eca9f8"
+        },
+        {
+          "id": "xiphb-west_wind_easy_1080p",
+          "file": "west_wind_easy_1080p.npz",
+          "frames": 48,
+          "chroma": "422",
+          "source_indices": [
+            261,
+            308
+          ],
+          "sha256": "c4a4da07007e987c4df892b2dba9f60a267f5fed86c9298aa5ee3b774c22d55a"
+        },
+        {
+          "id": "xiphb-dinner_1080p30",
+          "file": "dinner_1080p30.npz",
+          "frames": 48,
+          "chroma": "420",
+          "source_indices": [
+            451,
+            498
+          ],
+          "sha256": "12fa524cc1c8aa78fe19637948a31adf40e3aa61c8f3ed004810cbddf40b2d4a"
+        },
+        {
+          "id": "xiphb-factory_1080p30",
+          "file": "factory_1080p30.npz",
+          "frames": 48,
+          "chroma": "420",
+          "source_indices": [
+            645,
+            692
+          ],
+          "sha256": "f1b69ed6071200d446d0018dd1941b729b6d2cf3bf0392e9d5287aa92ac2c518"
+        },
+        {
+          "id": "xiphb-life_1080p30",
+          "file": "life_1080p30.npz",
+          "frames": 48,
+          "chroma": "420",
+          "source_indices": [
+            388,
+            435
+          ],
+          "sha256": "41ba1e133ddff16d51e64266e0aaca5beaa80d8ad1acb657311dcbcef9010cb1"
+        }
+      ]
     }
   ],
-  "stored_bytes_total": 1297961713
+  "stored_bytes_total": 1541086738
 }

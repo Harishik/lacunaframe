@@ -126,6 +126,16 @@ Protocol v2 was frozen and pushed **before** a fresh test set was downloaded: 12
 
 [Confirmation results](research/results/confirmation-v2/README.md) · [Baselines on LacunaBench](research/results/lacunabench-v1-baselines/README.md) · [Protocol v2 and gate outcomes](research/protocols/RECOVERABILITY_V2.md) · [Vimeo90K parity](research/results/vimeo-parity/README.md)
 
+## Recoverability-guided fusion: our hybrid, on a third untouched set
+
+Five reconstructors (RIFE 4.9, arbitrary-time AMT-S and IFRNet, flow, linear) feed a per-pixel blend. It is weighted by each one's error, predicted from observation-only recoverability features plus the candidates' disagreement with each other. Everything is fit on the 20 dev clips; protocol v3 was frozen first. On 8 untouched Xiph 30 fps clips:
+
+- **Fidelity:** +0.40 dB PSNR over RIFE 4.9 (95% CI [+0.35, +0.47], 8/8 clips), and the best PSNR at every gap length and loss process. It beats each published model by +1.4 to +1.6 dB.
+- **Perception:** LPIPS is worse by 0.034, because blending softens detail. Pre-registered G5 required both, so **G5 failed**. Closing that gap needs a model trained for perceptual quality, which is the next phase.
+- **Risk masks with disagreement-aware scores** hold ≥ 0.927 coverage in every stratum on this set (G6 passed). The label-free re-calibration never activated, so no credit is claimed for it.
+
+[Fusion results](research/results/fusion-v3/xiph-b/README.md) · [Protocol v3 and outcomes](research/protocols/RECOVERABILITY_V3.md) · [Scene-cut audit](research/results/fusion-v3/xiph-b-cuts.json)
+
 ## Research direction
 
 The next phase asks a question existing interpolation work doesn't answer: **given only the surviving frames, how much of a missing interval can be recovered, and where will the reconstruction be wrong?** The plan has three parts:

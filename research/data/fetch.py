@@ -258,9 +258,68 @@ def xiph(window: int = 48) -> None:
     print(f'xiph stored {stored/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
 
 
+def xiph_b(window: int = 48) -> None:
+    """Protocol v3 untouched set: centred 48-frame windows (stride 1, 30 fps) from 10 Xiph 1080p sequences.
+
+    Handles 4:2:0 and planar 4:2:2 (chroma averaged vertically to 4:2:0, then the same
+    OpenCV I420 conversion as Xiph v2). Raw YUV is never stored.
+    """
+    spec = json.loads((REPO / 'research/protocols/recoverability-v3.json').read_text())['test_set_xiph_b']
+    out = EXTERNAL / 'xiph-b'
+    out.mkdir(parents=True, exist_ok=True)
+    entries, fetched = [], 0
+    for name in spec['clips']:
+        target = out / f'{name}.npz'
+        url = XIPH + f'{name}.y4m'
+        head = _range(url, 0, 512)
+        header = head[:head.index(b'\n') + 1]
+        fields = dict((f[:1].decode(), f[1:].decode()) for f in header.split()[1:])
+        w, h, chroma = int(fields['W']), int(fields['H']), fields.get('C', '420')
+        if chroma.startswith('420'):
+            frame_bytes = w * h * 3 // 2
+        elif chroma.startswith('422'):
+            frame_bytes = w * h * 2
+        else:
+            raise SystemExit(f'Unsupported chroma {chroma} in {name}')
+        with urllib.request.urlopen(urllib.request.Request(url, method='HEAD'), timeout=60) as r:
+            total = int(r.headers['Content-Length'])
+        record_bytes = 6 + frame_bytes
+        n = (total - len(header)) // record_bytes
+        start = (n - window) // 2
+        indices = list(range(start, start + window))
+        if not target.exists():
+            check_cap(window * record_bytes)
+            frames = []
+            for i in indices:
+                blob = _range(url, len(header) + i * record_bytes, record_bytes)
+                if blob[:6] != b'FRAME\n':
+                    raise SystemExit(f'Frame marker missing at {name}[{i}]')
+                raw = np.frombuffer(blob[6:], np.uint8)
+                y = raw[:w * h].reshape(h, w)
+                if chroma.startswith('422'):
+                    u = raw[w * h:w * h + (w // 2) * h].reshape(h, w // 2).astype(np.uint16)
+                    v = raw[w * h + (w // 2) * h:].reshape(h, w // 2).astype(np.uint16)
+                    u = ((u[0::2] + u[1::2] + 1) // 2).astype(np.uint8)
+                    v = ((v[0::2] + v[1::2] + 1) // 2).astype(np.uint8)
+                    yuv = np.concatenate([y.reshape(-1), u.reshape(-1), v.reshape(-1)]).reshape(h * 3 // 2, w)
+                else:
+                    yuv = raw.reshape(h * 3 // 2, w)
+                frames.append(to_16x9(cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB_I420)))
+                fetched += record_bytes
+            np.savez_compressed(target, frames=np.stack(frames), source_indices=np.array(indices), stride=1, chroma=chroma)
+        entries.append(dict(id=f'xiphb-{name}', file=target.name, frames=window, chroma=chroma, source_indices=[indices[0], indices[-1]],
+                            sha256=hashlib.sha256(target.read_bytes()).hexdigest()))
+        print(name, chroma, 'frames', indices[0], '..', indices[-1], flush=True)
+    stored = sum((out / e['file']).stat().st_size for e in entries)
+    record(dict(name='xiph-b', repo=XIPH, revision='static files', license='Xiph.org derf collection; per-sequence terms.',
+                selection='protocol v3: centred 48-frame windows, stride 1 (30 fps), 4:2:2 averaged to 4:2:0, I420->RGB, 16:9 crop, 640x360',
+                bytes_fetched_this_run=fetched, stored_bytes=stored, sequences=entries))
+    print(f'xiph-b stored {stored/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('source', choices=['snu-film', 'vimeo-triplets', 'vimeo-balanced', 'xiph'])
+    parser.add_argument('source', choices=['snu-film', 'vimeo-triplets', 'vimeo-balanced', 'xiph', 'xiph-b'])
     args = parser.parse_args()
     EXTERNAL.mkdir(parents=True, exist_ok=True)
-    {'snu-film': snu_film, 'vimeo-triplets': vimeo_triplets, 'vimeo-balanced': vimeo_balanced, 'xiph': xiph}[args.source]()
+    {'snu-film': snu_film, 'vimeo-triplets': vimeo_triplets, 'vimeo-balanced': vimeo_balanced, 'xiph': xiph, 'xiph-b': xiph_b}[args.source]()

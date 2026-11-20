@@ -10,6 +10,8 @@ This branch begins the research program requested after the v0.3 portfolio relea
 
 | Open | What it contains |
 |---|---|
+| [Protocol v3 (frozen)](protocols/RECOVERABILITY_V3.md) | Recoverability-guided fusion, label-free calibration, untouched Xiph-B, scene-cut amendment, gate outcomes |
+| [Fusion v3 results](results/fusion-v3/xiph-b/README.md) | RGF +0.40 dB over RIFE 4.9 on unseen clips (G5 failed on LPIPS), G5b and G6 passed |
 | [Protocol v2 (frozen)](protocols/RECOVERABILITY_V2.md) | Untouched Xiph confirmation set, published baselines, revised G4, amendment 1 (arbitrary-time checkpoints), gate outcomes |
 | [Confirmation v2 (Xiph)](results/confirmation-v2/README.md) | G2′ passed (ρ = 0.881 on unseen data), G3′ and G4′ failed under dataset shift; all methods on Xiph |
 | [Published baselines on LacunaBench](results/lacunabench-v1-baselines/README.md) | AMT-S, IFRNet-S, IFRNet (midpoint- and arbitrary-time checkpoints) vs v1 methods on the test split |
