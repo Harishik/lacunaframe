@@ -44,3 +44,11 @@ Baseline comparisons (AMT, IFRNet vs RIFE 4.9 and flow) are **descriptive**: sce
 ## 5. Unchanged from v1
 
 Unit of analysis (the clip), bootstrap CIs, paired Wilcoxon with Holm correction, PSNR cap of 60 dB, LPIPS on all missing frames, the error-map format, the storage rules, and failure retention.
+
+## Amendment 1 — 2026-11-20 (before any arbitrary-time checkpoint is run)
+
+**Finding that triggered it.** On the v1 test split, the Vimeo90K-trained AMT-S, IFRNet-S and IFRNet trail RIFE 4.9 by −0.1 dB near t = 0.5 but by −3.4 to −3.8 dB near t = 0.1/0.9. Two-anchor flow's deficit stays flat (≈ −0.5 dB). Vimeo90K triplets only ever contain t = 0.5, so these checkpoints are effectively midpoint models, and ranking them on arbitrary-time gaps would be unfair to the methods.
+
+**Change.** Each baseline is also evaluated with its *official arbitrary-time checkpoint* trained for ×8 interpolation on GoPro: `gopro_amt-s.pth` (`huggingface.co/lalala125/AMT`), and `IFRNet_GoPro.pth` and `IFRNet_S_GoPro.pth` (official IFRNet archive). The same export-parity gate P1 applies. Both checkpoint families are reported, labelled `*_vimeo` (midpoint-trained) and `*_gopro` (arbitrary-time).
+
+**Caveat recorded in advance.** The GoPro checkpoints were trained on the GOPRO training split. SNU-FILM's GoPro test clips come from GOPRO *test* sequences: different scenes, same camera and capture pipeline. Results on the SNU test split may therefore favour the `*_gopro` checkpoints. The Xiph set has no such overlap and is the fair comparison.
