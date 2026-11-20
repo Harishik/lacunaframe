@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "frozen": "2026-11-20",
+  "frozen_before": "Xiph-B download, fusion fitting, any v3 analysis",
+  "fusion": {"candidates": ["rife", "amt_s_gopro", "ifrnet_gopro", "flow", "linear"], "grid": [80, 45], "weights": "softmax(-predicted_error/T), bilinear upsample", "T_grid": [0.5, 1, 2, 4, 8], "T_rule": "max dev PSNR s.t. dev LPIPS <= RIFE dev LPIPS + 0.005 (5-fold clip-grouped CV, every 4th dev missing frame)"},
+  "adaptive_calibration": {"score": "P(RIFE error > 20 | features), dev classifier", "alpha": 0.1, "lambda": "min(lambda_dev_CRC, lambda_target_label_free)", "strata": ["short<=4", "long>4"]},
+  "test_set_xiph_b": {"source": "https://media.xiph.org/video/derf/y4m/", "clips": ["aspen_1080p", "controlled_burn_1080p", "red_kayak_1080p", "snow_mnt_1080p", "speed_bag_1080p", "touchdown_pass_1080p", "west_wind_easy_1080p", "dinner_1080p30", "factory_1080p30", "life_1080p30"], "excluded": {"rush_field_cuts_1080p": "editorial cuts"}, "window": "48 centred frames, stride 1", "chroma": "4:2:2 averaged vertically to 4:2:0, then OpenCV I420->RGB"},
+  "gates": {
+    "G5": "RGF - RIFE4.9 PSNR paired-over-clips 95% CI lower > 0 on Xiph-B (all T3 tasks) AND mean LPIPS diff <= +0.005",
+    "G5b": "per gap length, RGF PSNR >= best single candidate PSNR - 0.1 dB",
+    "G6": "LFAC coverage >= 0.88 in every Xiph-B stratum with >= 3 clips containing bad pixels",
+    "G7": "descriptive: LFAC area vs dev-only calibration"
+  }
+}
