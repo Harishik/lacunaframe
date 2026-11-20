@@ -70,3 +70,13 @@ Every method, LacunaNet and all baselines, runs on the same CPU with the same th
 | **G11** built-in recoverability and calibration (Xiph-C) | The self-error head's per-frame Spearman ρ with LacunaNet's actual PSNR ≥ 0.6, **and** dev-calibrated conformal masks (clips as units, α = 0.1, Mondrian short/long) reach coverage ≥ 0.88 in every stratum with ≥ 3 clips containing bad pixels |
 
 Failures are reported. If G8 fails, the result is described as such; nothing is retrained against test data.
+
+## Amendment 1 — 2026-11-21 (before any training; no data used)
+
+**Finding.** With the first implementation, the §5 size rule selected C = 16 (0.32M parameters; RIFE 4.9 = 0.54 s/frame, C = 24 = 0.74 s). Profiling C = 32 showed 73% of CPU time in dense 3×3 convolutions at full and half resolution (full-resolution refinement ≈ 25 GMAC). The encoders cost only 0.12 s.
+
+**Change (compute placement only; same family, same inputs and outputs).**
+1. Refinement runs at 1/2 resolution. Full-resolution evidence (blend, warped anchors, mask) enters by pixel-unshuffle, and the residual and error scale leave through pixel-shuffle heads.
+2. Motion-level input projections are 1×1 instead of 3×3; spatial context comes from the depthwise-separable blocks.
+
+**Re-applied rule (identical procedure):** latencies 0.18 / 0.32 / 0.42 / 0.74 s for C = 16 / 24 / 32 / 48 against RIFE 4.9 at 0.53 s, so **C = 32 is selected** (462751 parameters, about 22% faster than RIFE 4.9 on this CPU). Record: `research/results/lacunanet/size-rule.json`.
