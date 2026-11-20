@@ -16,6 +16,7 @@ idna==3.20
 ImageIO==2.38.1
 imageio-ffmpeg==0.8.1
 iniconfig==2.3.1
+joblib==1.6.0
 kiwisolver==1.5.1
 lazy-loader==0.6
 matplotlib==3.11.2
@@ -40,9 +41,11 @@ pytest==9.2.0
 python-dateutil==4.0.0
 python-multipart==0.0.33
 scikit-image==0.26.0
+scikit-learn==1.9.1
 scipy==1.18.1
 sortedcontainers==2.4.0
 starlette==1.10.0
+threadpoolctl==3.8.0
 tifffile==2026.11.8
 typing-inspection==0.4.5
 typing_extensions==4.16.0

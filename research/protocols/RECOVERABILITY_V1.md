@@ -72,3 +72,14 @@ None yet.
 - **Clip format:** 48 frames at stride 8 from 240 fps sources (30 fps), centre-cropped to 16:9 at 640×360. This supports gaps up to 32 with at least two anchors on each side.
 - **DISTS scope:** measured cost is 3.1 s/frame at 640×360 on the reference laptop, so DISTS runs on the **test split only, at 320×180, for g ∈ {4, 16}**. LPIPS (0.23 s/frame) runs on every missing frame at full resolution.
 - **Error maps:** per-frame absolute-error maps are stored at 80×45 (float16) for every method. These are the per-pixel targets for C2/C3, so full predictions never need to be stored (storage cap).
+
+### Results against the pre-registered gates (2026-11-20)
+
+| Gate | Outcome |
+|---|---|
+| G1 multi-anchor | **Failed**: −0.14 dB on test, gaps ≥ 4, CI [−0.38, +0.13] |
+| G2 recoverability | **Passed**: RIFE per-frame ρ = 0.675, beats pair-only (CI of Δρ [+0.040, +0.111]) |
+| G3 calibration | **Passed**: worst stratum coverage 0.899 ≥ 0.88 |
+| G4 conditioning | **Failed**: area −0.7% vs pair-only; base-rate shift diagnosed; v2 fix proposed |
+
+The headline claim for a manuscript is therefore C1 + C2. C3 currently supports a calibration claim (coverage holds under source shift) but not an efficiency claim.

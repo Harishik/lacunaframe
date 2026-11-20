@@ -1,5 +1,13 @@
 # Changes
 
+## Phase 2 — recoverability and calibrated risk masks — 2026-11-20
+
+- `research/lacunabench/recoverability.py`: observation-only per-pixel features (motion, flow inconsistency, anchor disagreement, warp residual, texture, divergence, outer-anchor acceleration, gap and anchor distance), with a test that features never read missing frames.
+- `research/lacunabench/conformal.py`: conformal risk control with clips as exchangeable units, plus Mondrian strata; tests include a risk guarantee checked over 150 random splits.
+- C2 on the frozen test split: per-frame recoverability ρ = 0.675 for RIFE (**G2 passed**), beating the pair-only baseline in 10/11 clips and transferring across reconstructors.
+- C3: coverage holds in every gap and loss stratum (**G3 passed**, worst 0.899). Conditioned masks are not smaller than pair-only (**G4 failed**); diagnosed as a bad-pixel base-rate shift (44% test vs 18% dev), with a v2 fix designed rather than applied post hoc.
+- Vimeo90K parity: shard-balanced re-sample (RIFE 33.48 dB) refutes subset bias; the adapter symmetry check passes; the checkpoint remains the open hypothesis.
+
 ## Phase 1 — LacunaBench v1 — 2026-11-20
 
 - `app.py` split into `storage`, `media`, `pipeline` and thin routes; behaviour unchanged (all API and browser tests pass).

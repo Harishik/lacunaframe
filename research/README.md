@@ -10,6 +10,7 @@ This branch begins the research program requested after the v0.3 portfolio relea
 
 | Open | What it contains |
 |---|---|
+| [Recoverability v1 (C2/C3)](results/recoverability-v1/README.md) | Observation-only recoverability prediction (G2 passed), conformal risk masks (G3 passed, G4 failed, with diagnosis) |
 | [LacunaBench v1 results](results/lacunabench-v1/README.md) | T3 missing runs on 31 SNU-FILM clips: gap curves, loss processes, LPIPS/DISTS, gate G1 (failed) |
 | [Data ledger](data/LEDGER.md) | Every external source, pinned revision, selection and bytes against the 6 GB cap |
 | [Vimeo90K parity](results/vimeo-parity/README.md) | T1 midpoint sanity check; open 2 dB gap to the published RIFE number, with hypotheses tested |

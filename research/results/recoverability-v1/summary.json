@@ -1,0 +1,408 @@
+{
+  "G2": {
+    "hold": {
+      "rho_pooled": 0.802061914498275,
+      "rho_pair_pooled": 0.6184103391679366,
+      "per_clip": {
+        "mean": 0.7941091967626654,
+        "low": 0.6763066966074642,
+        "high": 0.8787084644518341,
+        "n_scenes": 11
+      },
+      "vs_pair": {
+        "method": "full",
+        "baseline": "pair_only",
+        "delta": {
+          "mean": 0.2742569077769515,
+          "low": 0.21192197995643372,
+          "high": 0.3456741514085534,
+          "n_scenes": 11
+        },
+        "wilcoxon_p": 0.0009765625,
+        "holm_p": null,
+        "wins": 11,
+        "significant": true
+      }
+    },
+    "linear": {
+      "rho_pooled": 0.798936594474313,
+      "rho_pair_pooled": 0.6671657357909155,
+      "per_clip": {
+        "mean": 0.7885935809633854,
+        "low": 0.6746402141048292,
+        "high": 0.874637542964278,
+        "n_scenes": 11
+      },
+      "vs_pair": {
+        "method": "full",
+        "baseline": "pair_only",
+        "delta": {
+          "mean": 0.142595973129698,
+          "low": 0.08049306308273457,
+          "high": 0.2071459655785494,
+          "n_scenes": 11
+        },
+        "wilcoxon_p": 0.0048828125,
+        "holm_p": null,
+        "wins": 9,
+        "significant": true
+      }
+    },
+    "flow": {
+      "rho_pooled": 0.7451653519186565,
+      "rho_pair_pooled": 0.6747308843066396,
+      "per_clip": {
+        "mean": 0.807585400671519,
+        "low": 0.7146400264454218,
+        "high": 0.8812533714695026,
+        "n_scenes": 11
+      },
+      "vs_pair": {
+        "method": "full",
+        "baseline": "pair_only",
+        "delta": {
+          "mean": 0.07821888831662464,
+          "low": 0.06154406593634895,
+          "high": 0.09532399538703197,
+          "n_scenes": 11
+        },
+        "wilcoxon_p": 0.0009765625,
+        "holm_p": null,
+        "wins": 11,
+        "significant": true
+      }
+    },
+    "flow_quadratic": {
+      "rho_pooled": 0.8273798685719269,
+      "rho_pair_pooled": 0.7170171090490887,
+      "per_clip": {
+        "mean": 0.9042386809687758,
+        "low": 0.8643781322471344,
+        "high": 0.9368902481090348,
+        "n_scenes": 11
+      },
+      "vs_pair": {
+        "method": "full",
+        "baseline": "pair_only",
+        "delta": {
+          "mean": 0.12684991677320914,
+          "low": 0.09401111293697735,
+          "high": 0.167519040397266,
+          "n_scenes": 11
+        },
+        "wilcoxon_p": 0.0009765625,
+        "holm_p": null,
+        "wins": 11,
+        "significant": true
+      }
+    },
+    "rife": {
+      "rho_pooled": 0.6745508600725567,
+      "rho_pair_pooled": 0.6104466714348338,
+      "per_clip": {
+        "mean": 0.7606218498172116,
+        "low": 0.6955458194977451,
+        "high": 0.8218895581715483,
+        "n_scenes": 11
+      },
+      "vs_pair": {
+        "method": "full",
+        "baseline": "pair_only",
+        "delta": {
+          "mean": 0.07859465288746464,
+          "low": 0.03981324138027241,
+          "high": 0.11076934773747953,
+          "n_scenes": 11
+        },
+        "wilcoxon_p": 0.0068359375,
+        "holm_p": null,
+        "wins": 10,
+        "significant": true
+      }
+    },
+    "gate": {
+      "target": "rife",
+      "passed": true,
+      "rule": "pooled per-frame Spearman >= 0.6 on test and paired per-clip CI vs pair-only excludes 0"
+    }
+  },
+  "transfer": {
+    "flow": {
+      "hold": 0.717005063268937,
+      "linear": 0.7482622927593258,
+      "flow": 0.7451653519186565,
+      "flow_quadratic": 0.8319752336699501,
+      "rife": 0.6734672310839057
+    },
+    "rife": {
+      "hold": 0.7060068683694756,
+      "linear": 0.7397605890136705,
+      "flow": 0.7419585576672004,
+      "flow_quadratic": 0.827850184471559,
+      "rife": 0.6745508600725567
+    }
+  },
+  "pixel": {
+    "flow": {
+      "conditioned (full)": {
+        "auroc": 0.8244744262772575,
+        "lambda_hat": 9.726643176039708,
+        "coverage": 0.9736247436994242,
+        "flagged_fraction": 0.8197233082519453,
+        "per_clip_risk": [
+          0.03195209081519525,
+          0.0035807391504370494,
+          0.020525589690097244,
+          0.003944334192678871,
+          0.03144936860954566,
+          0.018536624566384958,
+          0.011096655017917168,
+          0.020105891326782428,
+          0.044350204511806476,
+          0.016568593031968688,
+          0.0880177283935204
+        ]
+      },
+      "pair-only": {
+        "auroc": 0.7853204767350228,
+        "lambda_hat": 8.340214856718498,
+        "coverage": 0.9544103155094966,
+        "flagged_fraction": 0.8200279584879554,
+        "per_clip_risk": [
+          0.059062094321207584,
+          0.0023232633031743596,
+          0.020397725360880244,
+          0.0031900884693139456,
+          0.04903062766955295,
+          0.0442164570581591,
+          0.01527066690941062,
+          0.02678242921882712,
+          0.1017540337758149,
+          0.016641951761395494,
+          0.1628171915478011
+        ]
+      },
+      "anchor difference (heuristic)": {
+        "auroc": 0.7730077792097676,
+        "lambda_hat": 6.04296875,
+        "coverage": 0.9865830550611945,
+        "flagged_fraction": 0.920263900004426,
+        "per_clip_risk": [
+          0.010849686827816892,
+          0.008863671216071154,
+          0.00849961304216158,
+          0.002429660403954226,
+          0.00800768986286928,
+          0.006607467330985004,
+          0.005808093142631315,
+          0.002665230852066227,
+          0.010679782188652731,
+          0.0044277233118322394,
+          0.07874777614781985
+        ]
+      }
+    },
+    "rife": {
+      "conditioned (full)": {
+        "auroc": 0.7735427740930336,
+        "lambda_hat": 7.772004110322097,
+        "coverage": 0.9706038274731336,
+        "flagged_fraction": 0.8259475857510501,
+        "per_clip_risk": [
+          0.021619838675822362,
+          0.0034269977015302425,
+          0.03147345034005685,
+          0.0019067624424063967,
+          0.04091127057972355,
+          0.01681658373873312,
+          0.011914187143426085,
+          0.02907289863435276,
+          0.0733391891750583,
+          0.01635715437794426,
+          0.07651956498647733
+        ]
+      },
+      "pair-only": {
+        "auroc": 0.7426318681909727,
+        "lambda_hat": 6.7326257662111395,
+        "coverage": 0.9507489429352718,
+        "flagged_fraction": 0.8203899941852114,
+        "per_clip_risk": [
+          0.0350635201455316,
+          0.0018222102582154765,
+          0.039526151875891376,
+          0.0016254368361497153,
+          0.06211143546989492,
+          0.026125764022674667,
+          0.04610689660136176,
+          0.04228697826505097,
+          0.11400069015277473,
+          0.02391003287003821,
+          0.14918251121442636
+        ]
+      },
+      "anchor difference (heuristic)": {
+        "auroc": 0.7273271177661776,
+        "lambda_hat": 4.51953125,
+        "coverage": 0.991156388760527,
+        "flagged_fraction": 0.9464257328712528,
+        "per_clip_risk": [
+          0.0076264155846752025,
+          0.0046487068519247094,
+          0.005015959872321021,
+          0.0008689835393261939,
+          0.005493534790984882,
+          0.002420848867883559,
+          0.003910617205756045,
+          0.001014618195806886,
+          0.008041325511601886,
+          0.002113471153899632,
+          0.056125242060022715
+        ]
+      }
+    }
+  },
+  "G3": {
+    "flow": {
+      "gap1 / short (\u22644)": {
+        "coverage": 0.9594826997812578,
+        "flagged_fraction": 0.5538636363636363,
+        "units": 11
+      },
+      "gap2 / short (\u22644)": {
+        "coverage": 0.8957586010861792,
+        "flagged_fraction": 0.5842424242424242,
+        "units": 11
+      },
+      "gap4 / short (\u22644)": {
+        "coverage": 0.9827944575389237,
+        "flagged_fraction": 0.8103661616161616,
+        "units": 11
+      },
+      "bernoulli / short (\u22644)": {
+        "coverage": 0.9363610965187392,
+        "flagged_fraction": 0.5870627828342846,
+        "units": 11
+      },
+      "gilbert_elliott / short (\u22644)": {
+        "coverage": 0.9180678707577458,
+        "flagged_fraction": 0.6745601851851851,
+        "units": 9
+      },
+      "gop_chain / short (\u22644)": {
+        "coverage": 0.9859851518794811,
+        "flagged_fraction": 0.7282142857142857,
+        "units": 7
+      },
+      "gap8 / long (>4)": {
+        "coverage": 0.9788944157254458,
+        "flagged_fraction": 0.8327083333333334,
+        "units": 11
+      },
+      "gap16 / long (>4)": {
+        "coverage": 0.9939247404447338,
+        "flagged_fraction": 0.9418813131313133,
+        "units": 11
+      },
+      "gap32 / long (>4)": {
+        "coverage": 0.9948456522757971,
+        "flagged_fraction": 0.9691414141414142,
+        "units": 11
+      },
+      "gilbert_elliott / long (>4)": {
+        "coverage": 0.9716521004752597,
+        "flagged_fraction": 0.7800680369013702,
+        "units": 7
+      },
+      "gop_chain / long (>4)": {
+        "coverage": 0.9311535344985236,
+        "flagged_fraction": 0.7765961754295089,
+        "units": 11
+      }
+    },
+    "rife": {
+      "gap1 / short (\u22644)": {
+        "coverage": 0.9704451202239476,
+        "flagged_fraction": 0.6162878787878788,
+        "units": 11
+      },
+      "gap2 / short (\u22644)": {
+        "coverage": 0.89921961579978,
+        "flagged_fraction": 0.6090656565656566,
+        "units": 11
+      },
+      "gap4 / short (\u22644)": {
+        "coverage": 0.9793139422071763,
+        "flagged_fraction": 0.8158207070707071,
+        "units": 11
+      },
+      "bernoulli / short (\u22644)": {
+        "coverage": 0.9270891277774649,
+        "flagged_fraction": 0.6149587403296182,
+        "units": 11
+      },
+      "gilbert_elliott / short (\u22644)": {
+        "coverage": 0.9317912032987137,
+        "flagged_fraction": 0.7173754409171076,
+        "units": 9
+      },
+      "gop_chain / short (\u22644)": {
+        "coverage": 0.9858571886283165,
+        "flagged_fraction": 0.753399470899471,
+        "units": 7
+      },
+      "gap8 / long (>4)": {
+        "coverage": 0.9783537086046499,
+        "flagged_fraction": 0.8350252525252525,
+        "units": 11
+      },
+      "gap16 / long (>4)": {
+        "coverage": 0.9940500743845198,
+        "flagged_fraction": 0.9497474747474748,
+        "units": 11
+      },
+      "gap32 / long (>4)": {
+        "coverage": 0.9976308763545788,
+        "flagged_fraction": 0.9795296717171716,
+        "units": 11
+      },
+      "gilbert_elliott / long (>4)": {
+        "coverage": 0.9682207102506871,
+        "flagged_fraction": 0.7800147513421323,
+        "units": 7
+      },
+      "gop_chain / long (>4)": {
+        "coverage": 0.9444702026864528,
+        "flagged_fraction": 0.7898151655443324,
+        "units": 11
+      }
+    },
+    "gate": {
+      "target": "rife",
+      "passed": true,
+      "worst_coverage": 0.89921961579978,
+      "rule": "coverage >= 1-alpha-0.02 in every stratum with >= 3 test clips containing bad pixels"
+    }
+  },
+  "G4": {
+    "flow": {
+      "area_conditioned": 0.8197233082519453,
+      "area_pair_only": 0.8200279584879554,
+      "reduction": 0.0003715120110927561,
+      "coverage_conditioned": 0.9736247436994242,
+      "coverage_pair_only": 0.9544103155094966
+    },
+    "rife": {
+      "area_conditioned": 0.8259475857510501,
+      "area_pair_only": 0.8203899941852114,
+      "reduction": -0.006774328801216534,
+      "coverage_conditioned": 0.9706038274731336,
+      "coverage_pair_only": 0.9507489429352718
+    },
+    "gate": {
+      "target": "rife",
+      "passed": false,
+      "rule": ">= 15% smaller flagged area than pair-only CRC at equal target coverage (both >= 1-alpha-0.02 on test)"
+    }
+  }
+}

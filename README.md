@@ -109,6 +109,12 @@ flowchart LR
 
 Outside models can be scored on identical pixels through a sealed exchange format (`inputs.npz` for the solver, `targets.npz` for the evaluator only): see [Experiments](docs/guides/EXPERIMENTS.md#4-compare-an-outside-model-on-identical-pixels). Details: [Architecture](docs/guides/ARCHITECTURE.md) · [Conventions](docs/RESEARCH.md).
 
+## Recoverability: predicting failure before reconstructing
+
+From the surviving frames alone, and **before** any reconstruction, a model trained on development clips predicts how well a missing frame can be recovered. On the 11 held-out test clips it ranks RIFE's per-frame quality at **Spearman ρ = 0.675**. It beats a pair-only baseline (the two anchor frames, no gap/time context) in 10 of 11 clips, and it transfers across methods: trained on flow errors, it ranks RIFE errors at ρ = 0.673. Per-pixel risk masks calibrated with conformal risk control hold their coverage target in every gap and loss stratum (worst 0.899 against a 0.88 floor).
+
+Pre-registered outcomes: **G2 passed, G3 passed, G4 failed.** The recoverability-conditioned masks are not smaller than pair-only masks, because 44% of test pixels exceed the fixed error threshold, against 18% on dev. The fix is designed for protocol v2 rather than applied after the fact. [C2/C3 results and diagnosis](research/results/recoverability-v1/README.md)
+
 ## Research direction
 
 The next phase asks a question existing interpolation work doesn't answer: **given only the surviving frames, how much of a missing interval can be recovered, and where will the reconstruction be wrong?** The plan has three parts:
