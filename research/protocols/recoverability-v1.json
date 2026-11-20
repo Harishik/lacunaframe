@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "frozen": "2026-11-20",
+  "status": "design freeze before data download or tuning",
+  "storage_cap_gb": {"total_external_data_and_weights": 6, "per_dataset_extracted": 1.5, "derived_working_set": 3},
+  "data_rules": ["test/validation splits only", "curated clip subsets", "per-file downloads preferred", "delete archives after deriving lossless arrays", "data outside git under $LACUNA_EXTERNAL", "owner approves ledger before each download"],
+  "splits": {"unit": "clip identity", "dev": "feature design + conformal calibration", "test": "touched once per final configuration", "diagnostic_only": ["DAVIS blackswan", "DAVIS bmx-trees", "DAVIS breakdance"]},
+  "tasks": {"T1": {"anchors": 2, "t": [0.5]}, "T2": {"anchors": 2, "t": [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875]}, "T3": {"gaps": [1, 2, 4, 8, 16, 32], "loss_processes": ["bernoulli", "gilbert_elliott", "gop_chain"]}},
+  "methods": {"controls": ["hold", "linear", "flow"], "multi_anchor": ["flow_quadratic"], "learned": ["rife49"], "planned": ["IFRNet", "AMT", "EMA-VFI", "FILM", "BiM-VFI", "diffusion VFI"], "recoverability_baseline": "VFI-DPA-style pair regressor"},
+  "statistics": {"unit": "scene", "ci": "95% bootstrap over scenes, 10000 resamples", "paired_test": "Wilcoxon signed-rank on scene means, Holm correction", "claim_rule": "paired CI excludes 0 on test split"},
+  "gates": {
+    "G1": "multi-anchor paired dPSNR vs flow > 0, CI excludes 0, gaps >= 4",
+    "G2": "per-frame Spearman >= 0.6 on held-out datasets and beats VFI-DPA-style baseline",
+    "G3": "coverage within +/-2 points of 1-alpha in every gap and loss stratum",
+    "G4": "conditioned masks >= 15% smaller flagged area than unconditioned CRC at equal coverage"
+  }
+}

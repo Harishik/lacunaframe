@@ -66,6 +66,24 @@ Kill criteria carried into Phase 1–3:
 2. If VFI-DPA-style difficulty features already reach Spearman ρ ≥ 0.6 with per-frame error on held-out data, C2 must show a clear margin or per-pixel value to remain a contribution.
 3. If MultiInterpBench or BSCV already provide burst/codec loss with sealed targets, C1 becomes an extension, not a contribution.
 
+## 2a. Full-text pass (2026-11-20, second round)
+
+Read in full or near-full from arXiv HTML or the PDF: VFI-DPA, residual-diffusion VFI, multi-hypothesis flow/MA-HD, Cover (2608.07434), K-RCPS (2302.03791), CUPS, ArbInterp/MultiInterpBench.
+
+| Work | Quantity and granularity | Calibrated? | Missing runs? | Overlap |
+|---|---|---|---|---|
+| VFI-DPA (Samsung, 2023) | Scalar difficulty per frame *pair*, regressed to 1–4 labels derived from RIFE's own output quality; used to route RIFE vs VFIformer | No; accuracy-within-tolerance only | No (two anchors) | **C2 partial**: closest pre-reconstruction precedent, but pair-level, method-tied labels, no gap length, no per-pixel output, no transfer |
+| Residual-diffusion VFI (2025) | Per-pixel std over diffusion samples, after reconstruction | No; qualitative only | No | C3 weak |
+| Multi-hypothesis flow + MA-HD (2026) | Learned routing weight over K=3 flows; MA-HD = 1,000 hand-picked ambiguous triplets | No | No | C1 weak (clip-level ambiguity categories) |
+| Cover (2608.07434) | Conformal interval per text query for temporal grounding; TV "exchangeability defect" bound, Mondrian and weighted shift checks | **Yes** | n/a | **C3 partial**: closest conformal-for-video precedent with dependence/shift analysis, but 1-D intervals, not per-pixel reconstruction risk |
+| K-RCPS (2302.03791) | Per-pixel intervals from diffusion samples, pixel-wise risk control | **Yes** (i.i.d.) | Static images | **C3 strong** on the mechanism; no video, dependence or gap shift |
+| CUPS (2412.10431) | Weighted (Barber) conformal on 16-frame video pose outputs with TV-gap theorems | **Yes** | No | C3 partial: temporal dependence is *already handled* in conformal video work |
+| ArbInterp / MultiInterpBench (ICLR 2026) | Generative quality (FID, FVD, LPIPS, VBench) at uniform 2×/8×/16×/32× | No uncertainty | Uniform ratios, no loss process | C1 weak |
+
+Not obtained: **Plack et al. CVPR 2023** (CVF returned 403) and **BSCV** (the repository link redirects to a differently named file). Both stay on the list; access them through arXiv or Semantic Scholar mirrors before Phase 1 data design.
+
+**Updated verdict.** Handling temporal dependence is *not* novel by itself (CUPS, Cover), and per-pixel CRC is *not* novel by itself (K-RCPS, Kutiel). The defensible novelty is the *conjunction*: per-pixel risk for **reconstructed missing frames**, conditioned on a **pre-reconstruction recoverability score**, and evaluated under **shift across gap length and loss process**. The design must also show that conditioning on recoverability makes the risk masks *tighter at equal coverage* than unconditioned CRC. If it doesn't, C3 collapses into an application paper.
+
 ## 3. Must-read list (full text, before Phase 1 design freeze)
 
 1. Plack et al., CVPR 2023 — uncertainty guidance in VFI

@@ -32,7 +32,7 @@ A reproducible workbench for **missing-frame video recovery**. Remove frames fro
 | Long gap (6 frames), affected PSNR (dB) | 16.38 | 17.53 | 17.61 | **17.88** | 17.75 |
 | Seconds per missing frame (CPU, 2 threads) | 0.0005 | 0.001 | 0.038 | 0.14 | 0.057 |
 
-RIFE beats classical flow in **12/18** conditions: by +1.28 dB on scattered loss but only +0.28 dB on long gaps. Long missing runs remain the open problem, and that is what the [research track](research/README.md) targets.
+RIFE beats classical flow in **12/18** conditions: by +1.28 dB on scattered loss but only +0.28 dB on long gaps. Treating the *scene* as the unit of analysis (seeds aren't independent), neither gap is statistically supported by three clips: the scattered-loss 95% CI is [−0.36, +2.64] dB ([re-analysis](research/results/reanalysis/README.md)). Long missing runs remain the open problem, and that is what the [research track](research/README.md) targets.
 
 <details>
 <summary><strong>The worst case, not the best one</strong></summary>

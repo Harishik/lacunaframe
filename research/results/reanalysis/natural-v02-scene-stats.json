@@ -1,0 +1,244 @@
+{
+  "source": "examples/natural-v02/summary.json",
+  "unit": "scene (seeds averaged within scene)",
+  "regimes": {
+    "scattered": {
+      "scene_means": {
+        "hold": {
+          "natural-blackswan": 18.72599357821247,
+          "natural-bmx-trees": 14.957502931612622,
+          "natural-breakdance": 18.20603873786568
+        },
+        "linear": {
+          "natural-blackswan": 20.107493939170634,
+          "natural-bmx-trees": 16.264440752300906,
+          "natural-breakdance": 19.583007344860338
+        },
+        "flow": {
+          "natural-blackswan": 22.463544365686005,
+          "natural-bmx-trees": 16.489848597926372,
+          "natural-breakdance": 19.585953918304924
+        },
+        "rife": {
+          "natural-blackswan": 24.019611779759302,
+          "natural-bmx-trees": 19.13004439393081,
+          "natural-breakdance": 19.229783226904697
+        },
+        "rife_fast": {
+          "natural-blackswan": 22.767611979303535,
+          "natural-bmx-trees": 19.752712097332587,
+          "natural-breakdance": 18.480015258223975
+        }
+      },
+      "affected_psnr": {
+        "hold": {
+          "mean": 17.29651174923026,
+          "low": 14.957502931612622,
+          "high": 18.72599357821247,
+          "n_scenes": 3
+        },
+        "linear": {
+          "mean": 18.65164734544396,
+          "low": 16.264440752300906,
+          "high": 20.107493939170634,
+          "n_scenes": 3
+        },
+        "flow": {
+          "mean": 19.513115627305766,
+          "low": 16.489848597926372,
+          "high": 22.463544365686005,
+          "n_scenes": 3
+        },
+        "rife": {
+          "mean": 20.793146466864936,
+          "low": 19.13004439393081,
+          "high": 24.019611779759302,
+          "n_scenes": 3
+        },
+        "rife_fast": {
+          "mean": 20.333446444953367,
+          "low": 18.480015258223975,
+          "high": 22.767611979303535,
+          "n_scenes": 3
+        }
+      },
+      "vs_flow": [
+        {
+          "method": "hold",
+          "baseline": "flow",
+          "delta": {
+            "mean": -2.2166038780755097,
+            "low": -3.737550787473534,
+            "high": -1.3799151804392444,
+            "n_scenes": 3
+          },
+          "wilcoxon_p": 0.25,
+          "holm_p": 1.0,
+          "wins": 0,
+          "significant": true
+        },
+        {
+          "method": "linear",
+          "baseline": "flow",
+          "delta": {
+            "mean": -0.8614682818618071,
+            "low": -2.3560504265153703,
+            "high": -0.0029465734445857095,
+            "n_scenes": 3
+          },
+          "wilcoxon_p": 0.25,
+          "holm_p": 1.0,
+          "wins": 0,
+          "significant": true
+        },
+        {
+          "method": "rife",
+          "baseline": "flow",
+          "delta": {
+            "mean": 1.2800308395591695,
+            "low": -0.3561706914002265,
+            "high": 2.6401957960044378,
+            "n_scenes": 3
+          },
+          "wilcoxon_p": 0.5,
+          "holm_p": 1.0,
+          "wins": 2,
+          "significant": false
+        },
+        {
+          "method": "rife_fast",
+          "baseline": "flow",
+          "delta": {
+            "mean": 0.8203308176475991,
+            "low": -1.1059386600809482,
+            "high": 3.2628634994062153,
+            "n_scenes": 3
+          },
+          "wilcoxon_p": 0.75,
+          "holm_p": 1.0,
+          "wins": 2,
+          "significant": false
+        }
+      ]
+    },
+    "long-gap": {
+      "scene_means": {
+        "hold": {
+          "natural-blackswan": 18.185386357004266,
+          "natural-bmx-trees": 13.579519320519216,
+          "natural-breakdance": 17.386624457067025
+        },
+        "linear": {
+          "natural-blackswan": 19.11130855284729,
+          "natural-bmx-trees": 14.739916397019343,
+          "natural-breakdance": 18.729798114038033
+        },
+        "flow": {
+          "natural-blackswan": 19.584367395813416,
+          "natural-bmx-trees": 14.687943999864322,
+          "natural-breakdance": 18.544117320447743
+        },
+        "rife": {
+          "natural-blackswan": 20.189259542918098,
+          "natural-bmx-trees": 15.073579152642338,
+          "natural-breakdance": 18.378719109613417
+        },
+        "rife_fast": {
+          "natural-blackswan": 20.09429121642508,
+          "natural-bmx-trees": 15.258245765015877,
+          "natural-breakdance": 17.88550971188633
+        }
+      },
+      "affected_psnr": {
+        "hold": {
+          "mean": 16.383843378196833,
+          "low": 13.579519320519216,
+          "high": 18.185386357004266,
+          "n_scenes": 3
+        },
+        "linear": {
+          "mean": 17.527007687968222,
+          "low": 14.739916397019343,
+          "high": 19.11130855284729,
+          "n_scenes": 3
+        },
+        "flow": {
+          "mean": 17.605476238708494,
+          "low": 14.687943999864322,
+          "high": 19.584367395813416,
+          "n_scenes": 3
+        },
+        "rife": {
+          "mean": 17.880519268391282,
+          "low": 15.073579152642338,
+          "high": 20.189259542918098,
+          "n_scenes": 3
+        },
+        "rife_fast": {
+          "mean": 17.746015564442427,
+          "low": 15.258245765015877,
+          "high": 20.09429121642508,
+          "n_scenes": 3
+        }
+      },
+      "vs_flow": [
+        {
+          "method": "hold",
+          "baseline": "flow",
+          "delta": {
+            "mean": -1.221632860511658,
+            "low": -1.3989810388091506,
+            "high": -1.1084246793451058,
+            "n_scenes": 3
+          },
+          "wilcoxon_p": 0.25,
+          "holm_p": 1.0,
+          "wins": 0,
+          "significant": true
+        },
+        {
+          "method": "linear",
+          "baseline": "flow",
+          "delta": {
+            "mean": -0.07846855074027144,
+            "low": -0.4730588429661253,
+            "high": 0.18568079359029,
+            "n_scenes": 3
+          },
+          "wilcoxon_p": 1.0,
+          "holm_p": 1.0,
+          "wins": 2,
+          "significant": false
+        },
+        {
+          "method": "rife",
+          "baseline": "flow",
+          "delta": {
+            "mean": 0.2750430296827909,
+            "low": -0.1653982108343257,
+            "high": 0.6048921471046818,
+            "n_scenes": 3
+          },
+          "wilcoxon_p": 0.5,
+          "holm_p": 1.0,
+          "wins": 2,
+          "significant": false
+        },
+        {
+          "method": "rife_fast",
+          "baseline": "flow",
+          "delta": {
+            "mean": 0.14053932573393504,
+            "low": -0.6586076085614145,
+            "high": 0.5703017651515552,
+            "n_scenes": 3
+          },
+          "wilcoxon_p": 1.0,
+          "holm_p": 1.0,
+          "wins": 2,
+          "significant": false
+        }
+      ]
+    }
+  }
+}

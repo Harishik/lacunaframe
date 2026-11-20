@@ -1,5 +1,14 @@
 # Changes
 
+## Phase 1 groundwork — 2026-11-20
+
+- Froze protocol v1 (`research/protocols/RECOVERABILITY_V1.md` + JSON) before any new data: tasks T1–T3, loss processes, a 6 GB storage cap with subset-only data, splits by clip identity, scene-clustered statistics, pre-registered gates G1–G4.
+- Full-text prior-art pass. Temporal-dependence conformal methods (CUPS, Cover) and per-pixel CRC (K-RCPS) already exist, so novelty must come from recoverability-conditioned, per-pixel risk for reconstructed missing frames under gap and loss shift.
+- `backend/stats.py`: scene-level bootstrap CIs, paired Wilcoxon, Holm correction, with property-based tests. Re-analysis shows RIFE's advantage over flow on the archived three clips is not statistically supported (scattered Δ +1.28 dB, 95% CI [−0.36, +2.64]); README corrected.
+- `backend/core.py` refactored for readability; outputs verified bit-identical to the previous implementation across 18 configurations × 6 methods.
+- Added quadratic multi-anchor flow (`flow_quadratic`, research-only, not in API/UI) with analytic tests. DAVIS diagnostic: +0.13 dB scattered (CI excludes 0), +0.10 dB long gap (CI includes 0), neutral on synthetic. G1 pending the test split.
+- Property-based tests for the corruption/reconstruction/evaluation contract (hypothesis).
+
 ## 0.3.1 (unreleased) — Phase 0: portability, prior art, presentation — 2026-11-20
 
 - **Fixed a cross-platform reproducibility flaw.** OpenCV decoded the source MP4s with FFmpeg on Linux but AVFoundation on macOS, and the two differ by up to 71 levels per pixel. All decoding now goes through the pinned FFmpeg path in `backend/decode.py`, which reproduces the archived scores bit-exactly. See `research/results/portability/`.

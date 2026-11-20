@@ -10,6 +10,11 @@ This branch begins the research program requested after the v0.3 portfolio relea
 
 | Open | What it contains |
 |---|---|
+| [Protocol v1 (frozen)](protocols/RECOVERABILITY_V1.md) | Recoverability pivot: tasks, 6 GB storage cap, splits, metrics, scene-clustered statistics, pre-registered gates G1–G4 |
+| [Recoverability prior art](literature/RECOVERABILITY_PRIOR_ART.md) | Full-text novelty audit for C1–C3 and the updated verdict |
+| [Scene-level re-analysis](results/reanalysis/README.md) | Archived natural study with the scene as the unit; RIFE vs flow is not supported by three clips |
+| [Multi-anchor diagnostic](results/multianchor-diagnostic/README.md) | Quadratic-motion flow vs two-anchor flow on DAVIS + synthetic (diagnostic, not G1) |
+| [Portability findings](results/portability/README.md) | Decoder-dependent references (fixed) and runtime-dependent INT8 outputs |
 | [Research program](RESEARCH_PROGRAM.md) | Candidate hypothesis, direct novelty collisions, fair comparison contract, concrete evidence gates and outstanding training/evaluation work |
 | [Prior-art audit](literature/PRIOR_ART.md) | Relevant lightweight, distillation, quantization, dynamic-compute and diffusion work; review depth and execution status |
 | [Measured pilot](results/compression-pilot/README.md) | Six executed CPU configurations, scene-disjoint calibration, per-triplet results and a quality/latency plot |

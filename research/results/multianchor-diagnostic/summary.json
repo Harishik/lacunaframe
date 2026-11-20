@@ -1,0 +1,536 @@
+{
+  "status": "diagnostic only (DAVIS + synthetic); not the G1 gate",
+  "max_flow_parity_error_db": 0.0,
+  "groups": {
+    "scattered": {
+      "flow": {
+        "blackswan": 22.463544365686005,
+        "bmx-trees": 16.489848597926372,
+        "breakdance": 19.585953918304924
+      },
+      "quadratic": {
+        "blackswan": 22.717853775697993,
+        "bmx-trees": 16.6215843149442,
+        "breakdance": 19.601945725767848
+      },
+      "comparison": {
+        "method": "flow_quadratic",
+        "baseline": "flow",
+        "delta": {
+          "mean": 0.13401231149758056,
+          "low": 0.015991807462924612,
+          "high": 0.25430941001198804,
+          "n_scenes": 3
+        },
+        "wilcoxon_p": 0.25,
+        "holm_p": null,
+        "wins": 3,
+        "significant": true
+      },
+      "flow_level": {
+        "mean": 19.513115627305766,
+        "low": 16.489848597926372,
+        "high": 22.463544365686005,
+        "n_scenes": 3
+      }
+    },
+    "long-gap": {
+      "flow": {
+        "blackswan": 19.584367395813416,
+        "bmx-trees": 14.687943999864322,
+        "breakdance": 18.544117320447743
+      },
+      "quadratic": {
+        "blackswan": 20.07747025167374,
+        "bmx-trees": 14.50255065473697,
+        "breakdance": 18.547946402820447
+      },
+      "comparison": {
+        "method": "flow_quadratic",
+        "baseline": "flow",
+        "delta": {
+          "mean": 0.10384619770189236,
+          "low": -0.18539334512735195,
+          "high": 0.4931028558603252,
+          "n_scenes": 3
+        },
+        "wilcoxon_p": 0.75,
+        "holm_p": null,
+        "wins": 2,
+        "significant": false
+      },
+      "flow_level": {
+        "mean": 17.605476238708494,
+        "low": 14.687943999864322,
+        "high": 19.584367395813416,
+        "n_scenes": 3
+      }
+    },
+    "synthetic-long-gap": {
+      "flow": {
+        "synthetic-0": 32.30506474169998,
+        "synthetic-1": 24.465772255879788,
+        "synthetic-2": 22.932820345523357
+      },
+      "quadratic": {
+        "synthetic-0": 32.03908797026577,
+        "synthetic-1": 24.58064553267002,
+        "synthetic-2": 23.070694853552556
+      },
+      "comparison": {
+        "method": "flow_quadratic",
+        "baseline": "flow",
+        "delta": {
+          "mean": -0.004409662204926927,
+          "low": -0.26597677143421095,
+          "high": 0.1378745080291992,
+          "n_scenes": 3
+        },
+        "wilcoxon_p": 1.0,
+        "holm_p": null,
+        "wins": 2,
+        "significant": false
+      },
+      "flow_level": {
+        "mean": 26.567885781034374,
+        "low": 22.932820345523357,
+        "high": 32.30506474169998,
+        "n_scenes": 3
+      }
+    }
+  },
+  "rows": [
+    {
+      "sequence": "blackswan",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 20.08458517921399,
+      "seconds_per_missing_frame": 0.03984242224987611
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 20.24883387801983,
+      "seconds_per_missing_frame": 0.06733652775005794
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 23.61922768044096,
+      "seconds_per_missing_frame": 0.0723345413334755
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 23.977729076586265,
+      "seconds_per_missing_frame": 0.1581663253333924
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 23.686820237403076,
+      "seconds_per_missing_frame": 0.08243938200030243
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 23.926998372487883,
+      "seconds_per_missing_frame": 0.16681207700003142
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 19.206154538670802,
+      "seconds_per_missing_frame": 0.05661349377775574
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 19.66151381777619,
+      "seconds_per_missing_frame": 0.05172933988887962
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 19.953884052790208,
+      "seconds_per_missing_frame": 0.0727171138750009
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 20.39007445365844,
+      "seconds_per_missing_frame": 0.07864693737496964
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 19.59306359597924,
+      "seconds_per_missing_frame": 0.07335634028562968
+    },
+    {
+      "sequence": "blackswan",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 20.1808224835866,
+      "seconds_per_missing_frame": 0.06698820299996962
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 16.1422742374885,
+      "seconds_per_missing_frame": 0.06455223875002503
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 16.27162010495197,
+      "seconds_per_missing_frame": 0.10200205462501799
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 16.72578279632177,
+      "seconds_per_missing_frame": 0.0736095371249803
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 16.837408100002595,
+      "seconds_per_missing_frame": 0.12264989749996857
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 16.601488759968838,
+      "seconds_per_missing_frame": 0.0741459726001267
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 16.75572473987803,
+      "seconds_per_missing_frame": 0.11460257479993743
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 14.981675888517781,
+      "seconds_per_missing_frame": 0.07912061563638417
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 14.704587213461785,
+      "seconds_per_missing_frame": 0.09258912545456868
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 14.50268041233922,
+      "seconds_per_missing_frame": 0.0777309952500218
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 14.37084636264409,
+      "seconds_per_missing_frame": 0.06488384725003016
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 14.579475698735965,
+      "seconds_per_missing_frame": 0.0710745778750379
+    },
+    {
+      "sequence": "bmx-trees",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 14.432218388105039,
+      "seconds_per_missing_frame": 0.08243910037504065
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 19.546031858880948,
+      "seconds_per_missing_frame": 0.07485466875004931
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "scattered",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 19.537501943126845,
+      "seconds_per_missing_frame": 0.12331549712496326
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 19.329437100111015,
+      "seconds_per_missing_frame": 0.06979103349999605
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "scattered",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 19.40002123765895,
+      "seconds_per_missing_frame": 0.12753434500007188
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 19.882392795922815,
+      "seconds_per_missing_frame": 0.07140832920013054
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "scattered",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 19.86831399651775,
+      "seconds_per_missing_frame": 0.10408892180003022
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 18.632647021301445,
+      "seconds_per_missing_frame": 0.07243974836364941
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "long-gap",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 18.67891557543856,
+      "seconds_per_missing_frame": 0.08597414045454405
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 18.498466535903113,
+      "seconds_per_missing_frame": 0.07026394750005238
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "long-gap",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 18.46859501035959,
+      "seconds_per_missing_frame": 0.07640892749998329
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 18.50123840413868,
+      "seconds_per_missing_frame": 0.07403247437503069
+    },
+    {
+      "sequence": "breakdance",
+      "regime": "long-gap",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 18.496328622663203,
+      "seconds_per_missing_frame": 0.07533619050002471
+    },
+    {
+      "sequence": "synthetic-0",
+      "regime": "synthetic-long-gap",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 32.625220088114666,
+      "seconds_per_missing_frame": 0.07075112359998456
+    },
+    {
+      "sequence": "synthetic-0",
+      "regime": "synthetic-long-gap",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 32.26896031746732,
+      "seconds_per_missing_frame": 0.08660245809996922
+    },
+    {
+      "sequence": "synthetic-0",
+      "regime": "synthetic-long-gap",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 32.36048708038385,
+      "seconds_per_missing_frame": 0.07078449355554363
+    },
+    {
+      "sequence": "synthetic-0",
+      "regime": "synthetic-long-gap",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 32.252093995655414,
+      "seconds_per_missing_frame": 0.08310476877775524
+    },
+    {
+      "sequence": "synthetic-0",
+      "regime": "synthetic-long-gap",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 31.929487056601413,
+      "seconds_per_missing_frame": 0.0696014901250237
+    },
+    {
+      "sequence": "synthetic-0",
+      "regime": "synthetic-long-gap",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 31.596209597674566,
+      "seconds_per_missing_frame": 0.07591225762496379
+    },
+    {
+      "sequence": "synthetic-1",
+      "regime": "synthetic-long-gap",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 24.941723315505875,
+      "seconds_per_missing_frame": 0.07087036009997974
+    },
+    {
+      "sequence": "synthetic-1",
+      "regime": "synthetic-long-gap",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 25.085635055574254,
+      "seconds_per_missing_frame": 0.08508984379996036
+    },
+    {
+      "sequence": "synthetic-1",
+      "regime": "synthetic-long-gap",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 24.396346663865902,
+      "seconds_per_missing_frame": 0.06988165922222025
+    },
+    {
+      "sequence": "synthetic-1",
+      "regime": "synthetic-long-gap",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 24.446151278386232,
+      "seconds_per_missing_frame": 0.08808275400002054
+    },
+    {
+      "sequence": "synthetic-1",
+      "regime": "synthetic-long-gap",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 24.059246788267586,
+      "seconds_per_missing_frame": 0.07244824224994773
+    },
+    {
+      "sequence": "synthetic-1",
+      "regime": "synthetic-long-gap",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 24.21015026404957,
+      "seconds_per_missing_frame": 0.07654242575006265
+    },
+    {
+      "sequence": "synthetic-2",
+      "regime": "synthetic-long-gap",
+      "seed": 7,
+      "method": "flow",
+      "affected_psnr": 23.334804925685408,
+      "seconds_per_missing_frame": 0.07533739390000846
+    },
+    {
+      "sequence": "synthetic-2",
+      "regime": "synthetic-long-gap",
+      "seed": 7,
+      "method": "flow_quadratic",
+      "affected_psnr": 23.51159774620282,
+      "seconds_per_missing_frame": 0.09013451239998176
+    },
+    {
+      "sequence": "synthetic-2",
+      "regime": "synthetic-long-gap",
+      "seed": 42,
+      "method": "flow",
+      "affected_psnr": 22.879583751215637,
+      "seconds_per_missing_frame": 0.06949750411109158
+    },
+    {
+      "sequence": "synthetic-2",
+      "regime": "synthetic-long-gap",
+      "seed": 42,
+      "method": "flow_quadratic",
+      "affected_psnr": 22.938338507641284,
+      "seconds_per_missing_frame": 0.10357681844450578
+    },
+    {
+      "sequence": "synthetic-2",
+      "regime": "synthetic-long-gap",
+      "seed": 99,
+      "method": "flow",
+      "affected_psnr": 22.584072359669022,
+      "seconds_per_missing_frame": 0.07158730887499587
+    },
+    {
+      "sequence": "synthetic-2",
+      "regime": "synthetic-long-gap",
+      "seed": 99,
+      "method": "flow_quadratic",
+      "affected_psnr": 22.762148306813575,
+      "seconds_per_missing_frame": 0.07633924412505166
+    }
+  ]
+}
