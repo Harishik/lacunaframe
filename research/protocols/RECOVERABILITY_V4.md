@@ -80,3 +80,11 @@ Failures are reported. If G8 fails, the result is described as such; nothing is 
 2. Motion-level input projections are 1×1 instead of 3×3; spatial context comes from the depthwise-separable blocks.
 
 **Re-applied rule (identical procedure):** latencies 0.18 / 0.32 / 0.42 / 0.74 s for C = 16 / 24 / 32 / 48 against RIFE 4.9 at 0.53 s, so **C = 32 is selected** (462751 parameters, about 22% faster than RIFE 4.9 on this CPU). Record: `research/results/lacunanet/size-rule.json`.
+
+## Amendment 2 — 2026-11-21 (before any training run)
+
+**Change requested by the project owner:** training moves from the laptop CPU to a **free Google Colab GPU** (T4, 15 GB).
+- **Claim change:** "trained entirely on CPU" is **withdrawn**. "CPU-native" now refers to **inference and every evaluation**, which stay on the laptop CPU under §5–§7 unchanged. The latency rule, chosen width (C = 32), architecture, data, loss, mixture, augmentation and checkpoint-selection rule are all unchanged.
+- **Budget (replaces "48 wall-clock CPU hours"):** 60,000 iterations at batch 16, with mixed precision and the cosine schedule over 60k iterations. If the free GPU quota ends first, training resumes from the last checkpoint in a new session, and the total is still capped at 60k iterations.
+- **Checkpoints:** every 2,500 iterations, downloaded to the laptop immediately, so a runtime collapse loses at most one interval.
+- **Disclosure:** training hardware (Colab T4) and total GPU hours are reported next to every result. Baselines were also GPU-trained, so the training-side comparison is now like-for-like in kind.
