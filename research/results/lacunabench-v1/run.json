@@ -1,0 +1,23 @@
+{
+  "clips": 31,
+  "rows": 15065,
+  "workers": 4,
+  "wall_seconds": 4238.045710138001,
+  "methods": [
+    "hold",
+    "linear",
+    "flow",
+    "flow_quadratic",
+    "rife"
+  ],
+  "gaps": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "loss_rate": 0.25,
+  "splits": "research/protocols/splits-v1.json"
+}

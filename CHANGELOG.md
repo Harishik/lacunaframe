@@ -1,5 +1,14 @@
 # Changes
 
+## Phase 1 — LacunaBench v1 — 2026-11-20
+
+- `app.py` split into `storage`, `media`, `pipeline` and thin routes; behaviour unchanged (all API and browser tests pass).
+- Capped, subset-only data fetcher (`research/data/fetch.py`) with a ledger: SNU-FILM test (31 clips, 635 MB), Vimeo90K triplets (2 × 256, 340 MB). The total of 1.06 GB includes metric weights; originals are deleted after conversion.
+- LPIPS (AlexNet) and DISTS exported to ONNX and validated against float64 PyTorch (≤ 3.5e-7); the main project stays torch-free.
+- Seeded loss processes (Bernoulli, Gilbert–Elliott, GOP-chain) with rate/burst/dependency tests. Dev/test splits frozen by checksum. Protocol amendment 1 recorded before any run.
+- LacunaBench v1: 31 clips × 6 gaps + 3 loss processes × 5 methods, scored with PSNR/SSIM/LPIPS/DISTS, 80×45 error maps saved for C2/C3. **G1 failed** (multi-anchor −0.14 dB on test, CI includes 0).
+- Vimeo90K T1 parity: RIFE 33.5 dB vs the published 35.6 dB. The subset-bias hypothesis is refuted and the adapter symmetry check passes; parity is not claimed and the issue stays open.
+
 ## Phase 1 groundwork — 2026-11-20
 
 - Froze protocol v1 (`research/protocols/RECOVERABILITY_V1.md` + JSON) before any new data: tasks T1–T3, loss processes, a 6 GB storage cap with subset-only data, splits by clip identity, scene-clustered statistics, pre-registered gates G1–G4.

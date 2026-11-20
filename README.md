@@ -45,6 +45,18 @@ This is the highest-error missing frame in the BMX long-gap run, shown across al
 
 [Full report](docs/REPORT.md) · [Natural-study CSV](examples/natural-v02/summary.csv) · [Checkpoint study](examples/checkpoint-v03/README.md) · [All experiments](examples/README.md)
 
+## LacunaBench v1: missing runs on real footage
+
+![Quality vs gap length on the held-out test split](research/results/lacunabench-v1/gap-curves.png)
+
+Protocol v1 was frozen before any data was downloaded. The test split is **11 GoPro clips**, held out from the 20 YouTube clips used for development, and the unit of analysis is the clip. Gaps run from 1 to 32 frames at 30 fps, plus three realistic loss processes (random, burst and codec-chain) at 25% loss. Five reconstructors were scored with PSNR, SSIM, LPIPS and DISTS (15,065 frame-method measurements).
+
+- Every method degrades steeply with gap length. RIFE's PSNR lead over two-anchor flow shrinks from +0.8 dB at 1 frame to +0.3 dB at 16 and +0.1 dB at 32 frames, where plain linear blending scores slightly higher than RIFE (14.57 vs 14.45 dB). RIFE keeps a clear **perceptual** (LPIPS) lead at every gap length.
+- Burst and codec-chain loss are much harder than random loss at the same 25% rate (RIFE: 22.7 → 20.4 → 18.1 dB on test).
+- **Pre-registered gate G1 failed:** quadratic multi-anchor motion did not beat two-anchor flow on test gaps ≥ 4 (−0.14 dB, 95% CI [−0.38, +0.13]). It is reported as a negative result.
+
+[Full results](research/results/lacunabench-v1/README.md) · [Protocol](research/protocols/RECOVERABILITY_V1.md) · [Frozen splits](research/protocols/splits-v1.json) · [Data ledger (0.88 GB of the 6 GB cap)](research/data/LEDGER.md) · [Vimeo90K parity check (open issue)](research/results/vimeo-parity/README.md)
+
 ## The workbench
 
 ![Completed experiment in the reconstruction workbench](docs/design/02-reconstruction.png)
@@ -110,7 +122,7 @@ The next phase asks a question existing interpolation work doesn't answer: **giv
 ## Verify everything
 
 ```bash
-.venv/bin/python -m pytest -q backend/tests research/tests   # 25 tests
+.venv/bin/python -m pytest -q backend/tests research/tests
 .venv/bin/python scripts/verify_artifacts.py                 # 120 MP4s, 36 reports, checksums
 npm run build && npm run lint && npm run typecheck
 npx playwright install chromium && npm run test:browser

@@ -1,0 +1,204 @@
+{
+  "protocol": "research/protocols/RECOVERABILITY_V1.md",
+  "frozen": "2026-11-20",
+  "frozen_before": "any v1 method run or tuning on these clips",
+  "rule": "Split by source: YouTube clips are dev (feature design, conformal calibration); GoPro clips are test (different camera and capture pipeline = dataset shift). Test is touched once per final configuration.",
+  "dev": [
+    {
+      "id": "YouTube_test-0000",
+      "file": "YouTube_test-0000.npz",
+      "sha256": "84b93b2288dd7cd499b8da42e42ce0e4ba14659d4eadd9465b212507114fc5f3",
+      "fps": 30.0
+    },
+    {
+      "id": "YouTube_test-0001",
+      "file": "YouTube_test-0001.npz",
+      "sha256": "5bb0c2c4c3b73ae7f1ec2f1cc9804c3b1a9b4bcb847d1d62845e4c916bed0067",
+      "fps": 30.0
+    },
+    {
+      "id": "YouTube_test-0002",
+      "file": "YouTube_test-0002.npz",
+      "sha256": "1f0c5618608ff35384783bf3dc5b56fc4764e6f2b0fb9b8693d7fac361fde8b5",
+      "fps": 30.0
+    },
+    {
+      "id": "YouTube_test-0003",
+      "file": "YouTube_test-0003.npz",
+      "sha256": "bb5e4a93375cfb22d5a224eef0fc7c9cac4e3125ccbe7585be5ff0f6be2a272a",
+      "fps": 80.0
+    },
+    {
+      "id": "YouTube_test-0004",
+      "file": "YouTube_test-0004.npz",
+      "sha256": "4eed7faa8ac2fc2fa9684bbe98a26ec6d2aff8a80285c55e2cfeff3e7cb0e88b",
+      "fps": 240.0
+    },
+    {
+      "id": "YouTube_test-0005",
+      "file": "YouTube_test-0005.npz",
+      "sha256": "d476d655fbd968bbc47adb172b4419d846b0addbca67f23c82298b4e21809d36",
+      "fps": 240.0
+    },
+    {
+      "id": "YouTube_test-0006",
+      "file": "YouTube_test-0006.npz",
+      "sha256": "67924f42d41e74513b6a9321f0ae2e514278ff5d2d2c93db8f8abafb728b2dc2",
+      "fps": 34.285714285714285
+    },
+    {
+      "id": "YouTube_test-0007",
+      "file": "YouTube_test-0007.npz",
+      "sha256": "33e594646e8b0536c0d3d2cdc382290cdb406fad20cf4bececa73068692e5f4a",
+      "fps": 60.0
+    },
+    {
+      "id": "YouTube_test-0008",
+      "file": "YouTube_test-0008.npz",
+      "sha256": "4bcfbc36f75fe40c47066890630b5decdde854b2a412f6c26abe88677bb6592c",
+      "fps": 120.0
+    },
+    {
+      "id": "YouTube_test-0009",
+      "file": "YouTube_test-0009.npz",
+      "sha256": "5c675dd53afb0b088a19eb9202b62e9a4607b8eca738a3f22d7fa4415fc29459",
+      "fps": 80.0
+    },
+    {
+      "id": "YouTube_test-0010",
+      "file": "YouTube_test-0010.npz",
+      "sha256": "bd9876bd143adcd0b81f7f9ebfa91a0abbd43292e0c68999b1581aa7392c634a",
+      "fps": 80.0
+    },
+    {
+      "id": "YouTube_test-0011",
+      "file": "YouTube_test-0011.npz",
+      "sha256": "5911da931ddc7eb78c729d73f4c2fae4e5dcdce0cda21d0b26d044cc6537f7ff",
+      "fps": 40.0
+    },
+    {
+      "id": "YouTube_test-0012",
+      "file": "YouTube_test-0012.npz",
+      "sha256": "f50a602246f44aa523a192dd5bb24785be38af13fa852b808ba7d57b946fac0a",
+      "fps": 40.0
+    },
+    {
+      "id": "YouTube_test-0013",
+      "file": "YouTube_test-0013.npz",
+      "sha256": "93236cd074d702043396ab35bbb9a4d05531961c09f03d441857b014fa4e80bd",
+      "fps": 60.0
+    },
+    {
+      "id": "YouTube_test-0014",
+      "file": "YouTube_test-0014.npz",
+      "sha256": "d7e36b43ab5e4f1b164667f3a62afd085e0b949c228125c2e33ff65378def8da",
+      "fps": 30.0
+    },
+    {
+      "id": "YouTube_test-0015",
+      "file": "YouTube_test-0015.npz",
+      "sha256": "6a647fb597e72b87412b2688bd73a12513b7bd2354343e257b77f88771e348cc",
+      "fps": 60.0
+    },
+    {
+      "id": "YouTube_test-0016",
+      "file": "YouTube_test-0016.npz",
+      "sha256": "efb866940b062424b67a8cccf4f5f64212e16a717195e3c340ac923bce71dab0",
+      "fps": 30.0
+    },
+    {
+      "id": "YouTube_test-0017",
+      "file": "YouTube_test-0017.npz",
+      "sha256": "9359d7e2aa27137b5c7e654061fa10b041534d75f0c390905b1e9af521e5bc75",
+      "fps": 120.0
+    },
+    {
+      "id": "YouTube_test-0018",
+      "file": "YouTube_test-0018.npz",
+      "sha256": "6cad529e46213122745696c9a0c59fc0dc6e21f272d8fcf1bfe137b7d2db6232",
+      "fps": 40.0
+    },
+    {
+      "id": "YouTube_test-0019",
+      "file": "YouTube_test-0019.npz",
+      "sha256": "88d2a7af91d2b362ff95b1868fcb720f4068058f93c236e719795ec6aa0d74d0",
+      "fps": 120.0
+    }
+  ],
+  "test": [
+    {
+      "id": "GOPRO_test-GOPR0384_11_00",
+      "file": "GOPRO_test-GOPR0384_11_00.npz",
+      "sha256": "456b7be9bb8ae8e0939f14c5901f4954065fa90fbdc3d7d8a6600280ed8ed387",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0384_11_05",
+      "file": "GOPRO_test-GOPR0384_11_05.npz",
+      "sha256": "aba48295b47fbef48d240da8cddbe3433bfeaa6695c3235d04179027ac2ec4a9",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0385_11_01",
+      "file": "GOPRO_test-GOPR0385_11_01.npz",
+      "sha256": "82ea173fd6ab59517c12543f674c7b66af878d670823706e50bc10f02955d598",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0396_11_00",
+      "file": "GOPRO_test-GOPR0396_11_00.npz",
+      "sha256": "d5727f06acdde0ae2381feb7777813046ed7b7ffcceb27b2d613788b8e6c7858",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0410_11_00",
+      "file": "GOPRO_test-GOPR0410_11_00.npz",
+      "sha256": "9132b16f71e2a0476dfae6a6785fcd5456830016e5d063dda2b2694e2c0c56dc",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0854_11_00",
+      "file": "GOPRO_test-GOPR0854_11_00.npz",
+      "sha256": "319638eaf45bbb0a2064947ea2318584ec5d15a7bd0f45ea536103796e29b5df",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0862_11_00",
+      "file": "GOPRO_test-GOPR0862_11_00.npz",
+      "sha256": "ab5866f3be06482b5a9d3e31a59852f792de001459a3a6c41f26ef3cdd292728",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0868_11_00",
+      "file": "GOPRO_test-GOPR0868_11_00.npz",
+      "sha256": "f99e02cac0d9cdd3121d63500a70d517b4b8a4a6f90dcbe225cbeac32547a604",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0869_11_00",
+      "file": "GOPRO_test-GOPR0869_11_00.npz",
+      "sha256": "c07eeaf77e581d1c289244e9a52ade70119298da8d8fde5848d6ac8eb1e82e13",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0871_11_00",
+      "file": "GOPRO_test-GOPR0871_11_00.npz",
+      "sha256": "c4964ceea02fb235ce4f6d472c6949e686911f8fbe6d87c1f09f1556b554abb0",
+      "fps": 30.0
+    },
+    {
+      "id": "GOPRO_test-GOPR0881_11_01",
+      "file": "GOPRO_test-GOPR0881_11_01.npz",
+      "sha256": "275053262508c25128c87bb7fe12f9621b812aba0023cc02dde37714dc205961",
+      "fps": 30.0
+    }
+  ],
+  "parity_only": [
+    "vimeo-triplets (T1 midpoint parity checks; not used for dev/test claims)"
+  ],
+  "diagnostic_only": [
+    "DAVIS blackswan",
+    "DAVIS bmx-trees",
+    "DAVIS breakdance"
+  ]
+}

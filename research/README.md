@@ -10,6 +10,9 @@ This branch begins the research program requested after the v0.3 portfolio relea
 
 | Open | What it contains |
 |---|---|
+| [LacunaBench v1 results](results/lacunabench-v1/README.md) | T3 missing runs on 31 SNU-FILM clips: gap curves, loss processes, LPIPS/DISTS, gate G1 (failed) |
+| [Data ledger](data/LEDGER.md) | Every external source, pinned revision, selection and bytes against the 6 GB cap |
+| [Vimeo90K parity](results/vimeo-parity/README.md) | T1 midpoint sanity check; open 2 dB gap to the published RIFE number, with hypotheses tested |
 | [Protocol v1 (frozen)](protocols/RECOVERABILITY_V1.md) | Recoverability pivot: tasks, 6 GB storage cap, splits, metrics, scene-clustered statistics, pre-registered gates G1–G4 |
 | [Recoverability prior art](literature/RECOVERABILITY_PRIOR_ART.md) | Full-text novelty audit for C1–C3 and the updated verdict |
 | [Scene-level re-analysis](results/reanalysis/README.md) | Archived natural study with the scene as the unit; RIFE vs flow is not supported by three clips |

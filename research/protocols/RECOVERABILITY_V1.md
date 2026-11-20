@@ -65,3 +65,10 @@ Pinned FFmpeg decoding (`backend/decode.py`), checksums for every source and che
 ## Amendments
 
 None yet.
+
+### Amendment 1 — 2026-11-20 (before any v1 run)
+
+- **Splits frozen** in [splits-v1.json](splits-v1.json): SNU-FILM YouTube (20 clips) = dev, SNU-FILM GoPro (11 clips) = test. A different camera and capture pipeline gives the cross-source shift test. Vimeo90K triplets are for T1 parity only. Clip files are pinned by SHA-256.
+- **Clip format:** 48 frames at stride 8 from 240 fps sources (30 fps), centre-cropped to 16:9 at 640×360. This supports gaps up to 32 with at least two anchors on each side.
+- **DISTS scope:** measured cost is 3.1 s/frame at 640×360 on the reference laptop, so DISTS runs on the **test split only, at 320×180, for g ∈ {4, 16}**. LPIPS (0.23 s/frame) runs on every missing frame at full resolution.
+- **Error maps:** per-frame absolute-error maps are stored at 80×45 (float16) for every method. These are the per-pixel targets for C2/C3, so full predictions never need to be stored (storage cap).

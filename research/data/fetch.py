@@ -1,0 +1,203 @@
+"""Capped, subset-only fetcher for protocol v1 data (see research/protocols/RECOVERABILITY_V1.md §2).
+
+Downloads individual files from pinned Hugging Face revisions, converts them to
+compact lossless arrays immediately, deletes the originals, and refuses to run
+past the storage cap. Data lives outside git in $LACUNA_EXTERNAL
+(default: <repo parent>/lacuna-data). Every source is appended to
+research/data/ledger.json with revision, bytes fetched, bytes stored and hashes.
+
+    .venv/bin/python research/data/fetch.py snu-film
+    .venv/bin/python research/data/fetch.py vimeo-triplets
+"""
+from __future__ import annotations
+import argparse
+import hashlib
+import io
+import json
+import os
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+import urllib.request
+import cv2
+import numpy as np
+
+REPO = Path(__file__).resolve().parents[2]
+EXTERNAL = Path(os.environ.get('LACUNA_EXTERNAL', REPO.parent / 'lacuna-data')).resolve()
+LEDGER = REPO / 'research/data/ledger.json'
+CAP_BYTES = int(6 * 1024**3)
+SIZE = (640, 360)  # stored width, height (16:9)
+HF = 'https://huggingface.co'
+
+
+def used_bytes() -> int:
+    return sum(p.stat().st_size for p in EXTERNAL.rglob('*') if p.is_file()) if EXTERNAL.exists() else 0
+
+
+def check_cap(incoming: int = 0) -> None:
+    if used_bytes() + incoming > CAP_BYTES:
+        raise SystemExit(f'Storage cap reached: {used_bytes()/1e9:.2f} GB used + {incoming/1e9:.2f} GB incoming > 6 GiB')
+
+
+def get_json(url: str):
+    with urllib.request.urlopen(url, timeout=60) as r:
+        return json.load(r)
+
+
+def get_bytes(url: str) -> bytes:
+    with urllib.request.urlopen(url, timeout=120) as r:
+        return r.read()
+
+
+def revision(repo: str) -> str:
+    return get_json(f'{HF}/api/datasets/{repo}')['sha']
+
+
+def to_16x9(img: np.ndarray) -> np.ndarray:
+    """Centre-crop to 16:9, then area-resize to SIZE. Input/output RGB uint8."""
+    h, w = img.shape[:2]
+    if w * 9 > h * 16:
+        nw = h * 16 // 9
+        img = img[:, (w - nw) // 2:(w - nw) // 2 + nw]
+    else:
+        nh = w * 9 // 16
+        img = img[(h - nh) // 2:(h - nh) // 2 + nh]
+    return cv2.resize(img, SIZE, interpolation=cv2.INTER_AREA)
+
+
+def decode_png(data: bytes) -> np.ndarray:
+    a = cv2.imdecode(np.frombuffer(data, np.uint8), cv2.IMREAD_COLOR)
+    if a is None:
+        raise ValueError('PNG decode failed')
+    return cv2.cvtColor(a, cv2.COLOR_BGR2RGB)
+
+
+def record(entry: dict) -> None:
+    ledger = json.loads(LEDGER.read_text()) if LEDGER.exists() else dict(cap_bytes=CAP_BYTES, external_dir='$LACUNA_EXTERNAL', sources=[])
+    ledger['sources'] = [s for s in ledger['sources'] if s['name'] != entry['name']] + [entry]
+    ledger['stored_bytes_total'] = sum(s['stored_bytes'] for s in ledger['sources'])
+    LEDGER.write_text(json.dumps(ledger, indent=2))
+
+
+def snu_film(window: int = 48, stride: int = 8) -> None:
+    """SNU-FILM test sequences (240 fps): one 48-frame window at stride 8 (= 30 fps) per sequence."""
+    repo = 'xypeng9903/SNU_FILM'
+    rev = revision(repo)
+    out = EXTERNAL / 'snu-film'
+    out.mkdir(parents=True, exist_ok=True)
+    sequences, fetched = [], 0
+    for group in ('GOPRO_test', 'YouTube_test'):
+        for seq in get_json(f'{HF}/api/datasets/{repo}/tree/{rev}/test/{group}'):
+            name = seq['path'].split('/')[-1]
+            target = out / f'{group}-{name}.npz'
+            files = sorted(e['path'] for e in get_json(f'{HF}/api/datasets/{repo}/tree/{rev}/{seq["path"]}') if e['path'].endswith('.png'))
+            span = (window - 1) * stride + 1
+            if len(files) < span:
+                stride_used = max(1, (len(files) - 1) // (window - 1))
+            else:
+                stride_used = stride
+            start = (len(files) - ((window - 1) * stride_used + 1)) // 2
+            chosen = files[start::stride_used][:window]
+            if not target.exists():
+                check_cap(40 * 1024**2)
+                with ThreadPoolExecutor(8) as pool:
+                    blobs = list(pool.map(lambda p: get_bytes(f'{HF}/datasets/{repo}/resolve/{rev}/{p}'), chosen))
+                fetched += sum(len(b) for b in blobs)
+                frames = np.stack([to_16x9(decode_png(b)) for b in blobs])
+                del blobs
+                np.savez_compressed(target, frames=frames, source_files=np.array(chosen), stride=stride_used, source_fps=240, fps=240 / stride_used)
+            data = np.load(target)
+            sequences.append(dict(id=f'{group}-{name}', group=group, file=target.name, frames=int(data['frames'].shape[0]),
+                                  stride=int(data['stride']), fps=float(data['fps']), first=str(data['source_files'][0]).split('/')[-1],
+                                  sha256=hashlib.sha256(target.read_bytes()).hexdigest()))
+            print(sequences[-1]['id'], sequences[-1]['frames'], 'frames', flush=True)
+    stored = sum((out / s['file']).stat().st_size for s in sequences)
+    record(dict(name='snu-film', repo=f'{HF}/datasets/{repo}', revision=rev, license='SNU-FILM (Choi et al., AAAI 2020); GOPRO subset from Nah et al. CVPR 2017 (CC BY 4.0); YouTube subset research use. Arrays kept local, not redistributed.',
+                selection=f'{window}-frame centred window at stride {stride} from each of 31 test sequences; centre-crop 16:9, INTER_AREA to {SIZE[0]}x{SIZE[1]}',
+                bytes_fetched_this_run=fetched, stored_bytes=stored, sequences=sequences))
+    print(f'snu-film stored {stored/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
+
+
+def vimeo_triplets(keep: int = 256, shard: int = 0) -> None:
+    """Vimeo90K triplet test: one parquet shard, keep `keep` evenly spaced triplets (native 448x256)."""
+    import pyarrow.parquet as pq
+    repo = 'paschalc24/vimeo-90k-test-full'
+    rev = revision(repo)
+    out = EXTERNAL / 'vimeo-triplets'
+    out.mkdir(parents=True, exist_ok=True)
+    target = out / f'shard{shard}-{keep}.npz'
+    path = f'data/test-0000{shard}-of-00004.parquet'
+    fetched = 0
+    if not target.exists():
+        check_cap(500 * 1024**2)
+        tmp = out / 'shard.parquet.part'
+        urllib.request.urlretrieve(f'{HF}/datasets/{repo}/resolve/{rev}/{path}', tmp)
+        fetched = tmp.stat().st_size
+        table = pq.read_table(tmp)
+        print('columns', table.schema, flush=True)
+        cols = table.column_names
+        image_cols = [c for c in cols if table.schema.field(c).type.__class__.__name__ in ('StructType',) or 'im' in c.lower() or 'frame' in c.lower()]
+        rows = np.linspace(0, table.num_rows - 1, keep).round().astype(int)
+        triplets, ids = [], []
+        for r in rows:
+            row = {c: table.column(c)[int(r)].as_py() for c in cols}
+            imgs = []
+            for c in image_cols:
+                v = row[c]
+                blob = v['bytes'] if isinstance(v, dict) else v
+                if isinstance(blob, (bytes, bytearray)):
+                    imgs.append(decode_png(bytes(blob)))
+            if len(imgs) != 3:
+                raise SystemExit(f'Unexpected parquet layout: columns {cols}')
+            triplets.append(np.stack(imgs))
+            ids.append(str(row.get('sequence_id', row.get('id', r))))
+        np.savez_compressed(target, triplets=np.stack(triplets), ids=np.array(ids), rows=rows)
+        tmp.unlink()
+    data = np.load(target)
+    record(dict(name='vimeo-triplets', repo=f'{HF}/datasets/{repo}', revision=rev, license='Vimeo90K (Xue et al., IJCV 2019), research use. Arrays kept local.',
+                selection=f'{keep} evenly spaced triplets from {path}; native resolution; shard deleted after extraction',
+                bytes_fetched_this_run=fetched, stored_bytes=target.stat().st_size, shape=list(data['triplets'].shape),
+                sha256=hashlib.sha256(target.read_bytes()).hexdigest()))
+    print(f'vimeo stored {target.stat().st_size/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
+
+
+def vimeo_balanced(per_shard: int = 64) -> None:
+    """Vimeo90K triplet test, evenly sampled across all four shards (fixes shard-0 subset bias).
+
+    Each 448 MB shard is downloaded, sampled and deleted before the next one, so peak
+    transient storage is one shard.
+    """
+    import pyarrow.parquet as pq
+    repo = 'paschalc24/vimeo-90k-test-full'
+    rev = revision(repo)
+    out = EXTERNAL / 'vimeo-triplets'
+    out.mkdir(parents=True, exist_ok=True)
+    target = out / f'balanced-{4 * per_shard}.npz'
+    fetched, triplets, ids = 0, [], []
+    if not target.exists():
+        for shard in range(4):
+            check_cap(500 * 1024**2)
+            tmp = out / 'shard.parquet.part'
+            urllib.request.urlretrieve(f'{HF}/datasets/{repo}/resolve/{rev}/data/test-0000{shard}-of-00004.parquet', tmp)
+            fetched += tmp.stat().st_size
+            table = pq.read_table(tmp, columns=['im1', 'im2', 'im3', 'sequence_id'])
+            for r in np.linspace(0, table.num_rows - 1, per_shard).round().astype(int):
+                triplets.append(np.stack([decode_png(table.column(c)[int(r)].as_py()['bytes']) for c in ('im1', 'im2', 'im3')]))
+                ids.append(f"{shard}:{table.column('sequence_id')[int(r)].as_py()}")
+            del table
+            tmp.unlink()
+            print('shard', shard, 'sampled', flush=True)
+        np.savez_compressed(target, triplets=np.stack(triplets), ids=np.array(ids))
+    data = np.load(target)
+    record(dict(name='vimeo-balanced', repo=f'{HF}/datasets/{repo}', revision=rev, license='Vimeo90K (Xue et al., IJCV 2019), research use. Arrays kept local.',
+                selection=f'{per_shard} evenly spaced triplets from each of the 4 test shards ({4 * per_shard} total); shards deleted after sampling',
+                bytes_fetched_this_run=fetched, stored_bytes=target.stat().st_size, shape=list(data['triplets'].shape),
+                sha256=hashlib.sha256(target.read_bytes()).hexdigest()))
+    print(f'vimeo-balanced stored {target.stat().st_size/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('source', choices=['snu-film', 'vimeo-triplets', 'vimeo-balanced'])
+    args = parser.parse_args()
+    EXTERNAL.mkdir(parents=True, exist_ok=True)
+    {'snu-film': snu_film, 'vimeo-triplets': vimeo_triplets, 'vimeo-balanced': vimeo_balanced}[args.source]()
