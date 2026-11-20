@@ -43,3 +43,9 @@ Secondary (not gated): RGF on the SNU test split and on Xiph v2, both of which w
 ## 6. Unchanged
 
 The clip is the unit of analysis; bootstrap CIs, paired Wilcoxon with Holm, the PSNR cap of 60 dB, the 6 GB storage cap, and failure retention all carry over from v1/v2.
+
+## Amendment 1 — 2026-11-20 (before any v3 evaluation; Xiph-B fetch still in progress)
+
+**Finding.** The centred window of `aspen_1080p` contains two editorial cuts: consecutive-frame mean absolute differences of 58 and 70 against a within-shot median of about 5. Interpolating across a cut has no ground truth to recover, and only `rush_field_cuts` had been excluded in advance.
+
+**Rule (mechanical, applied to every Xiph-B clip before any method is run on it).** A cut is a consecutive-frame mean absolute RGB difference greater than 25 **and** more than 4× the clip's median consecutive difference. Any clip whose 48-frame window contains a cut is **excluded**. The exclusion list and the per-clip difference statistics are written to `research/results/fusion-v3/xiph-b-cuts.json`. If fewer than 6 clips remain, G5/G6 are reported as underpowered rather than passed or failed.
