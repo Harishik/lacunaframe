@@ -31,7 +31,7 @@ SUFFIX = os.environ.get('LACUNA_BENCH_TAG', '' if DATASET == 'snu' else f'-{DATA
 RUN_SPLITS = tuple(os.environ.get('LACUNA_BENCH_SPLITS', 'dev,test').split(','))
 OUT = REPO / f'research/results/lacunabench-v1{SUFFIX}'
 MAPS = EXTERNAL / f'results/lacunabench-v1{SUFFIX}'
-DATA_DIR = {'snu': 'snu-film', 'xiph': 'xiph'}[DATASET]
+DATA_DIR = {'snu': 'snu-film', 'xiph': 'xiph', 'xiph-c': 'xiph-c'}[DATASET]
 GAPS = (1, 2, 4, 8, 16, 32)
 METHODS = tuple(os.environ.get('LACUNA_BENCH_METHODS', 'hold,linear,flow,flow_quadratic,rife').split(','))
 RATE = .25
@@ -95,7 +95,7 @@ def clip_worker(args: tuple[str, str, str]) -> list[dict]:
         damaged = frames.copy()
         damaged[missing] = 0
         mask = np.zeros(frames.shape[:3], bool)
-        with_dists = split in ('test', 'xiph') and task['process'] == 'contiguous' and int(task['task'][3:]) in DISTS_GAPS
+        with_dists = split in ('test', 'xiph', 'xiph-c') and task['process'] == 'contiguous' and int(task['task'][3:]) in DISTS_GAPS
         for method in METHODS:
             began = time.perf_counter()
             out, _, _ = restore(damaged, missing, mask, method)
@@ -129,10 +129,13 @@ FIELDS = ['clip', 'split', 'task', 'process', 'frame', 'run_length', 't', 'metho
 
 
 def run(workers: int, limit: int | None) -> None:
-    if DATASET == 'xiph':
+    if DATASET in ('xiph', 'xiph-c'):
         ledger = json.loads((REPO / 'research/data/ledger.json').read_text())
-        xiph = next(s for s in ledger['sources'] if s['name'] == 'xiph')
-        jobs = [(c['id'], 'xiph', c['file']) for c in xiph['sequences']]
+        src = next(s for s in ledger['sources'] if s['name'] == DATASET)
+        excluded = set()
+        if DATASET == 'xiph-c':   # protocol v4: v3 scene-cut rule applies
+            excluded = set(json.loads((REPO / 'research/results/lacunanet/xiph-c-cuts.json').read_text())['excluded'])
+        jobs = [(c['id'], DATASET, c['file']) for c in src['sequences'] if c['id'] not in excluded]
     else:
         jobs = [(c['id'], split, c['file']) for split in RUN_SPLITS for c in SPLITS[split]]
     if limit:

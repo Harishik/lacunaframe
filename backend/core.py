@@ -15,9 +15,9 @@ import numpy as np
 from skimage.metrics import structural_similarity
 
 EXTERNAL_METHODS = ('amt_s', 'ifrnet_s', 'ifrnet', 'rife_paper', 'amt_s_gopro', 'ifrnet_s_gopro', 'ifrnet_gopro')  # published models via backend/external.py (ONNX); plain names = Vimeo90K (midpoint-trained) weights
-METHODS = ('hold', 'linear', 'flow', 'telea', 'rife', 'rife_fast', 'flow_quadratic', *EXTERNAL_METHODS)
+METHODS = ('hold', 'linear', 'flow', 'telea', 'rife', 'rife_fast', 'flow_quadratic', 'lacunanet', *EXTERNAL_METHODS)
 # Research-only methods: available to benchmarks, not yet exposed through the API/UI.
-RESEARCH_METHODS = ('flow_quadratic', *EXTERNAL_METHODS)
+RESEARCH_METHODS = ('flow_quadratic', 'lacunanet', *EXTERNAL_METHODS)
 LONG_GAP = 6  # anchor separation above which a gap is reported as underconstrained
 
 
@@ -261,6 +261,14 @@ def _interpolate(method: str, frames: np.ndarray, left: int, right: int, t: floa
     """Estimate one missing frame between observed anchors `left` and `right`."""
     if method == 'flow_quadratic':
         return quadratic(left, right, index)
+    if method == 'lacunanet':
+        # Our model sees two observed anchors on each side when they exist (multi-anchor context).
+        from .lacunanet import reconstruct
+        observed = quadratic.observed
+        before, after = observed[observed < left], observed[observed > right]
+        out, scale = reconstruct(frames, left, right, int(before[-1]) if len(before) else None,
+                                 int(after[0]) if len(after) else None, index)
+        return out, float(min(1.0, scale.mean() / 255.0))
     a, b = frames[left], frames[right]
     if method in ('hold', 'telea'):
         return frames[left if t <= .5 else right], 0.0
@@ -302,7 +310,7 @@ def restore(damaged: np.ndarray, missing: np.ndarray, mask: np.ndarray, method: 
         if method == 'rife_fast':
             warnings.append('RIFE Fast runs at half spatial resolution then upsamples; fine detail may be lost.')
 
-    quadratic = QuadraticFlow(out, observed) if method == 'flow_quadratic' else None
+    quadratic = QuadraticFlow(out, observed) if method in ('flow_quadratic', 'lacunanet') else None
     for i in range(len(out)):
         if missing[i]:
             before, after = observed[observed < i], observed[observed > i]

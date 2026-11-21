@@ -1,0 +1,34 @@
+{
+  "gap1": {
+    "linear": 29.14,
+    "oracle_quarter": 33.95,
+    "oracle_full": 33.92,
+    "lk_quarter": 32.55,
+    "lk_at_quarter": 31.88,
+    "n": 6
+  },
+  "gap2": {
+    "linear": 26.82,
+    "oracle_quarter": 29.9,
+    "oracle_full": 29.87,
+    "lk_quarter": 29.35,
+    "lk_at_quarter": 29.09,
+    "n": 12
+  },
+  "gap4": {
+    "linear": 23.52,
+    "oracle_quarter": 26.2,
+    "oracle_full": 26.18,
+    "lk_quarter": 26.46,
+    "lk_at_quarter": 26.22,
+    "n": 24
+  },
+  "gap8": {
+    "linear": 23.07,
+    "oracle_quarter": 25.7,
+    "oracle_full": 25.68,
+    "lk_quarter": 25.17,
+    "lk_at_quarter": 25.15,
+    "n": 48
+  }
+}

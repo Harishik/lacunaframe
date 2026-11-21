@@ -31,7 +31,8 @@ rife_feed = {'img0': img(384, 640), 'img1': img(384, 640), 'timestep': np.array(
 result = dict(rife49=median_latency(lambda: rife.run(None, rife_feed)), widths={})
 for c in (16, 24, 32, 48):
     s = session(Path(sys.argv[1]) / f'lacunanet_c{c}.onnx')
-    feed = {k: img(360, 640) for k in ('a_m1', 'a_p1', 'a_m2', 'a_p2')}
+    h = int(sys.argv[2]) if len(sys.argv) > 2 else 360
+    feed = {k: img(h, 640) for k in ('a_m1', 'a_p1', 'a_m2', 'a_p2')}
     feed['cond'] = np.array([[.5, 0, -1.5, -.5, .5, 1.5, 1, 1]], np.float32)
     result['widths'][c] = median_latency(lambda: s.run(None, feed))
     print(c, result['widths'][c], 'rife', result['rife49'], flush=True)
@@ -39,5 +40,5 @@ ok = [c for c, v in result['widths'].items() if v <= result['rife49']]
 result['chosen'] = max(ok) if ok else min(result['widths'])
 result['rule'] = 'largest C with median ORT latency (2 threads, warm, 20 runs) <= RIFE 4.9 at 640x360 (RIFE padded to 640x384 as in the adapter)'
 (REPO / 'research/results/lacunanet').mkdir(parents=True, exist_ok=True)
-(REPO / 'research/results/lacunanet/size-rule.json').write_text(json.dumps(result, indent=2))
+(REPO / f"research/results/lacunanet/size-rule{sys.argv[3] if len(sys.argv) > 3 else ''}.json").write_text(json.dumps(result, indent=2))
 print(json.dumps(result, indent=2))

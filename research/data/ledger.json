@@ -620,7 +620,126 @@
           "sha256": "41ba1e133ddff16d51e64266e0aaca5beaa80d8ad1acb657311dcbcef9010cb1"
         }
       ]
+    },
+    {
+      "name": "xiph-c",
+      "repo": "https://media.xiph.org/video/derf/y4m/",
+      "revision": "static files",
+      "license": "Xiph.org derf collection; per-sequence terms (incl. Blender Foundation CC BY for Elephants Dream / Sintel).",
+      "selection": "protocol v4: centred 48-frame windows, stride 2 for >=50 fps, I420 conversion, 16:9 crop, 640x360",
+      "bytes_fetched_this_run": 298598400,
+      "stored_bytes": 213794404,
+      "sequences": [
+        {
+          "id": "xiphc-720p50_mobcal_ter",
+          "file": "720p50_mobcal_ter.npz",
+          "frames": 48,
+          "stride": 2,
+          "chroma": "420",
+          "source_indices": [
+            204,
+            298
+          ],
+          "sha256": "e462936a0612a6bb52954851771a44af18769cdc4ae15efa8b20adcac8eb7385"
+        },
+        {
+          "id": "xiphc-720p50_parkrun_ter",
+          "file": "720p50_parkrun_ter.npz",
+          "frames": 48,
+          "stride": 2,
+          "chroma": "420",
+          "source_indices": [
+            204,
+            298
+          ],
+          "sha256": "93ae3915cd7f65d6d7bb9759b114cdb0fd9a5a8a8eefd782a04358312c2b2def"
+        },
+        {
+          "id": "xiphc-720p50_shields_ter",
+          "file": "720p50_shields_ter.npz",
+          "frames": 48,
+          "stride": 2,
+          "chroma": "420",
+          "source_indices": [
+            204,
+            298
+          ],
+          "sha256": "b09b70fdae0602033c3a1c42b848f34111d7fdc558e6c2cbae1353e45e5d7b22"
+        },
+        {
+          "id": "xiphc-720p5994_stockholm_ter",
+          "file": "720p5994_stockholm_ter.npz",
+          "frames": 48,
+          "stride": 2,
+          "chroma": "420",
+          "source_indices": [
+            254,
+            348
+          ],
+          "sha256": "7c92de2884d2c05bbda4132f003d7ba901511db53a3a91d43c38146f53fb4661"
+        },
+        {
+          "id": "xiphc-vidyo1_720p_60fps",
+          "file": "vidyo1_720p_60fps.npz",
+          "frames": 48,
+          "stride": 2,
+          "chroma": "420jpeg",
+          "source_indices": [
+            253,
+            347
+          ],
+          "sha256": "250fa45783bd529ae072b688a3c67f797bd484504588d28f81cd053c2637ca84"
+        },
+        {
+          "id": "xiphc-vidyo3_720p_60fps",
+          "file": "vidyo3_720p_60fps.npz",
+          "frames": 48,
+          "stride": 2,
+          "chroma": "420jpeg",
+          "source_indices": [
+            253,
+            347
+          ],
+          "sha256": "db1c4e2ae7cdb24ba41221b88373e3fe90d27a731421d9e55c7639d633c24994"
+        },
+        {
+          "id": "xiphc-vidyo4_720p_60fps",
+          "file": "vidyo4_720p_60fps.npz",
+          "frames": 48,
+          "stride": 2,
+          "chroma": "420jpeg",
+          "source_indices": [
+            253,
+            347
+          ],
+          "sha256": "78880a5108a67a89c867eeac7bb59f41d8eea7835691169179479cf3062f3170"
+        },
+        {
+          "id": "xiphc-elephants_dream_1080p24",
+          "file": "elephants_dream_1080p24.npz",
+          "frames": 48,
+          "stride": 1,
+          "chroma": "420jpeg",
+          "source_indices": [
+            7821,
+            7868
+          ],
+          "sha256": "45baa9d89fec3465ae884e23f8bdbd397ca065f0d1657fc64f7d48740ad9604d"
+        },
+        {
+          "id": "xiphc-sintel_trailer_2k_1080p24",
+          "file": "sintel_trailer_2k_1080p24.npz",
+          "frames": 48,
+          "stride": 1,
+          "chroma": "420jpeg",
+          "source_indices": [
+            602,
+            649
+          ],
+          "sha256": "3c82de371115f442f82ff96280aabed43bcfd25feeb041c2658d78e068ab6334"
+        }
+      ]
     }
   ],
-  "stored_bytes_total": 1541086738
+  "stored_bytes_total": 1754881142
 }

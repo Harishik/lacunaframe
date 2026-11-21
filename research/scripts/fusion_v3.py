@@ -29,7 +29,7 @@ V1_FEATS = EXTERNAL / 'results/recoverability-v1'
 TAU, ALPHA, SEED = 20.0, 0.10, 20261120
 T_GRID = tuple(PROTOCOL['fusion']['T_grid'])
 PX_PER_FRAME = 300
-DATASETS = {'xiph-b': ('xiph-b', 'xiph-b'), 'xiph': ('xiph', 'xiph'), 'snu-test': ('snu-film', None)}
+DATASETS = {'xiph-b': ('xiph-b', 'xiph-b'), 'xiph': ('xiph', 'xiph'), 'xiph-c': ('xiph-c', 'xiph-c'), 'snu-test': ('snu-film', None)}
 
 
 def _tasks(clip: str, n: int):
@@ -243,7 +243,11 @@ def _clips(dataset: str) -> list[tuple[str, str]]:
         return [(c['id'], c['file']) for c in SPLITS['test']]
     ledger = json.loads((REPO / 'research/data/ledger.json').read_text())
     src = next(s for s in ledger['sources'] if s['name'] == DATASETS[dataset][1])
-    excluded = set(json.loads((OUT / 'xiph-b-cuts.json').read_text())['xiph-b_excluded']) if dataset == 'xiph-b' else set()
+    excluded = set()
+    if dataset == 'xiph-b':
+        excluded = set(json.loads((OUT / 'xiph-b-cuts.json').read_text())['xiph-b_excluded'])
+    elif dataset == 'xiph-c':
+        excluded = set(json.loads((REPO / 'research/results/lacunanet/xiph-c-cuts.json').read_text())['excluded'])
     return [(c['id'], c['file']) for c in src['sequences'] if c['id'] not in excluded]
 
 

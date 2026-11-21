@@ -258,6 +258,71 @@ def xiph(window: int = 48) -> None:
     print(f'xiph stored {stored/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
 
 
+def _xiph_window(name: str, window: int, stride_rule) -> tuple[np.ndarray, list[int], str, int]:
+    """Range-read a centred `window`-frame window (stride from fps) of one Xiph y4m; returns RGB frames at 640x360."""
+    url = XIPH + f'{name}.y4m'
+    head = _range(url, 0, 512)
+    header = head[:head.index(b'\n') + 1]
+    fields = dict((f[:1].decode(), f[1:].decode()) for f in header.split()[1:])
+    w, h, chroma = int(fields['W']), int(fields['H']), fields.get('C', '420')
+    num, den = (float(v) for v in fields['F'].split(':'))
+    stride = stride_rule(num / den)
+    if chroma.startswith('420'):
+        frame_bytes = w * h * 3 // 2
+    elif chroma.startswith('422'):
+        frame_bytes = w * h * 2
+    else:
+        raise SystemExit(f'Unsupported chroma {chroma} in {name}')
+    with urllib.request.urlopen(urllib.request.Request(url, method='HEAD'), timeout=60) as r:
+        total = int(r.headers['Content-Length'])
+    record_bytes = 6 + frame_bytes
+    n = (total - len(header)) // record_bytes
+    span = (window - 1) * stride + 1
+    start = (n - span) // 2
+    indices = [start + k * stride for k in range(window)]
+    check_cap(window * record_bytes)
+    frames = []
+    for i in indices:
+        blob = _range(url, len(header) + i * record_bytes, record_bytes)
+        if blob[:6] != b'FRAME\n':
+            raise SystemExit(f'Frame marker missing at {name}[{i}]')
+        raw = np.frombuffer(blob[6:], np.uint8)
+        y = raw[:w * h]
+        if chroma.startswith('422'):
+            u = raw[w * h:w * h + (w // 2) * h].reshape(h, w // 2).astype(np.uint16)
+            v = raw[w * h + (w // 2) * h:].reshape(h, w // 2).astype(np.uint16)
+            u = ((u[0::2] + u[1::2] + 1) // 2).astype(np.uint8)
+            v = ((v[0::2] + v[1::2] + 1) // 2).astype(np.uint8)
+            yuv = np.concatenate([y, u.reshape(-1), v.reshape(-1)]).reshape(h * 3 // 2, w)
+        else:
+            yuv = raw.reshape(h * 3 // 2, w)
+        frames.append(to_16x9(cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB_I420)))
+    return np.stack(frames), indices, chroma, stride
+
+
+def xiph_c(window: int = 48) -> None:
+    """Protocol v4 untouched set: centred 48-frame windows; stride 2 for >= 50 fps sources (<= 30 fps effective)."""
+    spec = json.loads((REPO / 'research/protocols/recoverability-v4.json').read_text())['eval_sets']['xiph_c']
+    out = EXTERNAL / 'xiph-c'
+    out.mkdir(parents=True, exist_ok=True)
+    entries, fetched = [], 0
+    for name in spec:
+        target = out / f'{name}.npz'
+        if not target.exists():
+            frames, indices, chroma, stride = _xiph_window(name, window, lambda fps: 2 if fps >= 49 else 1)
+            np.savez_compressed(target, frames=frames, source_indices=np.array(indices), stride=stride, chroma=chroma)
+            fetched += frames.nbytes
+        z = np.load(target)
+        entries.append(dict(id=f'xiphc-{name}', file=target.name, frames=window, stride=int(z['stride']), chroma=str(z['chroma']),
+                            source_indices=[int(z['source_indices'][0]), int(z['source_indices'][-1])], sha256=hashlib.sha256(target.read_bytes()).hexdigest()))
+        print(name, entries[-1]['chroma'], 'stride', entries[-1]['stride'], flush=True)
+    stored = sum((out / e['file']).stat().st_size for e in entries)
+    record(dict(name='xiph-c', repo=XIPH, revision='static files', license='Xiph.org derf collection; per-sequence terms (incl. Blender Foundation CC BY for Elephants Dream / Sintel).',
+                selection='protocol v4: centred 48-frame windows, stride 2 for >=50 fps, I420 conversion, 16:9 crop, 640x360',
+                bytes_fetched_this_run=fetched, stored_bytes=stored, sequences=entries))
+    print(f'xiph-c stored {stored/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
+
+
 def xiph_b(window: int = 48) -> None:
     """Protocol v3 untouched set: centred 48-frame windows (stride 1, 30 fps) from 10 Xiph 1080p sequences.
 
@@ -317,9 +382,55 @@ def xiph_b(window: int = 48) -> None:
     print(f'xiph-b stored {stored/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
 
 
+def gopro_train() -> None:
+    """LacunaNet training data (protocol v4): GOPRO_Large *train* sharp frames, range-extracted from the zip.
+
+    Only train/<scene>/sharp/*.png members are transferred; each scene is downscaled to 640x360
+    (16:9 already) and stored as one uint8 array. Test scenes are never touched.
+    """
+    from remotezip import RemoteZip
+    url = 'https://huggingface.co/datasets/snah/GOPRO_Large/resolve/main/GOPRO_Large.zip'
+    out = EXTERNAL / 'train' / 'gopro'
+    out.mkdir(parents=True, exist_ok=True)
+    fetched, entries = 0, []
+    with RemoteZip(url) as z:
+        members = sorted(i.filename for i in z.infolist() if i.filename.startswith('train/') and '/sharp/' in i.filename and i.filename.endswith('.png'))
+    scenes = sorted({m.split('/')[1] for m in members})
+
+    def one(scene: str) -> tuple[str, int, int]:
+        target = out / f'{scene}.npz'
+        names = [m for m in members if m.split('/')[1] == scene]
+        got = 0
+        if not target.exists():
+            check_cap(len(names) * 2 * 1024**2)
+            frames = []
+            with RemoteZip(url) as zz:                      # one connection per worker (RemoteZip is not thread-safe)
+                for m in names:
+                    data = zz.read(m)
+                    got += len(data)
+                    frames.append(to_16x9(decode_png(data)))
+            tmp = target.with_suffix('.tmp.npz')
+            np.savez_compressed(tmp, frames=np.stack(frames), names=np.array(names))
+            tmp.rename(target)
+        print(scene, len(names), flush=True)
+        return scene, len(names), got
+
+    with ThreadPoolExecutor(6) as pool:
+        done = list(pool.map(one, scenes))
+    for scene, count, got in done:
+        fetched += got
+        target = out / f'{scene}.npz'
+        entries.append(dict(scene=scene, frames=count, file=target.name, sha256=hashlib.sha256(target.read_bytes()).hexdigest()))
+    stored = sum((out / e['file']).stat().st_size for e in entries)
+    record(dict(name='gopro-train', repo=url, revision='mirror of GOPRO_Large (Nah et al., CVPR 2017, CC BY 4.0)', license='CC BY 4.0',
+                selection='train/*/sharp only (22 scenes, 2,103 frames), 640x360; GOPRO test scenes never transferred',
+                bytes_fetched_this_run=fetched, stored_bytes=stored, sequences=entries))
+    print(f'gopro-train stored {stored/1e6:.1f} MB; external total {used_bytes()/1e9:.2f} GB')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('source', choices=['snu-film', 'vimeo-triplets', 'vimeo-balanced', 'xiph', 'xiph-b'])
+    parser.add_argument('source', choices=['snu-film', 'vimeo-triplets', 'vimeo-balanced', 'xiph', 'xiph-b', 'xiph-c', 'gopro-train'])
     args = parser.parse_args()
     EXTERNAL.mkdir(parents=True, exist_ok=True)
-    {'snu-film': snu_film, 'vimeo-triplets': vimeo_triplets, 'vimeo-balanced': vimeo_balanced, 'xiph': xiph, 'xiph-b': xiph_b}[args.source]()
+    {'snu-film': snu_film, 'vimeo-triplets': vimeo_triplets, 'vimeo-balanced': vimeo_balanced, 'xiph': xiph, 'xiph-b': xiph_b, 'gopro-train': gopro_train, 'xiph-c': xiph_c}[args.source]()

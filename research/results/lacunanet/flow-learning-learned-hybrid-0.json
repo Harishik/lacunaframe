@@ -1,0 +1,28 @@
+{
+  "learned": [
+    {
+      "step": 0,
+      "gap1": {
+        "epe": 5.42,
+        "zero_flow": 4.38
+      },
+      "gap4": {
+        "epe": 7.39,
+        "zero_flow": 6.32
+      }
+    }
+  ],
+  "hybrid": [
+    {
+      "step": 0,
+      "gap1": {
+        "epe": 5.11,
+        "zero_flow": 4.38
+      },
+      "gap4": {
+        "epe": 7.91,
+        "zero_flow": 6.32
+      }
+    }
+  ]
+}

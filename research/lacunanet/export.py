@@ -4,6 +4,7 @@ from pathlib import Path
 import torch
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from research.lacunanet.model import LacunaNet, make_cond
+from research.lacunanet.model_v2 import LacunaNetV2
 
 
 def export(model: LacunaNet, path: Path, h: int = 360, w: int = 640) -> None:
@@ -17,15 +18,17 @@ def export(model: LacunaNet, path: Path, h: int = 360, w: int = 640) -> None:
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'grid':
+    if sys.argv[1] in ('grid', 'grid-v2', 'grid-v3'):
         out = Path(sys.argv[2]); out.mkdir(parents=True, exist_ok=True)
+        cls = {'grid-v2': LacunaNetV2, 'grid-v3': lambda c: LacunaNetV2(c, prior='lk')}.get(sys.argv[1], LacunaNet)
         for c in (16, 24, 32, 48):
             torch.manual_seed(0)
-            export(LacunaNet(c), out / f'lacunanet_c{c}.onnx')
+            export(cls(c), out / f'lacunanet_c{c}.onnx', 360 if cls is LacunaNet else 368, 640)
             print('exported', c)
     else:
         state = torch.load(sys.argv[1], map_location='cpu')
-        model = LacunaNet(state['c'])
+        v = state.get('version', 1)
+        model = LacunaNetV2(state['c'], prior='lk' if v == 3 else None) if v >= 2 else LacunaNet(state['c'])
         model.load_state_dict(state['model'])
-        export(model, Path(sys.argv[2]))
+        export(model, Path(sys.argv[2]), 368 if v >= 2 else 360, 640)
         print('exported', sys.argv[2])

@@ -1,0 +1,54 @@
+{
+  "rule": "v3 amendment 1 cut rule",
+  "clips": {
+    "xiphc-720p50_mobcal_ter": {
+      "cut": false,
+      "max_diff": 19.34,
+      "median_diff": 16.62
+    },
+    "xiphc-720p50_parkrun_ter": {
+      "cut": false,
+      "max_diff": 33.66,
+      "median_diff": 31.05
+    },
+    "xiphc-720p50_shields_ter": {
+      "cut": false,
+      "max_diff": 21.17,
+      "median_diff": 19.66
+    },
+    "xiphc-720p5994_stockholm_ter": {
+      "cut": false,
+      "max_diff": 13.97,
+      "median_diff": 13.76
+    },
+    "xiphc-vidyo1_720p_60fps": {
+      "cut": false,
+      "max_diff": 2.9,
+      "median_diff": 2.48
+    },
+    "xiphc-vidyo3_720p_60fps": {
+      "cut": false,
+      "max_diff": 5.2,
+      "median_diff": 4.17
+    },
+    "xiphc-vidyo4_720p_60fps": {
+      "cut": false,
+      "max_diff": 4.24,
+      "median_diff": 1.96
+    },
+    "xiphc-elephants_dream_1080p24": {
+      "cut": false,
+      "max_diff": 60.53,
+      "median_diff": 16.39
+    },
+    "xiphc-sintel_trailer_2k_1080p24": {
+      "cut": true,
+      "max_diff": 90.06,
+      "median_diff": 10.3
+    }
+  },
+  "excluded": [
+    "xiphc-sintel_trailer_2k_1080p24"
+  ],
+  "remaining": 8
+}
