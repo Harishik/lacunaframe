@@ -71,7 +71,7 @@ def load_gopro():
 
 def make_sampler(scenes, vimeo, rng):
     """Shared samplers from data.py (no duplicated sampling logic in the trainer)."""
-    return StratifiedMotion(GoproSource.from_scenes(scenes), vimeo, MOTION_TARGET, MOTION_BINS, GOPRO_MIN_SCALE, cache=WORK / 'gopro-motion.npy')
+    return StratifiedMotion(GoproSource.from_scenes(scenes), vimeo, MOTION_TARGET, MOTION_BINS, GOPRO_MIN_SCALE, cache=CKPT / 'gopro-motion.npy')   # on Drive: survives session ends
 
 
 def batch(sampler, rng, device):

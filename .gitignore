@@ -14,3 +14,4 @@ playwright-report/
 .DS_Store
 *.download
 research/lacunanet/.colab_cell.txt
+research/lacunanet/colab_launch_cell.py
