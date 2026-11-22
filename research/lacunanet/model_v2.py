@@ -50,15 +50,23 @@ def correlation(a: torch.Tensor, b: torch.Tensor, r: int = RADIUS) -> torch.Tens
 
 
 class FlowHead(nn.Module):
-    def __init__(self, cf: int, hidden: int):
+    def __init__(self, cf: int, hidden: int, gated: bool = False):
         super().__init__()
         self.inp = nn.Conv2d(cf + (2 * RADIUS + 1) ** 2 + 2, hidden, 1)
         self.body = nn.Sequential(DSConv(hidden, hidden), DSConv(hidden, hidden), DSConv(hidden, hidden))
         self.out = nn.Conv2d(hidden, 2, 3, 1, 1)
-        nn.init.zeros_(self.out.weight); nn.init.zeros_(self.out.bias)
+        if gated:
+            # ReZero gate: normally initialised output scaled by a scalar starting at 0. The gate's gradient
+            # pools evidence over every pixel, so the correction enters only as it lowers the loss on average,
+            # instead of Adam's sign-like first steps on a zero-initialised conv spraying offsets onto the prior.
+            self.gain = nn.Parameter(torch.zeros(1))
+        else:
+            nn.init.zeros_(self.out.weight); nn.init.zeros_(self.out.bias)
+            self.gain = None
 
     def forward(self, fa, corr, flow):
-        return self.out(self.body(act()(self.inp(torch.cat([fa, corr, flow], 1)))))
+        out = self.out(self.body(act()(self.inp(torch.cat([fa, corr, flow], 1)))))
+        return out if self.gain is None else self.gain * out
 
 
 def offset_validity(ref: torch.Tensor, r: int = RADIUS) -> torch.Tensor:
@@ -84,12 +92,9 @@ def soft_argmax(corr: torch.Tensor, temperature: float = 0.05, r: int = RADIUS, 
     return torch.cat([(w * dx).sum(1, keepdim=True), (w * dy).sum(1, keepdim=True)], 1)
 
 
-def _resample_flow(flow: torch.Tensor, size) -> torch.Tensor:
-    if tuple(flow.shape[-2:]) == tuple(size):
-        return flow
-    mode = 'area' if size[0] < flow.shape[-2] else 'bilinear'
-    out = F.interpolate(flow, size=size, mode=mode) if mode == 'area' else F.interpolate(flow, size=size, mode=mode, align_corners=False)
-    return out * (size[0] / flow.shape[-2])
+def _pool_flow(flow: torch.Tensor, ratio: int) -> torch.Tensor:
+    """Average-pool a flow field by a fixed integer ratio (static kernel: exportable) and rescale its units."""
+    return flow if ratio == 1 else F.avg_pool2d(flow, ratio) / ratio
 
 
 class PairFlow(nn.Module):
@@ -105,22 +110,24 @@ class PairFlow(nn.Module):
     def __init__(self, c: int, prior: str | None = None):
         super().__init__()
         self.prior = prior
-        self.heads = nn.ModuleList([FlowHead(4 * c, 3 * c), FlowHead(3 * c, 2 * c), FlowHead(2 * c, 2 * c)])  # 1/16, 1/8, 1/4
+        g = prior is not None
+        self.heads = nn.ModuleList([FlowHead(4 * c, 3 * c, g), FlowHead(3 * c, 2 * c, g), FlowHead(2 * c, 2 * c, g)])  # 1/16, 1/8, 1/4
         self.temperature = nn.Parameter(torch.tensor(0.02))
 
     def forward(self, ea, eb, levels: int = 3, all_levels: bool = False, imgs=None):
         """ea/eb: encoder outputs (f1, f2, f3, f4); imgs=(a, b) full-resolution images (needed for prior='lk').
         Returns the finest flow (in that level's pixels), or the per-level list when all_levels."""
         if self.prior == 'lk':
+            base_scale = 4 if levels >= 3 else 8
             with torch.no_grad():   # parameter-free; inputs need no gradient
-                base = lk_flow(imgs[0], imgs[1], out_scale=4 if levels >= 3 else 8)
+                base = lk_flow(imgs[0], imgs[1], out_scale=base_scale)
         flow, resid, flows = None, None, []
         for k, (idx, head) in enumerate(zip((3, 2, 1), self.heads)):
             if k >= levels:
                 break
             fa, fb = ea[idx], eb[idx]
             if self.prior == 'lk':
-                prior = _resample_flow(base, fa.shape[-2:])
+                prior = _pool_flow(base, (16, 8, 4)[k] // base_scale)
                 resid = torch.zeros_like(prior) if resid is None else F.interpolate(resid, size=fa.shape[-2:], mode='bilinear', align_corners=False) * 2.0
                 cur = prior + resid
                 resid = resid + head(fa, correlation(fa, warp(fb, cur)), cur)
@@ -171,7 +178,11 @@ class LacunaNetV2(nn.Module):
         self.cor_film = nn.Linear(COND, 2 * h)
         self.cor_body = nn.Sequential(DSConv(h, h), DSConv(h, h), DSConv(h, h))
         self.cor_out = nn.Conv2d(h, 5, 3, 1, 1)
-        nn.init.zeros_(self.cor_out.weight); nn.init.zeros_(self.cor_out.bias)
+        self.gated = prior is not None
+        if self.gated:   # ReZero gates (see FlowHead): flow correction, blend logit and image residual
+            self.cor_gain = nn.Parameter(torch.zeros(5))
+        else:
+            nn.init.zeros_(self.cor_out.weight); nn.init.zeros_(self.cor_out.bias)
         rc = 2 * c
         self.unshuffle, self.shuffle = nn.PixelUnshuffle(2), nn.PixelShuffle(2)
         self.ref_in = nn.Conv2d(4 * (3 * 3 + 1) + c, rc, 3, 1, 1)
@@ -182,7 +193,10 @@ class LacunaNetV2(nn.Module):
         self.ref_body = DSConv(rc, rc)
         self.ref_out = nn.Conv2d(rc, 12, 3, 1, 1)
         self.err_out = nn.Conv2d(rc, 4, 3, 1, 1)
-        nn.init.zeros_(self.ref_out.weight); nn.init.zeros_(self.ref_out.bias)
+        if self.gated:
+            self.ref_gain = nn.Parameter(torch.zeros(1))
+        else:
+            nn.init.zeros_(self.ref_out.weight); nn.init.zeros_(self.ref_out.bias)
 
     def motion(self, a0, a1, am, ap, cond):
         """Returns quarter-resolution backward flows B0, B1 (target -> A0/A1), blend logit, pair flows and encodings."""
@@ -208,6 +222,8 @@ class LacunaNetV2(nn.Module):
         gamma, beta = self.cor_film(cond).chunk(2, dim=1)
         hdn = act()(hdn * (1 + gamma[..., None, None]) + beta[..., None, None])
         delta = self.cor_out(self.cor_body(hdn))
+        if self.gated:
+            delta = delta * self.cor_gain.view(1, 5, 1, 1)
         self._pyramid = (p01, p10)
         return b0 + delta[:, 0:2], b1 + delta[:, 2:4], delta[:, 4:5], f01, f10, e0, e1
 
@@ -221,15 +237,23 @@ class LacunaNetV2(nn.Module):
         w0, w1 = warp(a_m1, b0f), warp(a_p1, b1f)
         mask = torch.sigmoid(logit + torch.log((1 - t + 1e-3) / (t + 1e-3)))
         base = mask * w0 + (1 - mask) * w1
-        f1 = e0[0] * 0.5 + e1[0] * 0.5
+        # Context features aligned to the target time with the same flows and occlusion mask as the pixels.
+        # (v1 and the first v2 averaged *unwarped* anchor features: a ghosted, linear-blend-like signal that
+        # pulled the refinement toward blending; DESIGN_AUDIT section 7.)
+        half = e0[0].shape[-2:]
+        hb = lambda f: F.interpolate(f, size=half, mode='bilinear', align_corners=False) * (half[0] / f.shape[-2])
+        mh = F.interpolate(mask, size=half, mode='bilinear', align_corners=False)
+        f1 = mh * warp(e0[0], hb(b0)) + (1 - mh) * warp(e1[0], hb(b1))
         h = self.ref_in(torch.cat([self.unshuffle(torch.cat([base, w0, w1, mask], 1)), f1], 1))
         gamma, beta = self.ref_film(cond).chunk(2, dim=1)
         h = act()(h * (1 + gamma[..., None, None]) + beta[..., None, None])
         m = self.ref_mid(self.ref_down(h))
         h = act()(self.ref_up(torch.cat([F.interpolate(m, scale_factor=2.0, mode='bilinear', align_corners=False), h], 1)))
         h = self.ref_body(h)
-        frame = torch.clamp(base + self.shuffle(self.ref_out(h)), 0.0, 1.0)
-        scale = F.softplus(self.shuffle(self.err_out(h))) + 1e-3
+        res = self.shuffle(self.ref_out(h))
+        frame = torch.clamp(base + (res * self.ref_gain if self.gated else res), 0.0, 1.0)
+        # Stop-gradient: the self-error head describes the reconstruction, it must not reshape it.
+        scale = F.softplus(self.shuffle(self.err_out(h.detach()))) + 1e-3
         if return_aux:
             return frame, scale, dict(f01=up(f01), f10=up(f10), pyramid=self._pyramid, base=base)
         return frame, scale
@@ -244,6 +268,19 @@ def anchor_loss_multiscale(a0, a1, pyramid):
         size = f01.shape[-2:]
         d0, d1 = F.adaptive_avg_pool2d(a0, size), F.adaptive_avg_pool2d(a1, size)
         total = total + wgt * anchor_loss(d0, d1, f01, f10)
+    return total
+
+
+def anchor_loss_final(a0, a1, f01, f10):
+    """v3 anchor loss: supervise the *final* quarter-resolution pair flows at three scales (the final flow
+    average-pooled to 1/8 and 1/16 for capture range). Per-level intermediate flows get no targets of their
+    own: with a fine-level prior, the coarse photometric optimum (pooling mixes motions) differs from the fine
+    truth, and a coarse correction trained toward it is carried onto the precise fine prior (DESIGN_AUDIT 8)."""
+    total = 0.0
+    for ratio, wgt in ((1, 1.0), (2, 0.5), (4, 0.25)):
+        g01, g10 = _pool_flow(f01, ratio), _pool_flow(f10, ratio)
+        size = g01.shape[-2:]
+        total = total + wgt * anchor_loss(F.adaptive_avg_pool2d(a0, size), F.adaptive_avg_pool2d(a1, size), g01, g10)
     return total
 
 

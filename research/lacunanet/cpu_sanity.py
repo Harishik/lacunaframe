@@ -16,9 +16,9 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 import numpy as np
 import torch
-from research.lacunanet.data import GoproSource
+from research.lacunanet.data import GoproSource, StratifiedMotion, VimeoStream
 from research.lacunanet.model import LacunaNet, make_cond
-from research.lacunanet.model_v2 import LacunaNetV2, anchor_loss_multiscale
+from research.lacunanet.model_v2 import LacunaNetV2, anchor_loss_final, anchor_loss_multiscale
 from research.lacunabench.recoverability import brackets
 from research.scripts.lacunabench_v1 import tasks
 
@@ -53,7 +53,10 @@ def train(model, steps, src, v2):
         resid = (frame.detach() - x[4]).abs().mean(1, keepdim=True)
         loss = loss + 0.01 * (resid / scale + torch.log(scale)).mean()
         if v2:
-            loss = loss + 0.5 * anchor_loss_multiscale(x[0], x[1], aux['pyramid'])
+            if model.prior == 'lk':
+                loss = loss + 0.5 * anchor_loss_final(x[0], x[1], aux['pyramid'][0][-1], aux['pyramid'][1][-1])
+            else:
+                loss = loss + 0.5 * anchor_loss_multiscale(x[0], x[1], aux['pyramid'])
         opt.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); opt.step()
         if (step + 1) % 50 == 0:
             log.append(dict(step=step + 1, rec=round(rec.item(), 4), sec=round(time.time() - t0)))
@@ -102,8 +105,22 @@ def evaluate(model):
 def main():
     steps = int(sys.argv[1]) if len(sys.argv) > 1 else 400
     torch.set_num_threads(6)
-    src = GoproSource(EXT / 'train' / 'gopro')
-    report = dict(steps=steps, batch=BATCH, gopro_scenes=len(src.scenes))
+    gopro = GoproSource(EXT / 'train' / 'gopro')
+    report = dict(steps=steps, batch=BATCH, gopro_scenes=len(gopro.scenes), data=os.environ.get('SANITY_DATA', 'gopro'))
+    if report['data'] == 'matched':
+        stats = json.loads((REPO / 'research/results/lacunanet/motion-stats.json').read_text())
+        bins = [b if b != 'inf' else 1e9 for b in stats['bins']]
+        cache = EXT / 'tmp-vimeo' / 'shard.pkl'          # one Vimeo-90K *train* shard, temporary
+        if cache.exists():
+            import pickle
+            vimeo = VimeoStream.from_items(pickle.loads(cache.read_bytes()))
+        else:
+            vimeo = VimeoStream(EXT / 'tmp-vimeo', seed=0)
+        src = StratifiedMotion(gopro, vimeo, stats['dev_brackets']['hist'], bins, cache=EXT / 'tmp-vimeo' / 'gopro-motion.npy')
+        report['sampler'] = src.summary()
+        print('sampler', report['sampler'], flush=True)
+    else:
+        src = gopro
     which = __import__('os').environ.get('SANITY_MODELS', 'v1,v2').split(',')
     models = (('v1_C32', lambda: LacunaNet(32), False), ('v2_C24', lambda: LacunaNetV2(24), True), ('v3_C24', lambda: LacunaNetV2(24, prior='lk'), True))
     for name, ctor, v2 in [m for m in models if m[0][:2] in which]:
@@ -113,9 +130,10 @@ def main():
             report[name + '_init'] = dict(dev=evaluate(model)); print(name, 'init', report[name + '_init']['dev'], flush=True)
         log = train(model, steps, src, v2)
         report[name] = dict(train=log, dev=evaluate(model))
+        torch.save(dict(model=model.state_dict(), name=name), EXT / 'tmp-vimeo' / f'sanity-{name}-{steps}.pt')   # for ablations
         print(name, report[name]['dev'], flush=True)
     report['lpips_weight'] = LPIPS_W
-    path = REPO / f"research/results/lacunanet/cpu-sanity-{'-'.join(which)}-{steps}{'' if LPIPS_W == 0.1 else f'-lpips{LPIPS_W:g}'}.json"
+    path = REPO / f"research/results/lacunanet/cpu-sanity-{'-'.join(which)}-{steps}{'' if LPIPS_W == 0.1 else f'-lpips{LPIPS_W:g}'}{'-matched' if report['data'] == 'matched' else ''}.json"
     path.write_text(json.dumps(report, indent=2))
     print(json.dumps({k: v['dev'] for k, v in report.items() if isinstance(v, dict) and 'dev' in v}, indent=2))
 

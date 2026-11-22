@@ -18,19 +18,20 @@ def _warp(x, flow):
     return F.grid_sample(x, torch.stack([px, py], -1), mode='bilinear', padding_mode='border', align_corners=True)
 
 
-def _gauss(sigma: float, dtype, device):
+def _gauss(sigma: float):
+    """1-D Gaussian taps as plain Python floats, so ONNX export sees a constant kernel."""
     r = max(1, int(math.ceil(2.5 * sigma)))
-    k = torch.exp(-torch.arange(-r, r + 1, dtype=dtype, device=device) ** 2 / (2 * sigma ** 2))
-    return k / k.sum(), r
+    k = [math.exp(-(i * i) / (2 * sigma * sigma)) for i in range(-r, r + 1)]
+    z = sum(k)
+    return [v / z for v in k], r
 
 
 def _blur(x, sigma):
-    k, r = _gauss(sigma, x.dtype, x.device)
-    c = x.shape[1]
-    x = F.pad(x, [r, r, 0, 0], mode='replicate')
-    x = F.conv2d(x, k.view(1, 1, 1, -1).expand(c, 1, 1, -1), groups=c)
-    x = F.pad(x, [0, 0, r, r], mode='replicate')
-    return F.conv2d(x, k.view(1, 1, -1, 1).expand(c, 1, -1, 1), groups=c)
+    """Separable Gaussian blur of a single-channel N x 1 x H x W tensor (replicate borders)."""
+    taps, r = _gauss(sigma)
+    k = torch.tensor(taps, dtype=x.dtype, device=x.device)
+    x = F.conv2d(F.pad(x, [r, r, 0, 0], mode='replicate'), k.view(1, 1, 1, -1))
+    return F.conv2d(F.pad(x, [0, 0, r, r], mode='replicate'), k.view(1, 1, -1, 1))
 
 
 def _grad(x):
@@ -43,7 +44,14 @@ def luma(img):
 
 
 def lk_flow(a, b, levels: int = 5, iters: int = 3, sigma: float = 3.0, lam: float = 1e-4, out_scale: int = 1):
-    """Displacement a -> b (a(p) ~ b(p + f)) in pixels of the 1/out_scale grid. a, b: N x 3 x H x W in [0, 1]."""
+    """Displacement a -> b (a(p) ~ b(p + f)) in pixels of the 1/out_scale grid. a, b: N x 3 x H x W in [0, 1].
+
+    Always solved in float32: products of image gradients (~1e-4) and the 2x2 determinant underflow
+    in float16, so mixed-precision autocast is disabled inside and the result is returned as float32."""
+    if torch.is_autocast_enabled():
+        with torch.autocast(device_type=a.device.type, enabled=False):
+            return lk_flow(a.float(), b.float(), levels, iters, sigma, lam, out_scale)
+    a, b = a.float(), b.float()
     ya, yb = luma(a), luma(b)
     pa, pb = [ya], [yb]
     for _ in range(levels - 1):

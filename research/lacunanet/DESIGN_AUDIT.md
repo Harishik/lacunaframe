@@ -83,3 +83,44 @@ Two attempts that did **not** fix it, recorded for completeness:
 - **Learned residual.** At every pyramid level (1/16, 1/8, 1/4) the flow is the prior resampled to that level plus a learned residual carried coarse to fine. Each head reads the cost volume *around the prior* (anchor B warped by prior + residual). Heads are zero-initialised, so at step 0 v3's motion *is* the Lucas–Kanade estimate. Learning only has to correct where the classical model fails: large displacements outside its linearisation range, occlusions, and aperture problems. The multiscale anchor loss supervises prior + residual at every level.
 - **Everything downstream is unchanged:** trajectory, reversal, correction network, refinement and self-error head. So v2 vs v3 isolates the motion prior.
 - Tests: an untrained v3 recovers a (6, −3) px shift of real texture to within 0.3 px, and identical anchors reproduce the input exactly.
+
+## 7. Fourth round: why training made every model worse than its own starting point
+
+In the equal-budget check (1,000 steps, `cpu-sanity-v1-v2-v3-1000.json`) v3 beat linear blending and v1 at every gap, but training *lowered* it below its untrained self (gap 1: 31.87 → 30.81 dB). v1 fell 3.5 dB below linear blending, its own initial state. The training loss bounced between 0.05 and 0.14 with no trend. Three root causes were found. None is a hyperparameter.
+
+**7.1 Training data from the wrong motion regime** (`motion_stats.py`, `motion-stats.json`). Inner-anchor motion, measured identically (Lucas–Kanade, full-frame mean, px):
+
+| Motion bin (px) | 0–2 | 2–4 | 4–8 | 8–16 | 16–32 | 32–64 | ≥64 | median |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Dev missing-frame brackets | 0.09 | 0.11 | 0.18 | 0.29 | 0.18 | 0.14 | 0.03 | 11.7 |
+| GOPRO training samples as drawn | 0 | 0 | 0.03 | 0.05 | 0.17 | 0.44 | 0.31 | 49.1 |
+
+GOPRO_Large is handheld *deblurring* footage, chosen for strong camera shake. Its sharp frames are about 1/30 s apart, so gaps up to 16 span up to half a second of shaking. 75% of training samples moved more than 32 px, and none moved less than 4 px. On largely unrecoverable samples, the loss-minimising prediction is a hedge between the possible outcomes, which is blur. The networks learned exactly that, and it degraded the easy dev cases.
+
+**Fix: `StratifiedMotion` sampler** (`data.py`). Every GOPRO anchor pair (gap ≤ 16; 20,168 pairs) and every Vimeo-90K *train* triplet gets its exact motion once, by batched Lucas–Kanade. A sample is then drawn by picking a motion bin from the target histogram, then a pair that can land in it. GOPRO pairs are resized by s ∈ [0.72, 1] chosen to put s·m inside the bin, which is exact because displacement scales with resolution. Vimeo supplies most of the small-motion bins. The target is the dev bracket histogram: statistics only, no dev frames are trained on. Measured on the produced crops, the result is 0.085 / 0.15 / 0.17 / 0.24 / 0.18 / 0.09 / 0.09 against the target 0.088 / 0.11 / 0.18 / 0.29 / 0.18 / 0.14 / 0.03, at 9 ms per sample. A first rejection-sampling version accepted only 8% of draws, because the proposal hardly overlaps the target, so it was replaced. Limitation: only 25 source pairs move less than 2 px, so that bin repeats content (crops and flips vary it). Every new Vimeo shard adds more.
+
+**7.2 Unaligned context features in the refinement (v1 and v2/v3).** The refinement received `0.5·e0 + 0.5·e1`: the two anchors' encoder features averaged *without warping to the target time*. For moving content that is a ghosted, linear-blend-like signal, which tells the refinement network the answer is the blend. This matches the measured symptom: refinement output below its own warped base (30.81 vs 31.57 dB at gap 1). **Fix:** context features are warped with the same backward flows and occlusion mask as the pixels. v1 (`model.py:147`) has the same defect. It is left as the frozen v1 baseline and recorded here.
+
+**7.3 Uncertainty head reshaping the reconstruction.** The self-error head shared its trunk with the reconstruction head, so its likelihood loss sent gradients into the features that produce the frame. **Fix:** the error head reads the trunk through a stop-gradient. The uncertainty estimate now describes the reconstruction without changing it, which is also what the conformal-calibration claim (C3) assumes.
+
+**Also fixed for GPU training:** the Lucas–Kanade solver now always runs in float32. Under mixed-precision autocast, gradient products (~1e-4) and the 2×2 determinant underflow in float16. The Colab trainer now uses the shared samplers in `data.py` instead of its own duplicate copies, which is how the sampling bug could have come back.
+
+**Result of the section 7 fixes** (1,000 steps, 6 dev clips; `cpu-sanity-v3-1000-matched.json`, `cpu-sanity-v3-1000.json`):
+
+| v3, PSNR (dB) | gap 1 | gap 2 | gap 4 | gap 8 |
+|---|---:|---:|---:|---:|
+| Untrained (Lucas–Kanade prior) | 31.87 | 29.41 | 26.96 | 25.60 |
+| Before fixes, trained | 30.81 | 29.05 | 26.09 | 25.31 |
+| Fixed, GOPRO-only data | 31.00 | 29.12 | 26.01 | 25.23 |
+| Fixed, stratified data | 31.52 | 29.17 | 26.19 | 24.98 |
+| Linear blending | 29.14 | 26.82 | 23.52 | 23.07 |
+
+The refinement penalty shrank (gap 1: output minus warped base −0.76 → −0.27 dB) and the training loss fell from about 0.09 to about 0.03. But the warped base itself still drifts below the prior (gap 4: 26.96 → 26.33). The learned motion corrections damage a good estimate early in training.
+
+## 8. Fifth round: why the learned corrections damage the prior
+
+**8.1 Conflicting per-level supervision.** The residual is carried coarse to fine (1/16 → 1/8 → 1/4), and v2's multiscale anchor loss gave *each level's own flow* its own photometric target, weighted coarsest-first (1.0 / 0.5 / 0.25). That was right for v2, which had to bootstrap motion from nothing. With a fine-level prior it is backwards. The 1/16 photometric optimum differs from the fine truth because pooling mixes motions, so the strongest signal trains the coarse residual toward a blurry optimum, and that correction is then added onto the precise fine prior. **Fix (`anchor_loss_final`):** only the final 1/4 flow is supervised. It is average-pooled to 1/8 and 1/16 for the coarse photometric terms (keeping capture range), with full weight at the finest scale, which is the one actually used.
+
+**8.2 Zero-initialised residual outputs under Adam.** Adam's first updates move every weight by about the learning rate, roughly by gradient sign. Zero-initialised output convolutions therefore start emitting small unstructured offsets onto an accurate prior before they learn anything. **Fix: ReZero gates.** Each residual output (flow heads, flow/blend correction, image refinement) is normally initialised and multiplied by a learnable scalar that starts at 0. The gate's gradient pools evidence over every pixel, so a correction enters only as it lowers the loss on average. Output at step 0 is still exactly the prior (unit-tested).
+
+**8.3 ONNX export of the classical layer.** The Gaussian kernel was built with tensor operations, and the prior was resampled by area interpolation with a runtime size. Neither exports. The kernel is now built from Python constants, and the prior is pooled by the structurally fixed power-of-two ratios between pyramid levels.

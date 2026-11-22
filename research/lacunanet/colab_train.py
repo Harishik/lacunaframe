@@ -1,6 +1,9 @@
-"""LacunaNet training on a Colab GPU (protocol v4, amendment 2). Self-contained apart from model.py.
+"""LacunaNet training on a Colab GPU (protocol v4, amendment 2).
 
-Usage in Colab (after model.py and this file are written to /content):
+Needs model.py, model_v2.py, classical_flow.py and data.py next to it in /content.
+Training samples are motion-matched to the dev motion histogram (DESIGN_AUDIT section 7).
+
+Usage in Colab (after those files and this one are written to /content):
     !pip -q install lpips remotezip
     !nohup python /content/colab_train.py > /content/train.log 2>&1 &
 Checkpoints: /content/ckpt/ckpt-XXXXX.pt every 2,500 iterations, plus /content/ckpt/state.pt (resume).
@@ -15,15 +18,20 @@ sys.path.insert(0, '/content')
 from model import LacunaNet, make_cond, parameter_count
 VERSION = int(os.environ.get('LACUNANET_VERSION', '3'))   # 3 = v2 architecture + Lucas-Kanade motion prior
 if VERSION >= 2:
-    from model_v2 import LacunaNetV2, anchor_loss_multiscale
+    from model_v2 import LacunaNetV2, anchor_loss_final, anchor_loss_multiscale
+from data import GoproSource, StratifiedMotion, VimeoStream
+
+# Dev missing-frame bracket motion histogram (research/results/lacunanet/motion-stats.json; statistics only).
+MOTION_BINS = [0, 2, 4, 8, 16, 32, 64, 1e9]
+MOTION_TARGET = [0.0875, 0.1125, 0.175, 0.2875, 0.175, 0.1375, 0.025]
+GOPRO_MIN_SCALE = 0.72
 
 WORK = Path('/content')
 CKPT = Path(os.environ.get('LACUNA_CKPT_DIR', WORK / 'ckpt'))   # e.g. a mounted Drive folder, so state survives the runtime
 ITERS, BATCH, LR, WD, LPIPS_W, SAVE_EVERY, VIMEO_SWITCH = 60000, 16, 3e-4, 1e-4, 0.1, 2500, 1500
-CROP, GOPRO_P, OUTER_P, SEED = 256, 0.7, 0.8, 20261121
+SEED = 20261121   # crop size, outer-anchor probability and sampling live in data.py
 ANCHOR_W = 0.5
 GOPRO_ZIP = 'https://huggingface.co/datasets/snah/GOPRO_Large/resolve/main/GOPRO_Large.zip'
-VIMEO = 'https://huggingface.co/datasets/bijinc/vimeo-90k-medium/resolve/main/data/train-{:05d}-of-00025.parquet'
 
 
 def to_16x9(img):
@@ -61,60 +69,15 @@ def load_gopro():
     return scenes
 
 
-def crop(frames, rng):
-    h, w = frames[0].shape[:2]
-    y, x = rng.randint(0, h - CROP), rng.randint(0, w - CROP)
-    out = [f[y:y + CROP, x:x + CROP] for f in frames]
-    if rng.random() < .5: out = [f[:, ::-1] for f in out]
-    if rng.random() < .5: out = [f[::-1] for f in out]
-    return out
+def make_sampler(scenes, vimeo, rng):
+    """Shared samplers from data.py (no duplicated sampling logic in the trainer)."""
+    return StratifiedMotion(GoproSource.from_scenes(scenes), vimeo, MOTION_TARGET, MOTION_BINS, GOPRO_MIN_SCALE, cache=WORK / 'gopro-motion.npy')
 
 
-def gopro_sample(scenes, rng):
-    seq = rng.choice(scenes); n = len(seq)
-    g = rng.randint(1, min(16, n - 3)); left = rng.randint(0, n - g - 2); right = left + g + 1
-    target = rng.randint(left + 1, right - 1)
-    s1, s2 = rng.choice((1, 2)), rng.choice((1, 2))
-    has_m2 = left - s1 >= 0 and rng.random() < OUTER_P
-    has_p2 = right + s2 < n and rng.random() < OUTER_P
-    fr = [seq[left], seq[right], seq[left - s1] if has_m2 else seq[left], seq[right + s2] if has_p2 else seq[right], seq[target]]
-    if rng.random() < .5:
-        fr = [fr[1], fr[0], fr[3], fr[2], fr[4]]
-        has_m2, has_p2, s1, s2 = has_p2, has_m2, s2, s1
-        target = left + right - target
-    span = right - left; t = (target - left) / span
-    return crop(fr, rng), make_cond(t, g, -t - s1 / span, 1 - t + s2 / span, has_m2, has_p2), (has_m2, has_p2)
-
-
-class Vimeo:
-    def __init__(self, seed, start=0):
-        self.order = list(range(25)); random.Random(seed).shuffle(self.order)
-        self.pos, self.items, self.lock = start, [], threading.Lock()
-        self.load_next()
-
-    def load_next(self):
-        import pyarrow.parquet as pq
-        shard = self.order[self.pos % 25]
-        tmp = WORK / 'vimeo.parquet'
-        urllib.request.urlretrieve(VIMEO.format(shard), tmp)
-        t = pq.read_table(tmp, columns=['im1', 'im2', 'im3'])
-        items = [tuple(t.column(c)[i].as_py()['bytes'] for c in ('im1', 'im2', 'im3')) for i in range(t.num_rows)]
-        tmp.unlink()
-        with self.lock:
-            self.items, self.pos = items, self.pos + 1
-        print('vimeo shard', shard, len(items), flush=True)
-
-    def sample(self, rng):
-        with self.lock:
-            a, m, b = (decode(x) for x in rng.choice(self.items))
-        if rng.random() < .5: a, b = b, a
-        return crop([a, b, a, b, m], rng), make_cond(.5, 1, 0., 0., False, False), (False, False)
-
-
-def batch(scenes, vimeo, rng, device):
+def batch(sampler, rng, device):
     frames, conds = [], []
     for _ in range(BATCH):
-        c, cond, (m2, p2) = gopro_sample(scenes, rng) if rng.random() < GOPRO_P else vimeo.sample(rng)
+        c, cond, (m2, p2) = sampler.sample(rng)
         if not m2: c[2] = np.zeros_like(c[2])
         if not p2: c[3] = np.zeros_like(c[3])
         frames.append(np.stack([np.ascontiguousarray(x) for x in c])); conds.append(cond)
@@ -139,14 +102,16 @@ def main():
         step, gpu_seconds = st['step'], st['gpu_seconds']; rng.setstate(st['rng'])
         print('resumed at', step, flush=True)
     scenes = load_gopro()
-    vimeo = Vimeo(SEED, start=step // VIMEO_SWITCH)
+    vimeo = VimeoStream(WORK / 'vimeo', SEED, start=step // VIMEO_SWITCH)
+    sampler = make_sampler(scenes, vimeo, random.Random(SEED + 1))
+    print('motion-stratified sampler', json.dumps(sampler.summary()), flush=True)
     print(json.dumps(dict(device=device, gpu=torch.cuda.get_device_name(0) if device == 'cuda' else None,
                           params=parameter_count(model), gopro_scenes=len(scenes))), flush=True)
     window, t0 = [], time.time()
     while step < ITERS:
         lr = LR * 0.5 * (1 + math.cos(math.pi * step / ITERS))
         for g in opt.param_groups: g['lr'] = lr
-        a_m1, a_p1, a_m2, a_p2, target, cond = batch(scenes, vimeo, rng, device)
+        a_m1, a_p1, a_m2, a_p2, target, cond = batch(sampler, rng, device)
         with torch.autocast(device_type='cuda', dtype=torch.float16, enabled=device == 'cuda'):
             if VERSION >= 2:
                 frame, scale, aux = model(a_m1, a_p1, a_m2, a_p2, cond, return_aux=True)
@@ -159,7 +124,10 @@ def main():
         nll = (resid / scale + torch.log(scale)).mean()
         loss = rec + LPIPS_W * per + 0.01 * nll
         if VERSION >= 2:
-            loss = loss + ANCHOR_W * anchor_loss_multiscale(a_m1, a_p1, tuple([f.float() for f in lv] for lv in aux['pyramid']))
+            if VERSION == 3:
+                loss = loss + ANCHOR_W * anchor_loss_final(a_m1, a_p1, aux['pyramid'][0][-1].float(), aux['pyramid'][1][-1].float())
+            else:
+                loss = loss + ANCHOR_W * anchor_loss_multiscale(a_m1, a_p1, tuple([f.float() for f in lv] for lv in aux['pyramid']))
         opt.zero_grad(set_to_none=True)
         scaler.scale(loss).backward()
         scaler.unscale_(opt); torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
