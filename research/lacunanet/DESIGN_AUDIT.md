@@ -124,3 +124,35 @@ The refinement penalty shrank (gap 1: output minus warped base −0.76 → −0.
 **8.2 Zero-initialised residual outputs under Adam.** Adam's first updates move every weight by about the learning rate, roughly by gradient sign. Zero-initialised output convolutions therefore start emitting small unstructured offsets onto an accurate prior before they learn anything. **Fix: ReZero gates.** Each residual output (flow heads, flow/blend correction, image refinement) is normally initialised and multiplied by a learnable scalar that starts at 0. The gate's gradient pools evidence over every pixel, so a correction enters only as it lowers the loss on average. Output at step 0 is still exactly the prior (unit-tested).
 
 **8.3 ONNX export of the classical layer.** The Gaussian kernel was built with tensor operations, and the prior was resampled by area interpolation with a runtime size. Neither exports. The kernel is now built from Python constants, and the prior is pooled by the structurally fixed power-of-two ratios between pyramid levels.
+
+**Result of the section 8 fixes** (`cpu-sanity-v3-1000-matched.json`, 1,000 steps): gap 1/2/4/8 = 31.62 / 29.33 / 26.74 / 25.42 dB. That is within 0.1–0.25 dB of the untrained prior (previously 0.25–0.8 dB below). The refinement is now neutral: output and warped base agree to within 0.01 dB.
+
+## 9. Sixth round: the anchor photometric loss is a misaligned objective for v3
+
+**Component ablation** (`ablate.py`, `ablation-gated-v3.json`): each learned part of the trained model is switched off by zeroing its gate.
+
+| Variant, dB | gap 1 | gap 2 | gap 4 | gap 8 |
+|---|---:|---:|---:|---:|
+| Trained | 31.62 | 29.33 | 26.74 | 25.42 |
+| Without pair-flow residual | 31.78 | 29.34 | 26.91 | 25.55 |
+| Without flow correction | 31.64 | 29.36 | 26.79 | 25.46 |
+| Without blend correction | 31.60 | 29.33 | 26.75 | 25.47 |
+| Without refinement | 31.63 | 29.37 | 26.74 | 25.42 |
+| Prior only | 31.87 | 29.41 | 26.96 | 25.60 |
+
+Almost all of the remaining loss comes from the learned pair-flow residual. Its finest gate learned the largest value (−0.117).
+
+**Misalignment test.** On all 24 dev anchor pairs, the learned residual *lowers* the anchor photometric loss (0.0670 → 0.0618) while *lowering* reconstruction PSNR. The anchor loss rewards flows that match brightness, not flows that track real motion: under occlusion, low texture or lighting change the photometric optimum is not the true motion. Lucas–Kanade is already the regularised solution of that same objective. The loss was introduced (section 3.5) to give v2's from-scratch flows a dense bootstrap signal. v3 gets its capture range from the prior, so for v3 the anchor loss is a misaligned proxy.
+
+**Attempted fix, then reverted on stronger evidence.** I retrained v3 with its motion trained only through the target reconstruction (r9). On the 6-clip check it looked better at gap 1. On **all 20 dev clips** (`paired_eval.py`, `paired-eval-v3.json`: per-frame paired differences, 95% CI by bootstrap over clips), it is significantly *worse* than keeping the final-flow anchor loss (r8):
+
+| Paired difference (dB), 95% CI | gap 1 | gap 2 | gap 4 | gap 8 | all (300 frames) |
+|---|---|---|---|---|---|
+| r8 (final-flow anchor loss) − prior | −0.08 [−0.36, 0.10] | −0.09 [−0.18, −0.00] | −0.14 [−0.28, −0.03] | −0.08 [−0.18, 0.00] | −0.10 [−0.20, −0.02] |
+| r9 (reconstruction only) − prior | −0.02 [−0.09, 0.04] | −0.13 [−0.20, −0.07] | −0.20 [−0.38, −0.05] | −0.19 [−0.37, −0.06] | −0.17 [−0.32, −0.07] |
+| r9 − r8 | 0.06 [−0.10, 0.30] | −0.04 [−0.08, 0.01] | −0.06 [−0.11, −0.02] | −0.11 [−0.21, −0.03] | −0.07 [−0.13, −0.03] |
+| Linear blending − prior | −3.42 | −2.99 | −2.90 | −1.88 | −2.40 [−3.62, −1.36] |
+
+The anchor loss is a biased objective (the misalignment measurement stands), but it still regularises the residual, especially at large gaps. It is restored for v3. Two lessons:
+1. **The 6-clip check was underpowered.** Gap 1 had 6 frames. Every CPU check now evaluates all 20 dev clips with paired clip-clustered CIs.
+2. **At this budget the learned layers cannot beat the prior.** After all the fixes, trained v3 sits 0.10 dB [0.02, 0.20] below the prior on full dev, down from about 1 dB below before sections 7–8. 1,000 steps at batch 4 is 4,000 samples, about 0.4% of the planned GPU budget (60,000 × 16). The learned corrections have barely started and their gates are near zero. Whether learning helps can only be answered with the real budget. Do-no-harm is ensured by checkpoint selection on dev **including the step-0 prior-only model as a candidate**, so the delivered model cannot be worse on dev than the classical pipeline, which is itself +2.40 dB [1.36, 3.62] over linear blending.

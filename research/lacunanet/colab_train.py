@@ -107,6 +107,10 @@ def main():
     print('motion-stratified sampler', json.dumps(sampler.summary()), flush=True)
     print(json.dumps(dict(device=device, gpu=torch.cuda.get_device_name(0) if device == 'cuda' else None,
                           params=parameter_count(model), gopro_scenes=len(scenes))), flush=True)
+    if step == 0 and VERSION == 3 and not (CKPT / 'ckpt-00000.pt').exists():
+        # Step-0 candidate for dev checkpoint selection: all ReZero gates are 0, so this is exactly the
+        # classical Lucas-Kanade pipeline. Selection can therefore never deliver worse-than-prior on dev.
+        torch.save(dict(model={k: v.detach().cpu() for k, v in model.state_dict().items()}, c=24, version=VERSION, step=0, gpu_hours=0.0), CKPT / 'ckpt-00000.pt')
     window, t0 = [], time.time()
     while step < ITERS:
         lr = LR * 0.5 * (1 + math.cos(math.pi * step / ITERS))

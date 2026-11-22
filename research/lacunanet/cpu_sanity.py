@@ -54,6 +54,7 @@ def train(model, steps, src, v2):
         loss = loss + 0.01 * (resid / scale + torch.log(scale)).mean()
         if v2:
             if model.prior == 'lk':
+                # Final-flow anchor loss kept: removing it was significantly worse on all 20 dev clips (DESIGN_AUDIT 9).
                 loss = loss + 0.5 * anchor_loss_final(x[0], x[1], aux['pyramid'][0][-1], aux['pyramid'][1][-1])
             else:
                 loss = loss + 0.5 * anchor_loss_multiscale(x[0], x[1], aux['pyramid'])
@@ -70,7 +71,7 @@ def evaluate(model):
     splits = json.loads((REPO / 'research/protocols/splits-v1.json').read_text())
     t = lambda a: torch.from_numpy(a.astype(np.float32).transpose(2, 0, 1)[None] / 255.)
     res = []
-    for c in splits['dev'][:int(__import__('os').environ.get('SANITY_CLIPS', '3'))]:
+    for c in splits['dev'][:int(__import__('os').environ.get('SANITY_CLIPS', '20'))]:
         frames = np.load(EXT / 'snu-film' / c['file'])['frames'][:, :352]      # crop to a multiple of 16
         for task in tasks(c['id'], len(frames)):
             if task['task'] not in ('gap1', 'gap2', 'gap4', 'gap8'):

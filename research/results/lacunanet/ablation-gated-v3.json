@@ -1,0 +1,179 @@
+{
+  "gates": {
+    "cor_gain": [
+      -0.0007985507254488766,
+      0.01710801012814045,
+      -0.000256610190263018,
+      -0.014922226779162884,
+      -0.060492780059576035
+    ],
+    "ref_gain": [
+      -0.02721032314002514
+    ],
+    "pair.heads.0.gain": [
+      0.00035335711436346173
+    ],
+    "pair.heads.1.gain": [
+      0.012982308864593506
+    ],
+    "pair.heads.2.gain": [
+      -0.007364476565271616
+    ]
+  },
+  "trained": {
+    "gap1": {
+      "n": 6,
+      "model": 31.85,
+      "linear": 29.14,
+      "warp_blend_only": 31.93
+    },
+    "gap2": {
+      "n": 12,
+      "model": 29.28,
+      "linear": 26.82,
+      "warp_blend_only": 29.33
+    },
+    "gap4": {
+      "n": 24,
+      "model": 26.65,
+      "linear": 23.52,
+      "warp_blend_only": 26.68
+    },
+    "gap8": {
+      "n": 48,
+      "model": 25.19,
+      "linear": 23.07,
+      "warp_blend_only": 25.2
+    }
+  },
+  "no_pair_residual": {
+    "gap1": {
+      "n": 6,
+      "model": 31.8,
+      "linear": 29.14,
+      "warp_blend_only": 31.88
+    },
+    "gap2": {
+      "n": 12,
+      "model": 29.33,
+      "linear": 26.82,
+      "warp_blend_only": 29.38
+    },
+    "gap4": {
+      "n": 24,
+      "model": 26.89,
+      "linear": 23.52,
+      "warp_blend_only": 26.93
+    },
+    "gap8": {
+      "n": 48,
+      "model": 25.51,
+      "linear": 23.07,
+      "warp_blend_only": 25.53
+    }
+  },
+  "no_correction_flow": {
+    "gap1": {
+      "n": 6,
+      "model": 31.84,
+      "linear": 29.14,
+      "warp_blend_only": 31.95
+    },
+    "gap2": {
+      "n": 12,
+      "model": 29.34,
+      "linear": 26.82,
+      "warp_blend_only": 29.4
+    },
+    "gap4": {
+      "n": 24,
+      "model": 26.79,
+      "linear": 23.52,
+      "warp_blend_only": 26.82
+    },
+    "gap8": {
+      "n": 48,
+      "model": 25.32,
+      "linear": 23.07,
+      "warp_blend_only": 25.33
+    }
+  },
+  "no_correction_mask": {
+    "gap1": {
+      "n": 6,
+      "model": 31.83,
+      "linear": 29.14,
+      "warp_blend_only": 31.91
+    },
+    "gap2": {
+      "n": 12,
+      "model": 29.27,
+      "linear": 26.82,
+      "warp_blend_only": 29.33
+    },
+    "gap4": {
+      "n": 24,
+      "model": 26.67,
+      "linear": 23.52,
+      "warp_blend_only": 26.7
+    },
+    "gap8": {
+      "n": 48,
+      "model": 25.24,
+      "linear": 23.07,
+      "warp_blend_only": 25.26
+    }
+  },
+  "no_refinement": {
+    "gap1": {
+      "n": 6,
+      "model": 31.93,
+      "linear": 29.14,
+      "warp_blend_only": 31.93
+    },
+    "gap2": {
+      "n": 12,
+      "model": 29.33,
+      "linear": 26.82,
+      "warp_blend_only": 29.33
+    },
+    "gap4": {
+      "n": 24,
+      "model": 26.68,
+      "linear": 23.52,
+      "warp_blend_only": 26.68
+    },
+    "gap8": {
+      "n": 48,
+      "model": 25.2,
+      "linear": 23.07,
+      "warp_blend_only": 25.2
+    }
+  },
+  "prior_only": {
+    "gap1": {
+      "n": 6,
+      "model": 31.87,
+      "linear": 29.14,
+      "warp_blend_only": 31.87
+    },
+    "gap2": {
+      "n": 12,
+      "model": 29.41,
+      "linear": 26.82,
+      "warp_blend_only": 29.41
+    },
+    "gap4": {
+      "n": 24,
+      "model": 26.96,
+      "linear": 23.52,
+      "warp_blend_only": 26.96
+    },
+    "gap8": {
+      "n": 48,
+      "model": 25.6,
+      "linear": 23.07,
+      "warp_blend_only": 25.6
+    }
+  }
+}
